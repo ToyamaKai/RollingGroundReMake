@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private float _moveForce = 5;
-    [SerializeField] private float _jumpForce = 5;
 
     private Rigidbody _rigidbody;
     private PlayerInputAction _gameInputs;
@@ -39,12 +38,6 @@ public class PlayerMover : MonoBehaviour
     {
         // Moveアクションの入力取得
         _moveInputValue = context.ReadValue<Vector2>();
-    }
-
-    private void OnJump(InputAction.CallbackContext context)
-    {
-        // ジャンプする力を与える
-        _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
     }
 
     private void FixedUpdate()
