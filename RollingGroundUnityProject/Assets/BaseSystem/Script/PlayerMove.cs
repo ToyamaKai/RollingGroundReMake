@@ -1,6 +1,7 @@
 using UnityEngine;
 using RollingGround;
 using UnityEngine.InputSystem;
+using static Unity.VisualScripting.Round<TInput, TOutput>;
 
 public class PlayerMove : IInputReceiver
 {
@@ -21,6 +22,20 @@ public class PlayerMove : IInputReceiver
         if(context.performed)
         {
             Debug.Log("ìÆÇ¢ÇƒÇÈÇÊÅ`");
+            switch(keyName)
+            {
+                case "D":
+                    if (!isRight)
+                    {
+                        worldAngle = this.transform.eulerAngles;
+                        worldAngle.y += 180;
+                        this.transform.eulerAngles = worldAngle;
+                        isRight = true;
+                    }
+                    Runing = true;
+                    rb.AddForce(transform.forward * speed);
+                    break;
+            }
         }
     }
 }

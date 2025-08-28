@@ -1,6 +1,9 @@
 using UnityEngine;
 using RollingGround;
 
+/// <summary>
+/// ƒvƒŒƒCƒ„[‚ÌˆÚ“®ˆ—
+/// </summary>
 public class MPlayerMove : MonoBehaviour
 {
     PlayerMove m_playerMove;
