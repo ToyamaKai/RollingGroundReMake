@@ -8,6 +8,8 @@ public class MPlayerMove : MonoBehaviour
 
     private void Awake()
     {
-        
+        m_playerMove = new PlayerMove();
+        m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
+        m_playerMove.Initialize(m_gameInputManager);
     }
 }
