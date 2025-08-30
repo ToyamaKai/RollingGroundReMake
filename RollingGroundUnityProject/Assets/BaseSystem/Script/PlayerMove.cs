@@ -1,18 +1,25 @@
 using UnityEngine;
 using RollingGround;
 using UnityEngine.InputSystem;
-using static Unity.VisualScripting.Round<TInput, TOutput>;
 
 public class PlayerMove : IInputReceiver
 {
     private PlayerInputAction m_playerInputAction;
+    private GameObject m_playerObjeeect;
+    private Rigidbody m_playerRigidbody;
     MGameInputManager m_gameInputManager;
 
-    public void Initialize(MGameInputManager gameInputManager)
+    private const float kSpeed = 0.5f;
+
+    public void Initialize(MGameInputManager gameInputManager, GameObject playerObject, Rigidbody playerRigidbody)
     {
         m_gameInputManager = gameInputManager;
+        m_playerObjeeect = playerObject;
+        m_playerRigidbody = playerRigidbody;
         gameInputManager.AddRecieveObject(this);
         m_playerInputAction = GameObject.FindFirstObjectByType<PlayerInputAction>();
+
+        PlayerState.Instance.SetPlayerDirectionState(PlayerDirectionState.Back);
     }
 
     public virtual void OnMove(InputAction.CallbackContext context)
@@ -21,19 +28,17 @@ public class PlayerMove : IInputReceiver
 
         if(context.performed)
         {
-            Debug.Log("ìÆÇ¢ÇƒÇÈÇÊÅ`");
             switch(keyName)
             {
-                case "D":
-                    if (!isRight)
+                case "d":
+                    if (PlayerState.Instance.GetPlayerDirectionState != PlayerDirectionState.Right)
                     {
-                        worldAngle = this.transform.eulerAngles;
-                        worldAngle.y += 180;
-                        this.transform.eulerAngles = worldAngle;
-                        isRight = true;
+                        Vector3 worldAngle = m_playerObjeeect.transform.eulerAngles;
+                        worldAngle.y = -270;
+                        m_playerObjeeect.transform.eulerAngles = worldAngle;
+                        PlayerState.Instance.SetPlayerDirectionState(PlayerDirectionState.Right);
                     }
-                    Runing = true;
-                    rb.AddForce(transform.forward * speed);
+                    m_playerRigidbody.AddForce(m_playerObjeeect.transform.forward * kSpeed);
                     break;
             }
         }
