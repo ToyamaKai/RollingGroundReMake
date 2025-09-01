@@ -22,4 +22,9 @@ public class MPlayerMove : MonoBehaviour
         m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
         m_playerMove.Initialize(m_gameInputManager, m_playerGameObject, m_playerRigidBbody);
     }
+
+    public void Update()
+    {
+        m_playerMove.Tick();
+    }
 }

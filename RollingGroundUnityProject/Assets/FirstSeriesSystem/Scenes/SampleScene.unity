@@ -1994,7 +1994,8 @@ GameObject:
   - component: {fileID: 467278295}
   - component: {fileID: 467278296}
   - component: {fileID: 467278294}
-  - component: {fileID: 467278297}
+  - component: {fileID: 467278298}
+  - component: {fileID: 467278299}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2057,10 +2058,22 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &467278297
-BoxCollider:
+  m_Constraints: 112
+  m_CollisionDetection: 2
+--- !u!114 &467278298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467278293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d87f8b6531e834b478a2044d29b60c1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!136 &467278299
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2077,9 +2090,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.79, y: 1.12, z: 0.56}
-  m_Center: {x: 0, y: 0.57, z: -0.03}
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 1.1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.55, z: 0}
 --- !u!1 &476768911
 GameObject:
   m_ObjectHideFlags: 0
@@ -5960,7 +5975,6 @@ GameObject:
   - component: {fileID: 1640184580}
   - component: {fileID: 1640184579}
   - component: {fileID: 1640184581}
-  - component: {fileID: 1640184582}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -6039,18 +6053,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec0eda55f62498d41b217f8ed82f1377, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1640184582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1640184578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d87f8b6531e834b478a2044d29b60c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1661059798

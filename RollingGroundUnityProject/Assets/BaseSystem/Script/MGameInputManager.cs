@@ -8,16 +8,16 @@ namespace RollingGround
 {
     public class MGameInputManager : MonoBehaviour
     {
-        private PlayerInputAction m_playerInputAction;
-        public PlayerInputAction PlayerInputAction => m_playerInputAction;
+        private PlayerInput m_playerInput;
+        public PlayerInput PlayerInput => m_playerInput;
 
         private readonly List<IInputReceiver> m_inputReceieveObjectList = new();
 
         private void Awake()
         {
-            m_playerInputAction = GetComponent<PlayerInputAction>();
+            m_playerInput = GetComponent<PlayerInput>();
 
-            if(m_playerInputAction ==null)
+            if(m_playerInput == null)
             {
                 Debug.Log("å©Ç¬Ç©ÇÁÇ»Ç¢ÇÊÇßÅ`");
             }
