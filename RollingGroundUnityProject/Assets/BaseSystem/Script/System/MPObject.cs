@@ -7,6 +7,8 @@ namespace MPLib
 
         }
 
+        public virtual void Initialize() { }
+
         public virtual void Tick() { }
 
         public virtual void Dispose() { }

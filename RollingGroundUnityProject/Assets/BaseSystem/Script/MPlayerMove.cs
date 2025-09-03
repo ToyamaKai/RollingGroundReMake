@@ -1,30 +1,45 @@
 using UnityEngine;
 using RollingGround;
+using MPLib;
 
 /// <summary>
 /// ÉvÉåÉCÉÑÅ[ÇÃà⁄ìÆèàóù
 /// </summary>
-public class MPlayerMove : MonoBehaviour
+namespace RollingGround
 {
-    PlayerMove m_playerMove;
-
-    MGameInputManager m_gameInputManager;
-
-    [SerializeField]
-    GameObject m_playerGameObject;
-
-    [SerializeField]
-    Rigidbody m_playerRigidBbody;
-
-    private void Awake()
+    public class MPlayerMove : MMPObject
     {
-        m_playerMove = new PlayerMove();
-        m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
-        m_playerMove.Initialize(m_gameInputManager, m_playerGameObject, m_playerRigidBbody);
+        PlayerMove m_playerMove;
+
+        MGameInputManager m_gameInputManager;
+
+        [SerializeField]
+        GameObject m_playerGameObject;
+
+        [SerializeField]
+        Rigidbody m_playerRigidBbody;
+
+        protected override void ConstructSelf()
+        {
+            m_playerMove = new PlayerMove(m_gameInputManager, m_playerGameObject, m_playerRigidBbody);
+            m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
+            Injection(m_playerMove);
+            m_playerMove.Initialize();
+            base.ConstructSelf();
+        }
+
+        protected override void TerminateSelf()
+        {
+            //m_playerMove.Dispose();
+            base.TerminateSelf();
+        }
+
+        private void Start()
+        {
+            m_playerMove.Start();
+        }
+
+        public PlayerMove GetPlayerMove() => m_playerMove;
     }
 
-    public void Update()
-    {
-        m_playerMove.Tick();
-    }
 }

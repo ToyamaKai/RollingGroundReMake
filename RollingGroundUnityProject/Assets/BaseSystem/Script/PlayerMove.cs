@@ -14,14 +14,21 @@ namespace RollingGround
 
         private const float kSpeed = 1f;
 
-        public void Initialize(MGameInputManager gameInputManager, GameObject playerObject, Rigidbody playerRigidbody)
+        public PlayerMove(MGameInputManager gameInputManager, GameObject playerObject, Rigidbody playerRigidbody) : base()
         {
             m_gameInputManager = gameInputManager;
             m_playerObjeeect = playerObject;
             m_playerRigidbody = playerRigidbody;
-            gameInputManager.AddRecieveObject(this);
-            m_playerInputAction = GameObject.FindFirstObjectByType<PlayerInputAction>();
+        }
 
+        public override void Initialize()
+        {
+            m_playerInputAction = GameObject.FindFirstObjectByType<PlayerInputAction>();
+            base.Initialize();
+        }
+
+        public void Start()
+        {
             PlayerState.Instance.SetPlayerDirectionState(PlayerDirectionState.Back);
             PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.None);
         }
@@ -84,11 +91,18 @@ namespace RollingGround
 
         public override void Tick()
         {
+            Debug.Log("В®Вс");
             if (PlayerState.Instance.GetPlayerMoveState == PlayerMoveState.Walk)
             {
                 m_playerRigidbody.AddForce(m_playerObjeeect.transform.forward * kSpeed);
             }
             base.Tick();
+        }
+
+        public override void Dispose()
+        {
+            //m_gameInputManager?.PlayerInput.DeleateRecieveObject();
+            base.Dispose();
         }
     }
 
