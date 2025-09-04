@@ -7,7 +7,6 @@ namespace RollingGround
 {
     public class PlayerMove : MPObject, IInputReceiver
     {
-        private PlayerInputAction m_playerInputAction;
         private GameObject m_playerObjeeect;
         private Rigidbody m_playerRigidbody;
         MGameInputManager m_gameInputManager;
@@ -19,11 +18,11 @@ namespace RollingGround
             m_gameInputManager = gameInputManager;
             m_playerObjeeect = playerObject;
             m_playerRigidbody = playerRigidbody;
+            m_gameInputManager.AddRecieveObject(this);
         }
 
         public override void Initialize()
         {
-            m_playerInputAction = GameObject.FindFirstObjectByType<PlayerInputAction>();
             base.Initialize();
         }
 
@@ -39,6 +38,7 @@ namespace RollingGround
 
             if (context.started)
             {
+                Debug.Log("‚É‚Á‚±‚è");
                 switch (keyName)
                 {
                     case "d":
@@ -91,7 +91,6 @@ namespace RollingGround
 
         public override void Tick()
         {
-            Debug.Log("‚¨‚ñ");
             if (PlayerState.Instance.GetPlayerMoveState == PlayerMoveState.Walk)
             {
                 m_playerRigidbody.AddForce(m_playerObjeeect.transform.forward * kSpeed);
@@ -101,7 +100,7 @@ namespace RollingGround
 
         public override void Dispose()
         {
-            //m_gameInputManager?.PlayerInput.DeleateRecieveObject();
+            m_gameInputManager?.DeleterecieveObject(this);
             base.Dispose();
         }
     }

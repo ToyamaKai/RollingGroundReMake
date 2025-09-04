@@ -21,18 +21,18 @@ namespace RollingGround
 
         protected override void ConstructSelf()
         {
-            m_playerMove = new PlayerMove(m_gameInputManager, m_playerGameObject, m_playerRigidBbody);
             m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
+            m_playerMove = new PlayerMove(m_gameInputManager, m_playerGameObject, m_playerRigidBbody);
             Injection(m_playerMove);
             m_playerMove.Initialize();
             base.ConstructSelf();
         }
 
-        protected override void TerminateSelf()
-        {
-            //m_playerMove.Dispose();
-            base.TerminateSelf();
-        }
+        //protected override void TerminateSelf()
+        //{
+        //    m_playerMove.Dispose();
+        //    base.TerminateSelf();
+        //}
 
         private void Start()
         {
