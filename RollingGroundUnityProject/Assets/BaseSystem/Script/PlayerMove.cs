@@ -7,12 +7,18 @@ namespace RollingGround
 {
     public class PlayerMove : MPObject, IInputReceiver
     {
+        MGameInputManager m_gameInputManager;
         private GameObject m_playerObjeeect;
         private Rigidbody m_playerRigidbody;
-        MGameInputManager m_gameInputManager;
-
+        private Vector3 m_playerDirection;
         private const float kSpeed = 1f;
 
+        /// <summary>
+        /// 必要な要素などを受け取る
+        /// </summary>
+        /// <param name="gameInputManager"></param>
+        /// <param name="playerObject"></param>
+        /// <param name="playerRigidbody"></param>
         public PlayerMove(MGameInputManager gameInputManager, GameObject playerObject, Rigidbody playerRigidbody) : base()
         {
             m_gameInputManager = gameInputManager;
@@ -34,54 +40,11 @@ namespace RollingGround
 
         public virtual void OnMove(InputAction.CallbackContext context)
         {
-            string keyName = context.control.name;
-
-            if (context.started)
+            if (context.performed)
             {
-                Debug.Log("にっこり");
-                switch (keyName)
-                {
-                    case "d":
-                        if (PlayerState.Instance.GetPlayerDirectionState != PlayerDirectionState.Right)
-                        {
-                            Vector3 worldAngle = m_playerObjeeect.transform.eulerAngles;
-                            worldAngle.y = 90;
-                            m_playerObjeeect.transform.eulerAngles = worldAngle;
-                            PlayerState.Instance.SetPlayerDirectionState(PlayerDirectionState.Right);
-                        }
-                        PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.Walk);
-                        break;
-                    case "a":
-                        if (PlayerState.Instance.GetPlayerDirectionState != PlayerDirectionState.Left)
-                        {
-                            Vector3 worldAngle = m_playerObjeeect.transform.eulerAngles;
-                            worldAngle.y = 270;
-                            m_playerObjeeect.transform.eulerAngles = worldAngle;
-                            PlayerState.Instance.SetPlayerDirectionState(PlayerDirectionState.Left);
-                        }
-                        PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.Walk);
-                        break;
-                    case "w":
-                        if (PlayerState.Instance.GetPlayerDirectionState != PlayerDirectionState.Back)
-                        {
-                            Vector3 worldAngle = m_playerObjeeect.transform.eulerAngles;
-                            worldAngle.y = 0;
-                            m_playerObjeeect.transform.eulerAngles = worldAngle;
-                            PlayerState.Instance.SetPlayerDirectionState(PlayerDirectionState.Back);
-                        }
-                        PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.Walk);
-                        break;
-                    case "s":
-                        if (PlayerState.Instance.GetPlayerDirectionState != PlayerDirectionState.Front)
-                        {
-                            Vector3 worldAngle = m_playerObjeeect.transform.eulerAngles;
-                            worldAngle.y = 180;
-                            m_playerObjeeect.transform.eulerAngles = worldAngle;
-                            PlayerState.Instance.SetPlayerDirectionState(PlayerDirectionState.Front);
-                        }
-                        PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.Walk);
-                        break;
-                }
+                Vector2 value = context.ReadValue<Vector2>();
+                m_playerDirection = new Vector3(value.x, 0f, value.y).normalized;
+                PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.Walk);
             }
             else if (context.canceled)
             {
@@ -91,10 +54,20 @@ namespace RollingGround
 
         public override void Tick()
         {
+            //プレイヤーの方向を入力方向に
+            if(m_playerDirection != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(m_playerDirection, Vector3.up);
+                m_playerObjeeect.transform.localRotation = targetRotation;
+            }
+
+            //プレイヤーをforward方向にAddforceで移動させる
             if (PlayerState.Instance.GetPlayerMoveState == PlayerMoveState.Walk)
             {
-                m_playerRigidbody.AddForce(m_playerObjeeect.transform.forward * kSpeed);
+                m_playerRigidbody.linearVelocity = m_playerObjeeect.transform.forward * kSpeed;
+
             }
+
             base.Tick();
         }
 
