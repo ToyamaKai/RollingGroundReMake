@@ -34,7 +34,6 @@ namespace RollingGround
 
         public void Start()
         {
-            PlayerState.Instance.SetPlayerDirectionState(PlayerDirectionState.Back);
             PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.None);
         }
 
@@ -43,7 +42,7 @@ namespace RollingGround
             if (context.performed)
             {
                 Vector2 value = context.ReadValue<Vector2>();
-                m_playerDirection = new Vector3(value.x, 0f, value.y).normalized;
+                m_playerDirection = new Vector3(value.x, 0f, value.y);
                 PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.Walk);
             }
             else if (context.canceled)
