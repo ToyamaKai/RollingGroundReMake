@@ -64,7 +64,6 @@ namespace RollingGround
             if (PlayerState.Instance.GetPlayerMoveState == PlayerMoveState.Walk)
             {
                 m_playerRigidbody.linearVelocity = m_playerObjeeect.transform.forward * kSpeed;
-
             }
 
             base.Tick();
