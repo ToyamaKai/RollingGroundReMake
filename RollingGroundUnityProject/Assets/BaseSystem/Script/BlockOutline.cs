@@ -11,12 +11,15 @@ public class BlockOutline : MonoBehaviour
 
     Dictionary<Renderer, Texture> m_originalTexture = new Dictionary<Renderer, Texture>();
 
+    /// <summary>
+    /// テクスチャの切り替え
+    /// </summary>
+    /// <param name="newSelection"></param>
     public void UpdateOutline(HashSet<Renderer> newSelection)
     {
         foreach (var renderer in m_previousSelection)
         {
             if (renderer == null || renderer.gameObject == null) continue;
-
             if (!newSelection.Contains(renderer))
                 RestoreTexture(renderer);
         }
@@ -24,7 +27,6 @@ public class BlockOutline : MonoBehaviour
         foreach (var renderer in newSelection)
         {
             if (renderer == null || renderer.gameObject == null) continue;
-
             if (!m_previousSelection.Contains(renderer))
                 ApplyOutline(renderer);
         }
@@ -32,7 +34,10 @@ public class BlockOutline : MonoBehaviour
         m_previousSelection = new HashSet<Renderer>(newSelection);
     }
 
-
+    /// <summary>
+    /// アウトラインテクスチャにする
+    /// </summary>
+    /// <param name="renderer"></param>
     void ApplyOutline(Renderer renderer)
     {
         var block = new MaterialPropertyBlock();
@@ -47,6 +52,10 @@ public class BlockOutline : MonoBehaviour
         renderer.SetPropertyBlock(block);
     }
 
+    /// <summary>
+    /// 元のテクスチャに戻す
+    /// </summary>
+    /// <param name="renderer"></param>
     void RestoreTexture(Renderer renderer)
     {
         if (renderer == null || renderer.gameObject == null) return;
@@ -56,8 +65,11 @@ public class BlockOutline : MonoBehaviour
 
         if (m_originalTexture.TryGetValue(renderer, out var original))
         {
-            block.SetTexture("_MainTex", original);
-            renderer.SetPropertyBlock(block);
+            if (original != null)
+            {
+                block.SetTexture("_MainTex", original);
+                renderer.SetPropertyBlock(block);
+            }
             m_originalTexture.Remove(renderer);
         }
     }

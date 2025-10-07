@@ -37,8 +37,8 @@ namespace RollingGround
         {
             var FrustumPlaneList = GeometryUtility.CalculateFrustumPlanes(m_mainCamera);
 
-            Vector3 normal = (m_mainCamera.transform.position - m_playerObject.transform.position).normalized;
-            Plane farPlane = new Plane(normal, m_playerObject.transform.position);
+            Vector3 planePoint = new Vector3(m_mainCamera.transform.position.x, m_mainCamera.transform.position.y, Mathf.Floor(m_playerObject.transform.position.z) - 1 );
+            Plane farPlane = new Plane(-m_mainCamera.transform.forward,  planePoint);
 
             // FarPlaneを差し替え
             FrustumPlaneList[5] = farPlane;
@@ -72,13 +72,6 @@ namespace RollingGround
 
             m_blockOutline.UpdateOutline(m_touchedObjectRenderer);
 
-            foreach (var item in m_touchedObjectRenderer)
-            {
-                Debug.Log(item);
-            }
-
-            Debug.Log("hoge");
-
             base.Tick();
         }
 
@@ -87,6 +80,7 @@ namespace RollingGround
             base.Dispose();
         }
 
+        #region デバッグ系
         /// <summary>
         /// Debug.Draw系で視錐台とFarPlaneを可視化
         /// </summary>
@@ -140,8 +134,8 @@ namespace RollingGround
         // farPlaneそのものを赤い四角で描く例
         private void VisualizeFarPlane(Plane farPlane)
         {
-            // 平面を表す代表点（プレイヤー位置を通るのでそれを利用）
-            Vector3 center = m_playerObject.transform.position;
+            // 平面を表す代表点（planePointを使う）
+            Vector3 center = farPlane.normal * -farPlane.distance;
 
             // farPlaneの法線から、平面上の2軸を作る
             Vector3 normal = farPlane.normal;
@@ -164,6 +158,6 @@ namespace RollingGround
             // 法線を矢印で
             Debug.DrawRay(center, normal * 2f, Color.yellow);
         }
-
+        #endregion
     }
 }
