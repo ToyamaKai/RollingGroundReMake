@@ -16,15 +16,6 @@ namespace RollingGround
         private void Awake()
         {
             m_playerInput = GetComponent<PlayerInput>();
-
-            if(m_playerInput == null)
-            {
-                Debug.Log("å©Ç¬Ç©ÇÁÇ»Ç¢ÇÊÇßÅ`");
-            }
-            else
-            {
-                Debug.Log("å©Ç¬Ç©Ç¡ÇΩÇÀÇ•Å`");
-            }
         }
 
         public void OnMove(InputAction.CallbackContext context)
