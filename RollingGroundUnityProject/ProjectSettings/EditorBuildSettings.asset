@@ -9,5 +9,6 @@ EditorBuildSettings:
     path: Assets/FirstSeriesSystem/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 7b52d44204c98d9479713ad28ad35fc7, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 07e9042f2521b64418d58ca7372b7166, type: 3}
   m_UseUCBPForAssetBundles: 0

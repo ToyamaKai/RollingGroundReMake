@@ -5,9 +5,11 @@ using UnityEngine;
 /// </summary>
 public class BlockManipulator : MonoBehaviour
 {
-    private float targetY = 0f;
+    private float m_targetY = 0f;
     private Camera mainCamera;
-    private Vector3 prePosition;
+    private Vector3? m_prePosition;
+    private GameObject m_previewBlock;
+    private const int m_blockID = 01;
 
     //マウスポインターからレイキャストを飛ばし、指定したY座標に到達した際にX, Z座標の数値を四捨五入し、整数に丸め込む。
     //Y座標はspaceで+1, Lshift or Lctrlで-1. Planeも連動して上下する。
@@ -16,7 +18,7 @@ public class BlockManipulator : MonoBehaviour
 
     private void Update()
     {
-        GetSnappedPoint();
+        PreviewBlock();
     }
 
     /// <summary>
@@ -26,7 +28,7 @@ public class BlockManipulator : MonoBehaviour
     private Vector3? GetSnappedPoint()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float t = (targetY - ray.origin.y) / ray.direction.y;
+        float t = (m_targetY - ray.origin.y) / ray.direction.y;
         if (ray.direction.y == 0f || t < 0f)
         {
             return null;
@@ -34,16 +36,32 @@ public class BlockManipulator : MonoBehaviour
 
         Vector3 hitPoint = ray.origin + ray.direction * t;
 
-        Vector3 snapped = new Vector3(Mathf.Round(hitPoint.x), targetY, Mathf.Round(hitPoint.z));
+        Vector3 snapped = new Vector3(Mathf.Round(hitPoint.x), m_targetY, Mathf.Round(hitPoint.z));
         return snapped;
     }
 
-    private void SetBlock()
+    /// <summary>
+    /// ブロックの生成
+    /// </summary>
+    private void PreviewBlock()
     {
         Vector3? nowMousePosition = GetSnappedPoint();
-        if(prePosition != nowMousePosition)
+        if(m_prePosition != nowMousePosition)
         {
-
+            //もし前とポジションが違うなら生成したやつを消して生成しなおしやね
+            Destroy(m_previewBlock);
+            m_previewBlock = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            m_previewBlock.transform.position = nowMousePosition.Value;
         }
+        m_prePosition = nowMousePosition;
+    }
+
+    /// <summary>
+    /// ブロックのセット
+    /// </summary>
+    private void SetBlock()
+    {
+        GameObject block = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        
     }
 }
