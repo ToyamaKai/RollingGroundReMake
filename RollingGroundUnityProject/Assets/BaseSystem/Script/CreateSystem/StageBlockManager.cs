@@ -42,8 +42,9 @@ public class StageBlockManager : MonoBehaviour
     /// </summary>
     /// <param name="blockPosition"></param>
     /// <returns></returns>
-    public bool IsBlockOccupied(Vector3Int blockPosition)
+    public bool IsBlockOccupied(Vector3 blockPosition)
     {
-        return m_blockMap.ContainsKey(blockPosition);
+        Vector3Int blockIntPosition = new Vector3Int((int)blockPosition.x, (int)blockPosition.y, (int)blockPosition.z);
+        return m_blockMap.ContainsKey(blockIntPosition);
     }
 }
