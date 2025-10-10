@@ -16,7 +16,7 @@ MonoBehaviour:
   m_GUID: 3e1b62e7b8fe3c34aa829574252a959f
   m_SerializeEntries:
   - m_GUID: 36bae64dc140e944cbe49a2e20328f63
-    m_Address: Assets/BaseSystem/Prefabs/NormalStageBlock.prefab
+    m_Address: SampleBlock
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
