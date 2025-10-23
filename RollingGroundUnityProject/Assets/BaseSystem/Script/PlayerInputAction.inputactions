@@ -83,6 +83,54 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "StageCreative",
+            "id": "7d83dd22-eb54-456b-b82d-84a7d6009229",
+            "actions": [
+                {
+                    "name": "BlockSet",
+                    "type": "Button",
+                    "id": "28bef000-ea79-429f-a5dc-a16212ed7ae7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DeleteBlock",
+                    "type": "Button",
+                    "id": "8598f635-12a0-41cc-aaba-45c90167d0fe",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5ef89f0c-4453-4bcb-a3a7-1fe34f4b4dcf",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BlockSet",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "54ec1e87-66c7-4e28-8176-27f20ac35957",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DeleteBlock",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

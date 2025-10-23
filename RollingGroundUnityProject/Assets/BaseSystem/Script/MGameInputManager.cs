@@ -16,6 +16,7 @@ namespace RollingGround
         private void Awake()
         {
             m_playerInput = GetComponent<PlayerInput>();
+            m_playerInput.SwitchCurrentActionMap("StageCreative");
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -26,6 +27,26 @@ namespace RollingGround
             }
         }
 
+        #region ステージクリエイティブモード
+        public void OnBlockSet(InputAction.CallbackContext context)
+        {
+            foreach(var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnBlockSet(context);
+            }
+        }
+
+        public void OnDeleteBlock(InputAction.CallbackContext context)
+        {
+            foreach(var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnDeleteBlock(context);
+            }
+        }
+        #endregion
+
+
+        #region オブジェクトの追加と削除
         /// <summary>
         /// 入力を受け取るオブジェクトの追加
         /// </summary>
@@ -51,5 +72,6 @@ namespace RollingGround
         {
             m_inputReceieveObjectList.Clear();
         }
+        #endregion
     }
 }

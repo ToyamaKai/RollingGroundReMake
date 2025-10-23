@@ -3,12 +3,15 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// ブロックの設置・削除を行う機能の実装
 /// </summary>
-public class BlockManipulator : MonoBehaviour
+public class BlockManipulator : MonoBehaviour, IInputReceiver
 {
+    MGameInputManager m_gameInputManager;
+
     private float m_targetY = 0f;
     private Camera mainCamera;
     private Vector3 m_prePosition;
@@ -22,6 +25,12 @@ public class BlockManipulator : MonoBehaviour
     //あと設置場所を見やすいように半透明でブロックをおす
     //プレイヤーの事を考え、四則演算(丸め込み)方式とレイキャスト方式を用意し、切り替えられるようにする。
 
+    private void Awake()
+    {
+        m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
+        m_gameInputManager.AddRecieveObject(this);
+    }
+
     private void Start()
     {
         m_stageBlockManager = GameObject.FindFirstObjectByType<StageBlockManager>();
@@ -31,17 +40,12 @@ public class BlockManipulator : MonoBehaviour
     private void Update()
     {
         PreviewBlock();
-        if(Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            SetBlock();
-        }
     }
 
     private async void State()
     {
         try
         {
-            // ① AddressableLoaderを使ってPrefabをロード
             GameObject prefab = await AddressableLoader.Instance.LoadAsync("SampleBlock");
             m_BlockObjects.Add(prefab);
             for(int i = 0; i < m_BlockObjects.Count; i++)
@@ -82,7 +86,6 @@ public class BlockManipulator : MonoBehaviour
         Vector3 nowMousePosition = GetSnappedPoint();
         if(m_prePosition != nowMousePosition)
         {
-            //もし前とポジションが違うなら生成したやつを消して生成しなおしやね
             Destroy(m_previewBlock);
             m_previewBlock = GameObject.CreatePrimitive(PrimitiveType.Cube);
             m_previewBlock.transform.position = nowMousePosition;
@@ -97,11 +100,9 @@ public class BlockManipulator : MonoBehaviour
     {
         if(!m_stageBlockManager.IsBlockOccupied(m_prePosition))
         {
-            // ② PrefabをInstantiateで生成
             GameObject instance = Instantiate(m_BlockObjects[0], m_prePosition, Quaternion.identity);
-            m_stageBlockManager.RegisterBlock(new Vector3Int((int)m_prePosition.x, (int)m_prePosition.y, (int)m_prePosition.z), 0);
+            m_stageBlockManager.RegisterBlock(new Vector3Int((int)m_prePosition.x, (int)m_prePosition.y, (int)m_prePosition.z), 0, instance);
 
-            // ③ シーン上で確認用に名前変更
             instance.name = $"{m_BlockObjects[0]}_Instance";
 
             Debug.Log($"Prefab SampleBlock を生成しました");
@@ -112,11 +113,30 @@ public class BlockManipulator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ブロックの削除
+    /// </summary>
     private void DeleteBlock()
     {
         if(m_stageBlockManager.IsBlockOccupied(m_prePosition))
         {
-            //Destroy()
+            m_stageBlockManager.RemoveBlock(new Vector3Int((int)m_prePosition.x, (int)m_prePosition.y, (int)m_prePosition.z));
+        }
+    }
+
+    public virtual void OnBlockSet(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            SetBlock();
+        }
+    }
+
+    public virtual void OnDeleteBlock(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            DeleteBlock();
         }
     }
 }

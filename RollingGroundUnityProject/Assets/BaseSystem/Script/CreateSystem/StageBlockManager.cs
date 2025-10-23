@@ -6,26 +6,16 @@ using UnityEngine;
 /// </summary>
 public class StageBlockManager : MonoBehaviour
 {
-    Dictionary<Vector3Int, int> m_blockMap = new();
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    Dictionary<Vector3Int, int>         m_blockTypeMap = new();
+    Dictionary<Vector3Int, GameObject>  m_blockObjectMap = new();
 
     /// <summary>
     /// ブロックのID, 座標情報を登録
     /// </summary>
-    public void RegisterBlock(Vector3Int blockPosition, int blockID)
+    public void RegisterBlock(Vector3Int blockPosition, int blockID, GameObject cubeObject)
     {
-        m_blockMap.Add(blockPosition, blockID);
+        m_blockTypeMap.Add(blockPosition, blockID);
+        m_blockObjectMap.Add(blockPosition, cubeObject);
     }
 
     /// <summary>
@@ -34,7 +24,9 @@ public class StageBlockManager : MonoBehaviour
     /// <param name="blockPosition"></param>
     public void RemoveBlock(Vector3Int blockPosition)
     {
-        m_blockMap.Remove(blockPosition);
+        GameObject.Destroy(m_blockObjectMap[blockPosition]);
+        m_blockTypeMap.Remove(blockPosition);
+        m_blockObjectMap.Remove(blockPosition);
     }
 
     /// <summary>
@@ -45,6 +37,6 @@ public class StageBlockManager : MonoBehaviour
     public bool IsBlockOccupied(Vector3 blockPosition)
     {
         Vector3Int blockIntPosition = new Vector3Int((int)blockPosition.x, (int)blockPosition.y, (int)blockPosition.z);
-        return m_blockMap.ContainsKey(blockIntPosition);
+        return m_blockTypeMap.ContainsKey(blockIntPosition);
     }
 }
