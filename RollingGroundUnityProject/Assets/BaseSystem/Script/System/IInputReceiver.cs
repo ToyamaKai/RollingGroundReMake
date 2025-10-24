@@ -8,5 +8,7 @@ namespace RollingGround
         public virtual void OnMove(InputAction.CallbackContext context) { }
         public virtual void OnBlockSet(InputAction.CallbackContext context) { }
         public virtual void OnDeleteBlock(InputAction.CallbackContext context) { }
+        public virtual void OnMoveUp(InputAction.CallbackContext context) { }
+        public virtual void OnMoveDown(InputAction.CallbackContext context) { }
     }
 }

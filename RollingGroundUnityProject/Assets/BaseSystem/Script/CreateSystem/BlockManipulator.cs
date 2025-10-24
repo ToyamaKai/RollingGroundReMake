@@ -78,6 +78,8 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
         return snapped;
     }
 
+    #region ブロック関連
+
     /// <summary>
     /// ブロックの生成
     /// </summary>
@@ -124,6 +126,15 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
         }
     }
 
+    #endregion
+
+
+    #region Input Action関連
+
+    /// <summary>
+    /// ブロックの設置
+    /// </summary>
+    /// <param name="context"></param>
     public virtual void OnBlockSet(InputAction.CallbackContext context)
     {
         if(context.performed)
@@ -132,6 +143,10 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
         }
     }
 
+    /// <summary>
+    /// ブロックの削除
+    /// </summary>
+    /// <param name="context"></param>
     public virtual void OnDeleteBlock(InputAction.CallbackContext context)
     {
         if(context.performed)
@@ -139,4 +154,23 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
             DeleteBlock();
         }
     }
+
+    public virtual void OnMoveUp(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            m_targetY++;
+        }
+    }
+
+    public virtual void OnMoveDown(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            m_targetY--;
+        }
+    }
+
+
+    #endregion
 }

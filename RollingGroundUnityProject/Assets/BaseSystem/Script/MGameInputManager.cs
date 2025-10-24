@@ -43,6 +43,22 @@ namespace RollingGround
                 recieveObject.OnDeleteBlock(context);
             }
         }
+
+        public void OnMoveUp(InputAction.CallbackContext context)
+        {
+            foreach(var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnMoveUp(context);
+            }
+        }
+
+        public void OnMoveDown(InputAction.CallbackContext context)
+        {
+            foreach (var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnMoveDown(context);
+            }
+        }
         #endregion
 
 
