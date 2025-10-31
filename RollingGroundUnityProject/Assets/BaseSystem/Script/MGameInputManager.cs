@@ -54,9 +54,17 @@ namespace RollingGround
 
         public void OnMoveDown(InputAction.CallbackContext context)
         {
-            foreach (var recieveObject in m_inputReceieveObjectList)
+            foreach(var recieveObject in m_inputReceieveObjectList)
             {
                 recieveObject.OnMoveDown(context);
+            }
+        }
+
+        public void OnCameraMove(InputAction.CallbackContext context)
+        {
+            foreach(var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnCameraMove(context);
             }
         }
         #endregion
