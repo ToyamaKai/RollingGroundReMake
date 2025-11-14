@@ -1,11 +1,11 @@
-using RollingGround;
+ï»¿using RollingGround;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 /// <summary>
-/// ƒNƒŠƒGƒCƒeƒBƒuƒ‚[ƒh‚É‚¨‚¯‚éƒJƒƒ‰‚ÌˆÚ“®ˆ—
+/// ã‚¯ãƒªã‚¨ã‚¤ãƒ†ã‚£ãƒ–ãƒ¢ãƒ¼ãƒ‰ã«ãŠã‘ã‚‹ã‚«ãƒ¡ãƒ©ã®ç§»å‹•å‡¦ç†
 /// </summary>
 public class MCreatvieModeCameraMove : MonoBehaviour, IInputReceiver
 {

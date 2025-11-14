@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒXƒe[ƒW‚ÌƒuƒƒbƒNIDEÀ•W‚ÌŠÇ—ƒXƒNƒŠƒvƒg
+/// ã‚¹ãƒ†ãƒ¼ã‚¸ã®ãƒ–ãƒ­ãƒƒã‚¯IDãƒ»åº§æ¨™ã®ç®¡ç†ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 /// </summary>
 public class StageBlockManager : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class StageBlockManager : MonoBehaviour
     Dictionary<Vector3Int, GameObject>  m_blockObjectMap = new();
 
     /// <summary>
-    /// ƒuƒƒbƒN‚ÌID, À•Wî•ñ‚ğ“o˜^
+    /// ãƒ–ãƒ­ãƒƒã‚¯ã®ID, åº§æ¨™æƒ…å ±ã‚’ç™»éŒ²
     /// </summary>
     public void RegisterBlock(Vector3Int blockPosition, int blockID, GameObject cubeObject)
     {
@@ -19,7 +19,7 @@ public class StageBlockManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒuƒƒbƒNÀ•W‚ğŒ³‚Éíœ
+    /// ãƒ–ãƒ­ãƒƒã‚¯åº§æ¨™ã‚’å…ƒã«å‰Šé™¤
     /// </summary>
     /// <param name="blockPosition"></param>
     public void RemoveBlock(Vector3Int blockPosition)
@@ -30,7 +30,7 @@ public class StageBlockManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Šù‚É“¯‚¶À•W‚ÉƒuƒƒbƒN‚ª‘¶İ‚·‚é‚©‚Ç‚¤‚©‚Ì”»’è
+    /// æ—¢ã«åŒã˜åº§æ¨™ã«ãƒ–ãƒ­ãƒƒã‚¯ãŒå­˜åœ¨ã™ã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®š
     /// </summary>
     /// <param name="blockPosition"></param>
     /// <returns></returns>

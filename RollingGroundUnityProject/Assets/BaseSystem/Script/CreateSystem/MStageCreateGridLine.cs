@@ -1,12 +1,12 @@
-using System.Linq;
+ï»¿using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class MStageCreateGridLine : MonoBehaviour
 {
-    const int kGridSize = 50;       // ƒOƒŠƒbƒh‚ÌƒTƒCƒYiƒZƒ‹”j
-    const float kCellSize = 1f;       // ƒZƒ‹ƒTƒCƒY
-    const float kLineWidth = 0.05f;    // ü‚Ì‘¾‚³
+    const int kGridSize = 50;       // ã‚°ãƒªãƒƒãƒ‰ã®ã‚µã‚¤ã‚ºï¼ˆã‚»ãƒ«æ•°ï¼‰
+    const float kCellSize = 1f;       // ã‚»ãƒ«ã‚µã‚¤ã‚º
+    const float kLineWidth = 0.05f;    // ç·šã®å¤ªã•
 
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class MStageCreateGridLine : MonoBehaviour
 
         float size = kGridSize * kCellSize;
 
-        // X•ûŒü‚Ìü
+        // Xæ–¹å‘ã®ç·š
         for (int x = 0; x <= kGridSize; x++)
         {
             float px = x * kCellSize;
@@ -34,12 +34,12 @@ public class MStageCreateGridLine : MonoBehaviour
             vertices.Add(new Vector3(px + kLineWidth, 0, size));
             vertices.Add(new Vector3(px - kLineWidth, 0, size));
 
-            // CCWiãŒü‚«‚ÉŒ©‚¦‚é‚æ‚¤‚Éj
+            // CCWï¼ˆä¸Šå‘ãã«è¦‹ãˆã‚‹ã‚ˆã†ã«ï¼‰
             triangles.AddRange(new int[] { vertCount, vertCount + 2, vertCount + 1, vertCount, vertCount + 3, vertCount + 2 });
             vertCount += 4;
         }
 
-        // Z•ûŒü‚Ìü
+        // Zæ–¹å‘ã®ç·š
         for (int z = 0; z <= kGridSize; z++)
         {
             float pz = z * kCellSize;
@@ -56,7 +56,7 @@ public class MStageCreateGridLine : MonoBehaviour
         mesh.SetVertices(vertices);
         mesh.SetTriangles(triangles, 0);
 
-        // ‘S•”ãŒü‚«‚Ì–@ü‚ğƒZƒbƒg
+        // å…¨éƒ¨ä¸Šå‘ãã®æ³•ç·šã‚’ã‚»ãƒƒãƒˆ
         mesh.SetNormals(System.Linq.Enumerable.Repeat(Vector3.up, vertices.Count).ToList());
 
         return mesh;

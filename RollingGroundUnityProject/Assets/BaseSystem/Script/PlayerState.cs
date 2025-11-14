@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 namespace RollingGround
@@ -12,7 +12,7 @@ namespace RollingGround
     }
 
     /// <summary>
-    /// ƒXƒe[ƒg‚ÌGetter, Setter
+    /// ã‚¹ãƒ†ãƒ¼ãƒˆã®Getter, Setter
     /// </summary>
     public class PlayerState : SingletonMonoBehaviour<PlayerState>
     {

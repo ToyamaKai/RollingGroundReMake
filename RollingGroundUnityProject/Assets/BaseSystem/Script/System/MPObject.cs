@@ -1,4 +1,4 @@
-namespace MPLib
+﻿namespace MPLib
 {
     public class MPObject : IMPObject
     {

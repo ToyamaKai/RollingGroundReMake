@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
 public class BlockOutline : MonoBehaviour
@@ -12,7 +12,7 @@ public class BlockOutline : MonoBehaviour
     Dictionary<Renderer, Texture> m_originalTexture = new Dictionary<Renderer, Texture>();
 
     /// <summary>
-    /// ƒeƒNƒXƒ`ƒƒ‚ÌØ‚è‘Ö‚¦
+    /// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®åˆ‡ã‚Šæ›¿ãˆ
     /// </summary>
     /// <param name="newSelection"></param>
     public void UpdateOutline(HashSet<Renderer> newSelection)
@@ -35,7 +35,7 @@ public class BlockOutline : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒAƒEƒgƒ‰ƒCƒ“ƒeƒNƒXƒ`ƒƒ‚É‚·‚é
+    /// ã‚¢ã‚¦ãƒˆãƒ©ã‚¤ãƒ³ãƒ†ã‚¯ã‚¹ãƒãƒ£ã«ã™ã‚‹
     /// </summary>
     /// <param name="renderer"></param>
     void ApplyOutline(Renderer renderer)
@@ -53,7 +53,7 @@ public class BlockOutline : MonoBehaviour
     }
 
     /// <summary>
-    /// Œ³‚ÌƒeƒNƒXƒ`ƒƒ‚É–ß‚·
+    /// å…ƒã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã«æˆ»ã™
     /// </summary>
     /// <param name="renderer"></param>
     void RestoreTexture(Renderer renderer)

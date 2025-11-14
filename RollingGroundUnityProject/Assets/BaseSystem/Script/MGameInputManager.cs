@@ -1,4 +1,4 @@
-using NUnit.Framework;
+ï»¿using NUnit.Framework;
 using RollingGround;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,7 +27,7 @@ namespace RollingGround
             }
         }
 
-        #region ƒXƒe[ƒWƒNƒŠƒGƒCƒeƒBƒuƒ‚[ƒh
+        #region ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¨ã‚¤ãƒ†ã‚£ãƒ–ãƒ¢ãƒ¼ãƒ‰
         public void OnBlockSet(InputAction.CallbackContext context)
         {
             foreach(var recieveObject in m_inputReceieveObjectList)
@@ -70,9 +70,9 @@ namespace RollingGround
         #endregion
 
 
-        #region ƒIƒuƒWƒFƒNƒg‚Ì’Ç‰Á‚Æíœ
+        #region ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¿½åŠ ã¨å‰Šé™¤
         /// <summary>
-        /// “ü—Í‚ğó‚¯æ‚éƒIƒuƒWƒFƒNƒg‚Ì’Ç‰Á
+        /// å…¥åŠ›ã‚’å—ã‘å–ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¿½åŠ 
         /// </summary>
         /// <param name="inputRecieverObject"></param>
         public void AddRecieveObject(IInputReceiver inputRecieverObject)
@@ -81,7 +81,7 @@ namespace RollingGround
         }
 
         /// <summary>
-        /// “ü—Í‚ğó‚¯æ‚éƒIƒuƒWƒFƒNƒg‚Ìíœ
+        /// å…¥åŠ›ã‚’å—ã‘å–ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å‰Šé™¤
         /// </summary>
         /// <param name="inputRecieverObject"></param>
         public void DeleterecieveObject(IInputReceiver inputRecieverObject)
@@ -90,7 +90,7 @@ namespace RollingGround
         }
 
         /// <summary>
-        /// “ü—Í‚ğó‚¯æ‚éƒIƒuƒWƒFƒNƒg‚ÌƒNƒŠƒA
+        /// å…¥åŠ›ã‚’å—ã‘å–ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¯ãƒªã‚¢
         /// </summary>
         public void ClearRecieveObject()
         {

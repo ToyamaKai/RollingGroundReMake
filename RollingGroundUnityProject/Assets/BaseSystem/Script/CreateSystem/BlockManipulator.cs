@@ -1,4 +1,4 @@
-using RollingGround;
+ï»¿using RollingGround;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// ƒuƒƒbƒN‚Ìİ’uEíœ‚ğs‚¤‹@”\‚ÌÀ‘•
+/// ãƒ–ãƒ­ãƒƒã‚¯ã®è¨­ç½®ãƒ»å‰Šé™¤ã‚’è¡Œã†æ©Ÿèƒ½ã®å®Ÿè£…
 /// </summary>
 public class BlockManipulator : MonoBehaviour, IInputReceiver
 {
@@ -20,10 +20,10 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
     private StageBlockManager m_stageBlockManager;
     private List<GameObject> m_BlockObjects = new List<GameObject>();
 
-    //ƒ}ƒEƒXƒ|ƒCƒ“ƒ^[‚©‚çƒŒƒCƒLƒƒƒXƒg‚ğ”ò‚Î‚µAw’è‚µ‚½YÀ•W‚É“’B‚µ‚½Û‚ÉX, ZÀ•W‚Ì”’l‚ğlÌŒÜ“ü‚µA®”‚ÉŠÛ‚ß‚ŞB
-    //YÀ•W‚Íspace‚Å+1, Lshift or Lctrl‚Å-1. Plane‚à˜A“®‚µ‚Äã‰º‚·‚éB
-    //‚ ‚Æİ’uêŠ‚ğŒ©‚â‚·‚¢‚æ‚¤‚É”¼“§–¾‚ÅƒuƒƒbƒN‚ğ‚¨‚·
-    //ƒvƒŒƒCƒ„[‚Ì–‚ğl‚¦Al‘¥‰‰Z(ŠÛ‚ß‚İ)•û®‚ÆƒŒƒCƒLƒƒƒXƒg•û®‚ğ—pˆÓ‚µAØ‚è‘Ö‚¦‚ç‚ê‚é‚æ‚¤‚É‚·‚éB
+    //ãƒã‚¦ã‚¹ãƒã‚¤ãƒ³ã‚¿ãƒ¼ã‹ã‚‰ãƒ¬ã‚¤ã‚­ãƒ£ã‚¹ãƒˆã‚’é£›ã°ã—ã€æŒ‡å®šã—ãŸYåº§æ¨™ã«åˆ°é”ã—ãŸéš›ã«X, Zåº§æ¨™ã®æ•°å€¤ã‚’å››æ¨äº”å…¥ã—ã€æ•´æ•°ã«ä¸¸ã‚è¾¼ã‚€ã€‚
+    //Yåº§æ¨™ã¯spaceã§+1, Lshift or Lctrlã§-1. Planeã‚‚é€£å‹•ã—ã¦ä¸Šä¸‹ã™ã‚‹ã€‚
+    //ã‚ã¨è¨­ç½®å ´æ‰€ã‚’è¦‹ã‚„ã™ã„ã‚ˆã†ã«åŠé€æ˜ã§ãƒ–ãƒ­ãƒƒã‚¯ã‚’ãŠã™
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®äº‹ã‚’è€ƒãˆã€å››å‰‡æ¼”ç®—(ä¸¸ã‚è¾¼ã¿)æ–¹å¼ã¨ãƒ¬ã‚¤ã‚­ãƒ£ã‚¹ãƒˆæ–¹å¼ã‚’ç”¨æ„ã—ã€åˆ‡ã‚Šæ›¿ãˆã‚‰ã‚Œã‚‹ã‚ˆã†ã«ã™ã‚‹ã€‚
 
     private void Awake()
     {
@@ -55,12 +55,12 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
         }
         catch (System.Exception e)
         {
-            Debug.LogError($"Prefabƒ[ƒh¸”s: {e.Message}");
+            Debug.LogError($"Prefabãƒ­ãƒ¼ãƒ‰å¤±æ•—: {e.Message}");
         }
     }
 
     /// <summary>
-    /// ŠÛ‚ß‚ñ‚¾À•W‚Ìæ“¾
+    /// ä¸¸ã‚è¾¼ã‚“ã åº§æ¨™ã®å–å¾—
     /// </summary>
     /// <returns></returns>
     private Vector3 GetSnappedPoint()
@@ -78,10 +78,10 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
         return snapped;
     }
 
-    #region ƒuƒƒbƒNŠÖ˜A
+    #region ãƒ–ãƒ­ãƒƒã‚¯é–¢é€£
 
     /// <summary>
-    /// ƒuƒƒbƒN‚Ì¶¬
+    /// ãƒ–ãƒ­ãƒƒã‚¯ã®ç”Ÿæˆ
     /// </summary>
     private void PreviewBlock()
     {
@@ -96,7 +96,7 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
     }
 
     /// <summary>
-    /// ƒuƒƒbƒN‚ÌƒZƒbƒg
+    /// ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚»ãƒƒãƒˆ
     /// </summary>
     private void SetBlock()
     {
@@ -107,16 +107,16 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
 
             instance.name = $"{m_BlockObjects[0]}_Instance";
 
-            Debug.Log($"Prefab SampleBlock ‚ğ¶¬‚µ‚Ü‚µ‚½");
+            Debug.Log($"Prefab SampleBlock ã‚’ç”Ÿæˆã—ã¾ã—ãŸ");
         }
         else
         {
-            Debug.Log("Šù‚Éİ’u‚³‚ê‚Ä‚¢‚Ü‚·");
+            Debug.Log("æ—¢ã«è¨­ç½®ã•ã‚Œã¦ã„ã¾ã™");
         }
     }
 
     /// <summary>
-    /// ƒuƒƒbƒN‚Ìíœ
+    /// ãƒ–ãƒ­ãƒƒã‚¯ã®å‰Šé™¤
     /// </summary>
     private void DeleteBlock()
     {
@@ -129,10 +129,10 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
     #endregion
 
 
-    #region Input ActionŠÖ˜A
+    #region Input Actioné–¢é€£
 
     /// <summary>
-    /// ƒuƒƒbƒN‚Ìİ’u
+    /// ãƒ–ãƒ­ãƒƒã‚¯ã®è¨­ç½®
     /// </summary>
     /// <param name="context"></param>
     public virtual void OnBlockSet(InputAction.CallbackContext context)
@@ -144,7 +144,7 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
     }
 
     /// <summary>
-    /// ƒuƒƒbƒN‚Ìíœ
+    /// ãƒ–ãƒ­ãƒƒã‚¯ã®å‰Šé™¤
     /// </summary>
     /// <param name="context"></param>
     public virtual void OnDeleteBlock(InputAction.CallbackContext context)

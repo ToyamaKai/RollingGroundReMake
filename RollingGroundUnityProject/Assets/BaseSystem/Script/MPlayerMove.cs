@@ -1,9 +1,9 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using RollingGround;
 using MPLib;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚ÌˆÚ“®ˆ—
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•å‡¦ç†
 /// </summary>
 namespace RollingGround
 {
