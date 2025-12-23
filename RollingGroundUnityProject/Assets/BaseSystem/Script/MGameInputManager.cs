@@ -67,6 +67,14 @@ namespace RollingGround
                 recieveObject.OnCameraMove(context);
             }
         }
+
+        public void OnCameraRotation(InputAction.CallbackContext context)
+        {
+            foreach(var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnCameraRotation(context);
+            }
+        }
         #endregion
 
 

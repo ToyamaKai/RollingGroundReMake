@@ -494,6 +494,26 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: a3c932a7-6a20-4efe-8bd9-6bc66798d1c4
     m_ActionName: 'StageCreative/CameraMove[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 13b959c5-915f-4215-aeb2-0029256917c4
+    m_ActionName: 'StageCreative/BlockHeightChange[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1269909114}
+        m_TargetAssemblyTypeName: RollingGround.MGameInputManager, Assembly-CSharp
+        m_MethodName: OnCameraRotation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e18386e6-146b-4273-b331-f425bdac8396
+    m_ActionName: 'StageCreative/CameraRotation[/Mouse/delta]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

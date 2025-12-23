@@ -170,7 +170,5 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
             m_targetY--;
         }
     }
-
-
     #endregion
 }

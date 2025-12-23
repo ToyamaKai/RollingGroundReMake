@@ -11,8 +11,15 @@ public class MCreatvieModeCameraMove : MonoBehaviour, IInputReceiver
 {
     MGameInputManager   m_gameInputManager;
     private Vector3     m_cameraDirection;
-    private Transform     m_transform;
+    private Transform   m_transform;
+    private Vector2     m_lookInput;
+    private float       m_sensitivity = 100;
+    private float       m_cameraXRotation = 0;
     const   float       k_speed = 1.0f;
+
+    [SerializeField]
+    private Transform   m_transparentTransform;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -29,8 +36,21 @@ public class MCreatvieModeCameraMove : MonoBehaviour, IInputReceiver
         {
             m_transform.position += m_cameraDirection * k_speed * Time.deltaTime;
         }
+        CameraRotation();
     }
 
+    private void CameraRotation()
+    {
+        float mouseX = m_lookInput.x * m_sensitivity * Time.deltaTime;
+        float mouseY = m_lookInput.y * m_sensitivity * Time.deltaTime;
+        m_cameraXRotation -= mouseY;
+        m_cameraXRotation = Mathf.Clamp(m_cameraXRotation, -40f, 40f);
+        m_transform.localRotation = Quaternion.Euler(m_cameraXRotation, 0f, 0f);
+
+        m_transparentTransform.Rotate(Vector3.up * mouseX);
+    }
+
+    #region InputAction関連
     public virtual void OnCameraMove(InputAction.CallbackContext context)
     {
         if(context.performed)
@@ -43,6 +63,7 @@ public class MCreatvieModeCameraMove : MonoBehaviour, IInputReceiver
             m_cameraDirection = Vector3.zero;
         }
     }
+
     public virtual void OnMoveUp(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -58,4 +79,10 @@ public class MCreatvieModeCameraMove : MonoBehaviour, IInputReceiver
             m_transform.position = new Vector3(m_transform.position.x, m_transform.position.y - 1, m_transform.position.z);
         }
     }
+
+    public virtual void OnCameraRotation(InputAction.CallbackContext context)
+    {
+        m_lookInput = context.ReadValue<Vector2>();
+    }
+    #endregion
 }
