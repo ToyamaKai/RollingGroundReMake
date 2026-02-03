@@ -44,6 +44,14 @@ namespace RollingGround
             }
         }
 
+        public void OnMoveUpDown(InputAction.CallbackContext context)
+        {
+            foreach (var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnMoveUpDown(context);
+            }
+        }
+
         public void OnMoveUp(InputAction.CallbackContext context)
         {
             foreach(var recieveObject in m_inputReceieveObjectList)

@@ -19,6 +19,8 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
     private const int m_blockID = 01;
     private StageBlockManager m_stageBlockManager;
     private List<GameObject> m_BlockObjects = new List<GameObject>();
+    private float scrollAccumulator = 0f;
+    private const float scrollThreshold = 5.0f;
 
     //マウスポインターからレイキャストを飛ばし、指定したY座標に到達した際にX, Z座標の数値を四捨五入し、整数に丸め込む。
     //Y座標はspaceで+1, Lshift or Lctrlで-1. Planeも連動して上下する。
@@ -155,6 +157,31 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
         }
     }
 
+    ///<summary>
+    ///ブロック設置Y座標の上下移動
+    /// </summary>
+    public void OnMoveUpDown(InputAction.CallbackContext context)
+    {
+        float scrollY = context.ReadValue<Vector2>().y;
+
+        scrollAccumulator += scrollY;
+
+        if(scrollAccumulator >= scrollThreshold)
+        {
+            m_targetY++;
+            scrollAccumulator -= scrollThreshold;
+        }
+        else if (scrollAccumulator <= -scrollThreshold)
+        {
+            m_targetY--;
+            scrollAccumulator += scrollThreshold;
+        }
+    }
+
+    /// <summary>
+    /// ブロック設置Y座標の上昇
+    /// </summary>
+    /// <param name="context"></param>
     public virtual void OnMoveUp(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -163,6 +190,10 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
         }
     }
 
+    /// <summary>
+    /// ブロック設置Y座標の下降
+    /// </summary>
+    /// <param name="context"></param>
     public virtual void OnMoveDown(InputAction.CallbackContext context)
     {
         if(context.performed)

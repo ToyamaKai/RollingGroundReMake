@@ -36,19 +36,19 @@ public class MCreatvieModeCameraMove : MonoBehaviour, IInputReceiver
         {
             m_transform.position += m_cameraDirection * k_speed * Time.deltaTime;
         }
-        CameraRotation();
+        //CameraRotation();
     }
 
-    private void CameraRotation()
-    {
-        float mouseX = m_lookInput.x * m_sensitivity * Time.deltaTime;
-        float mouseY = m_lookInput.y * m_sensitivity * Time.deltaTime;
-        m_cameraXRotation -= mouseY;
-        m_cameraXRotation = Mathf.Clamp(m_cameraXRotation, -40f, 40f);
-        m_transform.localRotation = Quaternion.Euler(m_cameraXRotation, 0f, 0f);
+    //private void CameraRotation()
+    //{
+    //    float mouseX = m_lookInput.x * m_sensitivity * Time.deltaTime;
+    //    float mouseY = m_lookInput.y * m_sensitivity * Time.deltaTime;
+    //    m_cameraXRotation -= mouseY;
+    //    m_cameraXRotation = Mathf.Clamp(m_cameraXRotation, -40f, 40f);
+    //    m_transform.localRotation = Quaternion.Euler(m_cameraXRotation, 0f, 0f);
 
-        m_transparentTransform.Rotate(Vector3.up * mouseX);
-    }
+    //    m_transparentTransform.Rotate(Vector3.up * mouseX);
+    //}
 
     #region InputAction関連
     public virtual void OnCameraMove(InputAction.CallbackContext context)
