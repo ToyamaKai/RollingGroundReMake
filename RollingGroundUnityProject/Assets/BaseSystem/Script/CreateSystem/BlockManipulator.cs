@@ -21,6 +21,8 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
     private List<GameObject> m_BlockObjects = new List<GameObject>();
     private float scrollAccumulator = 0f;
     private const float scrollThreshold = 5.0f;
+    private Vector2 m_lastMousePosition;
+    private Vector3 m_lastSnapped;
 
     //マウスポインターからレイキャストを飛ばし、指定したY座標に到達した際にX, Z座標の数値を四捨五入し、整数に丸め込む。
     //Y座標はspaceで+1, Lshift or Lctrlで-1. Planeも連動して上下する。
@@ -67,7 +69,17 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
     /// <returns></returns>
     private Vector3 GetSnappedPoint()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Vector2 currentMousePosition = Input.mousePosition;
+        Ray ray = Camera.main.ScreenPointToRay(currentMousePosition);
+
+        // マウスが動いていなければX,Zは前回値を使いYだけ更新
+        if (currentMousePosition == m_lastMousePosition)
+        {
+            m_lastSnapped.y = m_targetY;
+            return m_lastSnapped;
+        }
+
+        // レイキャストで新しい座標を計算
         float t = (m_targetY - ray.origin.y) / ray.direction.y;
         if (ray.direction.y == 0f || t < 0f)
         {
@@ -75,8 +87,12 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
         }
 
         Vector3 hitPoint = ray.origin + ray.direction * t;
-
         Vector3 snapped = new Vector3(Mathf.Round(hitPoint.x), m_targetY, Mathf.Round(hitPoint.z));
+
+        // 前回値を更新
+        m_lastMousePosition = currentMousePosition;
+        m_lastSnapped = snapped;
+
         return snapped;
     }
 

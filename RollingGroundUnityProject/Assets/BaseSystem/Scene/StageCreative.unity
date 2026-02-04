@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1eb3182d509db14e895a7bf79732328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_transparentTransform: {fileID: 0}
+  m_transparentTransform: {fileID: 20928354}
 --- !u!1 &538753280
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +475,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1269909114}
         m_TargetAssemblyTypeName: RollingGround.MGameInputManager, Assembly-CSharp
-        m_MethodName: OnMoveDown
+        m_MethodName: OnMoveUpDown
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
