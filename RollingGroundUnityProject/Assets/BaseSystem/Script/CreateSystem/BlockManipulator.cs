@@ -193,29 +193,5 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
             scrollAccumulator += scrollThreshold;
         }
     }
-
-    /// <summary>
-    /// ブロック設置Y座標の上昇
-    /// </summary>
-    /// <param name="context"></param>
-    public virtual void OnMoveUp(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            m_targetY++;
-        }
-    }
-
-    /// <summary>
-    /// ブロック設置Y座標の下降
-    /// </summary>
-    /// <param name="context"></param>
-    public virtual void OnMoveDown(InputAction.CallbackContext context)
-    {
-        if(context.performed)
-        {
-            m_targetY--;
-        }
-    }
     #endregion
 }

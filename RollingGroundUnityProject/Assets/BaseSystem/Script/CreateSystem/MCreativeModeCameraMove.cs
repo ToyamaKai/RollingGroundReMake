@@ -12,14 +12,18 @@ public class MCreatvieModeCameraMove : MonoBehaviour, IInputReceiver
     MGameInputManager   m_gameInputManager;
     private Vector3     m_cameraDirection;
     private Transform   m_transform;
-    private Vector2     m_lookInput;
-    private float       m_sensitivity = 100;
-    private float       m_cameraXRotation = 0;
+    private float yaw = 0f;
+    private float pitch = 0f;
     const   float       k_speed = 1.0f;
 
     [SerializeField]
-    private Transform   m_transparentTransform;
+    private   float       k_rotationSpeed = 10.0f;
 
+    [SerializeField]
+    private float k_moveSpeed = 5.0f;
+
+    [SerializeField]
+    private Transform   m_transparentTransform;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -27,6 +31,8 @@ public class MCreatvieModeCameraMove : MonoBehaviour, IInputReceiver
         m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
         m_gameInputManager.AddRecieveObject(this);
         m_transform = this.gameObject.transform;
+        UnityEngine.Cursor.visible = false;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -34,20 +40,27 @@ public class MCreatvieModeCameraMove : MonoBehaviour, IInputReceiver
     {
         if(m_cameraDirection != Vector3.zero)
         {
-            m_transform.position += m_cameraDirection * k_speed * Time.deltaTime;
+            Vector3 move = transform.right * m_cameraDirection.x + transform.up * m_cameraDirection.y + transform.forward * m_cameraDirection.z;
+
+            m_transform.position += move * k_speed * Time.deltaTime;
         }
+
         CameraRotation();
     }
 
+    /// <summary>
+    /// マウスの移動量に応じてカメラを回転させる処理
+    /// </summary>
     private void CameraRotation()
     {
-        float mouseX = m_lookInput.x * m_sensitivity * Time.deltaTime;
-        float mouseY = m_lookInput.y * m_sensitivity * Time.deltaTime;
-        m_cameraXRotation -= mouseY;
-        m_cameraXRotation = Mathf.Clamp(m_cameraXRotation, -40f, 40f);
-        m_transform.localRotation = Quaternion.Euler(m_cameraXRotation, 0f, 0f);
+        float mouseX = Input.GetAxis("Mouse X") * k_rotationSpeed;
+        float mouseY = Input.GetAxis("Mouse Y") * k_rotationSpeed;
+        yaw += mouseX;
+        pitch -= mouseY;
+        pitch = Mathf.Clamp(pitch, -89f, 89f);
 
-        m_transparentTransform.Rotate(Vector3.up * mouseX);
+        m_transparentTransform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+        transform.rotation = Quaternion.Euler(0, yaw, 0f);
     }
 
     #region InputAction関連
@@ -56,7 +69,7 @@ public class MCreatvieModeCameraMove : MonoBehaviour, IInputReceiver
         if(context.performed)
         {
             Vector2 value = context.ReadValue<Vector2>();
-            m_cameraDirection = new Vector3(value.x, 0f, value.y);
+            m_cameraDirection = new Vector3(value.x * k_moveSpeed, 0f, value.y * k_moveSpeed);
         }
         else if (context.canceled)
         {
@@ -68,7 +81,12 @@ public class MCreatvieModeCameraMove : MonoBehaviour, IInputReceiver
     {
         if (context.performed)
         {
-            m_transform.position = new Vector3(m_transform.position.x, m_transform.position.y + 1, m_transform.position.z);
+            Debug.Log("MoveUp");
+            m_cameraDirection = new Vector3(0f, k_moveSpeed, 0f);
+        }
+        else if (context.canceled)
+        {
+            m_cameraDirection = Vector3.zero;
         }
     }
 
@@ -76,13 +94,13 @@ public class MCreatvieModeCameraMove : MonoBehaviour, IInputReceiver
     {
         if (context.performed)
         {
-            m_transform.position = new Vector3(m_transform.position.x, m_transform.position.y - 1, m_transform.position.z);
+            Debug.Log("MoveDown");
+            m_cameraDirection = new Vector3(0f, -k_moveSpeed, 0f);
         }
-    }
-
-    public virtual void OnCameraRotation(InputAction.CallbackContext context)
-    {
-        m_lookInput = context.ReadValue<Vector2>();
+        else if (context.canceled)
+        {
+            m_cameraDirection = Vector3.zero;
+        }
     }
     #endregion
 }
