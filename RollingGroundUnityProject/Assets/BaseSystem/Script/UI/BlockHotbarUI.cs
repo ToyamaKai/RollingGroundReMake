@@ -1,8 +1,13 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BlockHotbarUI : MonoBehaviour
 {
     private BlockHotbar m_blockHotbar;
+    private const int k_slotNum = 9;
+    private GameObject[] m_slot = new GameObject[k_slotNum];
+
+    [SerializeField]
+    private GameObject m_BlockHotbar;
 
     private void Awake()
     {
@@ -10,18 +15,28 @@ public class BlockHotbarUI : MonoBehaviour
         m_blockHotbar.OnSlotChanged += RefleshSlot;
     }
 
+    /// <summary>
+    /// 指定したスロットの更新
+    /// </summary>
+    /// <param name="index"></param>
     private void RefleshSlot(int index)
     {
-
-    }
-
-    private void DisplayBlockList()
-    {
-
+        //UIの切り替えに修正する
+        m_slot[index].SetActive(false);
     }
 
     /// <summary>
-    /// �j�󎞏���
+    /// ホットバーの表示切替
+    /// </summary>
+    private void ToggleDisplayBlockList()
+    {
+        bool isDisplay;
+        isDisplay = m_BlockHotbar.activeSelf ? false : true;
+        m_BlockHotbar.SetActive(isDisplay);
+    }
+
+    /// <summary>
+    /// 破壊時処理
     /// </summary>
     private void OnDestroy()
     {

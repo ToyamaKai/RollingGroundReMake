@@ -46,6 +46,7 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
         PreviewBlock();
     }
 
+    //TODO:なんかAddressableでロードしてるのが無駄、これをScriptableObjectから生成するようにしないといけない
     private async void State()
     {
         try
