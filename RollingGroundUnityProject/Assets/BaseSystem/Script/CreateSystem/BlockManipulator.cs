@@ -11,6 +11,7 @@ using UnityEngine.InputSystem;
 public class BlockManipulator : MonoBehaviour, IInputReceiver
 {
     MGameInputManager m_gameInputManager;
+    BlockHotbar m_blockHotbar;
 
     private float m_targetY = 0f;
     private Camera mainCamera;
@@ -33,6 +34,7 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
     {
         m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
         m_gameInputManager.AddRecieveObject(this);
+        m_blockHotbar = GameObject.FindFirstObjectByType<BlockHotbar>();
     }
 
     private void Start()
@@ -121,12 +123,21 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
     {
         if(!m_stageBlockManager.IsBlockOccupied(m_prePosition))
         {
-            GameObject instance = Instantiate(m_BlockObjects[0], m_prePosition, Quaternion.identity);
-            m_stageBlockManager.RegisterBlock(new Vector3Int((int)m_prePosition.x, (int)m_prePosition.y, (int)m_prePosition.z), 0, instance);
+            GameObject prefab = m_blockHotbar.GetSelectedBlockData() != null?m_blockHotbar.GetSelectedBlockData().prefab : null;
 
-            instance.name = $"{m_BlockObjects[0]}_Instance";
+            if (prefab != null)
+            {
+                GameObject instance = Instantiate(prefab, m_prePosition, Quaternion.identity);
+                m_stageBlockManager.RegisterBlock(new Vector3Int((int)m_prePosition.x, (int)m_prePosition.y, (int)m_prePosition.z), 0, prefab);
 
-            Debug.Log($"Prefab SampleBlock を生成しました");
+                prefab.name = $"{m_BlockObjects[0]}_Instance";
+
+                Debug.Log($"Prefab SampleBlock を生成しました");
+            }
+            else
+            {
+                Debug.Log("ブロックはありません");
+            }
         }
         else
         {

@@ -1,35 +1,57 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 /// <summary>
-/// ƒNƒŠƒGƒCƒeƒBƒuƒ‚[ƒh‚É‚¨‚¯‚éƒzƒbƒgƒo[‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+/// ã‚¯ãƒªã‚¨ã‚¤ãƒ†ã‚£ãƒ–ãƒ¢ãƒ¼ãƒ‰ã«ãŠã‘ã‚‹ãƒ›ãƒƒãƒˆãƒãƒ¼ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class BlockHotbar : SingletonMonoBehaviour<BlockHotbar>
 {
-    private const int k_maxHotbarSize = 9; //ƒzƒbƒgƒo[‚ÌÅ‘åƒTƒCƒY
-    private int[] m_hotbar = new int[k_maxHotbarSize]; //ƒzƒbƒgƒo[
-    private int m_selectedIndex;    //‘I‘ğ’†‚ÌƒXƒƒbƒg”Ô†
-    public event Action<int> OnSlotChanged; //ƒXƒƒbƒg‚Ì•ÏXƒCƒxƒ“ƒg
+    private const int k_maxHotbarSize = 9; //ãƒ›ãƒƒãƒˆãƒãƒ¼ã®æœ€å¤§ã‚µã‚¤ã‚º
 
-    /// <summary>
-    /// ƒzƒbƒgƒo[(ƒNƒ[ƒ“)‚ğ‘S‚Ä•Ô‚·ƒƒ\ƒbƒh
-    /// </summary>
-    /// <returns></returns>
-    public int[] GetHotbar()
+    [SerializeField]
+    private BlockData[] m_hotbar = new BlockData[k_maxHotbarSize]; //ãƒ›ãƒƒãƒˆãƒãƒ¼
+    private int m_selectedIndex;    //é¸æŠä¸­ã®ã‚¹ãƒ­ãƒƒãƒˆç•ªå·
+    public event Action<int> OnSlotChanged; //ã‚¹ãƒ­ãƒƒãƒˆã®å¤‰æ›´ã‚¤ãƒ™ãƒ³ãƒˆ
+
+    private void Awake()
     {
-        return (int[])m_hotbar.Clone();
+        m_selectedIndex = 0;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            if(m_selectedIndex != 8)
+            {
+                m_selectedIndex++;
+            }
+            else
+            {
+                m_selectedIndex = 0;
+            }
+        }
     }
 
     /// <summary>
-    /// ƒzƒbƒgƒo[‚É‚¨‚¯‚é“Á’èƒXƒƒbƒg‚ÌƒAƒCƒeƒ€‚ğ•Ô‚·ƒƒ\ƒbƒh
+    /// ãƒ›ãƒƒãƒˆãƒãƒ¼(ã‚¯ãƒ­ãƒ¼ãƒ³)ã‚’å…¨ã¦è¿”ã™ãƒ¡ã‚½ãƒƒãƒ‰
+    /// </summary>
+    /// <returns></returns>
+    public ScriptableObject[] GetHotbar()
+    {
+        return (ScriptableObject[])m_hotbar.Clone();
+    }
+
+    /// <summary>
+    /// ãƒ›ãƒƒãƒˆãƒãƒ¼ã«ãŠã‘ã‚‹ç‰¹å®šã‚¹ãƒ­ãƒƒãƒˆã®ã‚¢ã‚¤ãƒ†ãƒ ã‚’è¿”ã™ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <param name="index"></param>
     /// <returns></returns>
-    public int GetSlot(int index)
+    public ScriptableObject GetSlot(int index)
     {
         if (index < 0 || index >= k_maxHotbarSize)
         {
-            Debug.LogError("ˆÙí’l‚ª“n‚³‚ê‚Ü‚µ‚½");
+            Debug.LogError("ç•°å¸¸å€¤ãŒæ¸¡ã•ã‚Œã¾ã—ãŸ");
             return default;
         }
 
@@ -37,7 +59,7 @@ public class BlockHotbar : SingletonMonoBehaviour<BlockHotbar>
     }
 
     /// <summary>
-    /// Œ»İ‚Ì‘I‘ğƒXƒƒbƒg‚ğæ“¾
+    /// ç¾åœ¨ã®é¸æŠã‚¹ãƒ­ãƒƒãƒˆã‚’å–å¾—
     /// </summary>
     /// <param name="index"></param>
     /// <returns></returns>
@@ -47,7 +69,38 @@ public class BlockHotbar : SingletonMonoBehaviour<BlockHotbar>
     }
 
     /// <summary>
-    /// ‘I‘ğƒXƒƒbƒg‚Ì•ÏX
+    /// ç¾åœ¨ã®é¸æŠã‚¹ãƒ­ãƒƒãƒˆã‚’å–å¾—
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public int GetSelectedSlot()
+    {
+        return m_selectedIndex;
+    }
+
+
+    /// <summary>
+    /// ç¾åœ¨ã®é¸æŠã‚¹ãƒ­ãƒƒãƒˆã®BlockDataã‚’å–å¾—
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public BlockData GetSelectedBlockData()
+    {
+        return m_hotbar[m_selectedIndex];
+    }
+
+    /// <summary>
+    /// æŒ‡å®šã—ãŸã‚¹ãƒ­ãƒƒãƒˆã®BlockDataã‚’å–å¾—
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public BlockData GetBlockData(int index)
+    {
+        return m_hotbar[index];
+    }
+
+    /// <summary>
+    /// é¸æŠã‚¹ãƒ­ãƒƒãƒˆã®å¤‰æ›´
     /// </summary>
     /// <param name="index"></param>
     public void SetSelectedSlot(int index)
@@ -56,14 +109,14 @@ public class BlockHotbar : SingletonMonoBehaviour<BlockHotbar>
     }
 
     /// <summary>
-    /// w’èƒzƒbƒgƒo[‚ÌblockID‘‚«Š·‚¦
+    /// æŒ‡å®šãƒ›ãƒƒãƒˆãƒãƒ¼ã®blockIDæ›¸ãæ›ãˆ
     /// </summary>
     /// <param name="index"></param>
     /// <param name="blockID"></param>
-    public void SetSlotBlockID(int index, int blockID)
+    public void SetSlotBlockID(int index, BlockData block)
     {
-        m_hotbar[index] = blockID;
-        OnSlotChanged?.Invoke(blockID);
+        m_hotbar[index] = block;
+        OnSlotChanged?.Invoke(index);
     }
 
     

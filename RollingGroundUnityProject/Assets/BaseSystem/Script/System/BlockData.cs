@@ -6,6 +6,6 @@ public class BlockData : ScriptableObject
 {
     public BlockID id;
     public string displayName;
-    public Texture2D icon;
+    public Sprite icon;
     public GameObject prefab;
 }
