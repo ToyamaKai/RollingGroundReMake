@@ -14,6 +14,7 @@ namespace RollingGround
         public virtual void OnCameraMove(InputAction.CallbackContext context) { }
         public virtual void OnCameraRotation(InputAction.CallbackContext context) { }
         public virtual void OnBlockHeightChange(InputAction.CallbackContext context) { }
+        public virtual void OnSelectSlotChange(InputAction.CallbackContext context) { }
 
     }
 }

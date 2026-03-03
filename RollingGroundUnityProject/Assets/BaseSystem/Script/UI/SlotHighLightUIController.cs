@@ -12,20 +12,20 @@ public class SlotHighLightUIController : MonoBehaviour
     private void Awake()
     {
         m_blockHotbar = GameObject.FindFirstObjectByType<BlockHotbar>();
+        m_blockHotbar.OnSelectedSlotChanged += MoveHightLightUI;
+        ResetHightLightUI();
+    }
 
+    private void ResetHightLightUI()
+    {
         Vector3 UIposition = m_highLightSlot.transform.position;
-        UIposition= new Vector3(k_firstSlotPositionX, 0, 0);
+        UIposition = new Vector3(k_firstSlotPositionX, 0, 0);
         m_highLightSlot.transform.localPosition = UIposition;
     }
 
-    private void Update()
+    private void MoveHightLightUI(int slotNum)
     {
-        MoveHightLightUI();
-    }
-
-    private void MoveHightLightUI()
-    {
-        float position = k_firstSlotPositionX + (k_slotSpace * m_blockHotbar.GetSelectedSlot());
+        float position = k_firstSlotPositionX + (k_slotSpace * slotNum);
         Vector3 UIposition = m_highLightSlot.transform.localPosition;
         UIposition.x = position;
 

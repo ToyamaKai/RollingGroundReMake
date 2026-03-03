@@ -1,36 +1,27 @@
-﻿using System;
+﻿using RollingGround;
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// クリエイティブモードにおけるホットバーを管理するクラス
 /// </summary>
-public class BlockHotbar : SingletonMonoBehaviour<BlockHotbar>
+public class BlockHotbar : SingletonMonoBehaviour<BlockHotbar>, IInputReceiver
 {
     private const int k_maxHotbarSize = 9; //ホットバーの最大サイズ
 
     [SerializeField]
     private BlockData[] m_hotbar = new BlockData[k_maxHotbarSize]; //ホットバー
+    private MGameInputManager m_gameInputManager;
     private int m_selectedIndex;    //選択中のスロット番号
-    public event Action<int> OnSlotChanged; //スロットの変更イベント
+    public event Action<int> OnSlotItemChanged; //スロット内itemの変更時イベント
+    public event Action<int> OnSelectedSlotChanged; //選択スロットの変更時イベント
 
     private void Awake()
     {
         m_selectedIndex = 0;
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.B))
-        {
-            if(m_selectedIndex != 8)
-            {
-                m_selectedIndex++;
-            }
-            else
-            {
-                m_selectedIndex = 0;
-            }
-        }
+        m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
+        m_gameInputManager.AddRecieveObject(this);
     }
 
     /// <summary>
@@ -78,7 +69,6 @@ public class BlockHotbar : SingletonMonoBehaviour<BlockHotbar>
         return m_selectedIndex;
     }
 
-
     /// <summary>
     /// 現在の選択スロットのBlockDataを取得
     /// </summary>
@@ -116,8 +106,16 @@ public class BlockHotbar : SingletonMonoBehaviour<BlockHotbar>
     public void SetSlotBlockID(int index, BlockData block)
     {
         m_hotbar[index] = block;
-        OnSlotChanged?.Invoke(index);
+        OnSlotItemChanged?.Invoke(index);
     }
 
-    
+    #region 入力処理
+
+    public void OnSelectSlotChange(InputAction.CallbackContext context)
+    {
+        SetSelectedSlot(int.Parse(context.control.name) - 1);
+        OnSelectedSlotChanged?.Invoke(int.Parse(context.control.name) - 1);
+    }
+
+    #endregion
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using RollingGround;
+using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class BlockHotbarUI : MonoBehaviour
@@ -16,7 +18,7 @@ public class BlockHotbarUI : MonoBehaviour
     private void Awake()
     {
         m_blockHotbar = GameObject.FindFirstObjectByType<BlockHotbar>();
-        m_blockHotbar.OnSlotChanged += RefleshSlot;
+        m_blockHotbar.OnSlotItemChanged += RefleshSlot;
     }
 
     public void Start()
@@ -53,6 +55,6 @@ public class BlockHotbarUI : MonoBehaviour
     /// </summary>
     private void OnDestroy()
     {
-        m_blockHotbar.OnSlotChanged -= RefleshSlot;
+        m_blockHotbar.OnSlotItemChanged -= RefleshSlot;
     }
 }

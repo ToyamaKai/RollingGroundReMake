@@ -1295,6 +1295,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e18386e6-146b-4273-b331-f425bdac8396
     m_ActionName: 'StageCreative/CameraRotation[/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1269909114}
+        m_TargetAssemblyTypeName: RollingGround.MGameInputManager, Assembly-CSharp
+        m_MethodName: OnSelectSlotChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8eba4bf5-33bd-4d43-9074-859c58305c40
+    m_ActionName: 'StageCreative/SelectSlot[/Keyboard/0,/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4,/Keyboard/5,/Keyboard/6,/Keyboard/7,/Keyboard/8,/Keyboard/9]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1766,6 +1782,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2001867661}
   - component: {fileID: 2001867662}
+  - component: {fileID: 2001867663}
   m_Layer: 5
   m_Name: Hotbar
   m_TagString: Untagged
@@ -1816,6 +1833,19 @@ MonoBehaviour:
   - {fileID: 1444959186}
   - {fileID: 127226145}
   - {fileID: 888428527}
+--- !u!114 &2001867663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001867660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e93b207ffd414394ca6bfb6cc8f722ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_highLightSlot: {fileID: 1206500029}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
