@@ -83,6 +83,14 @@ namespace RollingGround
                 recieveObject.OnCameraRotation(context);
             }
         }
+
+        public void OnSelectSlotChange(InputAction.CallbackContext context)
+        {
+            foreach(var recievesObject in m_inputReceieveObjectList)
+            {
+                recievesObject.OnSelectSlotChange(context);
+            }
+        }
         #endregion
 
 
