@@ -128,7 +128,7 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
             if (prefab != null)
             {
                 GameObject instance = Instantiate(prefab, m_prePosition, Quaternion.identity);
-                m_stageBlockManager.RegisterBlock(new Vector3Int((int)m_prePosition.x, (int)m_prePosition.y, (int)m_prePosition.z), 0, prefab);
+                m_stageBlockManager.RegisterBlock(new Vector3Int((int)m_prePosition.x, (int)m_prePosition.y, (int)m_prePosition.z), 0, instance);
 
                 prefab.name = $"{m_BlockObjects[0]}_Instance";
 
