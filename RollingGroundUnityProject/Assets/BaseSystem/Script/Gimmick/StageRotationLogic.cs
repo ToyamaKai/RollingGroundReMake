@@ -1,21 +1,19 @@
-﻿using RollingGround;
-
-namespace RollingGround
+﻿namespace RollingGround.Logic
 {
+    public enum RotationAxis { X, Y, Z }; //回転方向を指定する際に使用
+
     /// <summary>
     /// ステージ回転の実処理
     /// </summary>
-    public static class StageRotation
+    public static class StageRotationLogic
     {
-        public enum RotationAxis { X, Y, Z }; //回転方向を指定する際に使用
-
         /// <summary>
         /// 入力を受け取り、StageDataを更新するロジック
         /// </summary>
         /// <param name="data"></param>
         /// <param name="axis"></param>
         /// <param name="direction"></param>
-        public static void RxecuteRotate(StageData data, RotationAxis axis, int direction)
+        public static void ExecuteRotate(StageData data, RotationAxis axis, int direction)
         {
             switch (axis)
             {
@@ -34,6 +32,5 @@ namespace RollingGround
         {
             return (step % 4 + 4) % 4;
         }
-
     }
 }

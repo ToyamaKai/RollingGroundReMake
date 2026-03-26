@@ -1,4 +1,4 @@
-﻿namespace RollingGround
+﻿namespace RollingGround.Logic
 {
     /// <summary>
     /// ステージ情報を保持するデータクラス
