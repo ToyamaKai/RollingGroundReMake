@@ -7,6 +7,6 @@ namespace RollingGround
     {
         public virtual void OnMove(InputAction.CallbackContext context) { }
 
-        public virtual void OnRotate(InputAction.CallbackContext context) { }
+        public virtual void OnStageRotate(InputAction.CallbackContext context) { }
     }
 }

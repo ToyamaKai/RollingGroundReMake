@@ -35,11 +35,11 @@ namespace RollingGround
             }
         }
 
-        public void OnRotate(InputAction.CallbackContext context)
+        public void OnStageRotate(InputAction.CallbackContext context)
         {
             foreach(var recieveObject in m_inputReceieveObjectList)
             {
-                recieveObject.OnRotate(context);
+                recieveObject.OnStageRotate(context);
             }
         }
 

@@ -32,8 +32,18 @@ namespace RollingGround
         /// <param name="context"></param>
         public virtual void OnStageRotate(InputAction.CallbackContext context)
         {
-            //TODO: 入力されたキーをもとに処理層に渡す記述をしてくれ...
-            InputControl control = context.control;
+            // 1. performed 以外のフェーズ（Canceledなど）を弾く
+            if (!context.performed) return;
+
+            // 2. 回転中なら絶対に受け付けない（連打防止の再確認）
+            if (m_isRotating) return;
+
+            float value = context.ReadValue<float>();
+            string actionName = context.action.name;
+
+            if (actionName == "StageRotateX") RotateStage(RotationAxis.X, (int)value);
+            if (actionName == "StageRotateY") RotateStage(RotationAxis.Y, (int)value);
+            if (actionName == "StageRotateZ") RotateStage(RotationAxis.Z, (int)value);
         }
 
         /// <summary>
@@ -46,7 +56,9 @@ namespace RollingGround
             m_isRotating = true;
 
             StageRotationLogic.ExecuteRotate(m_currentData, axis, dir);
+            Debug.Log($"{m_currentData.StepX}, {m_currentData.StepY}, {m_currentData.StepZ}");
 
+            //ワールド座標での回転を行うように修正する
             Vector3 targetEuler = new Vector3(
                 m_currentData.StepX * 90f,
                 m_currentData.StepY * 90f,
