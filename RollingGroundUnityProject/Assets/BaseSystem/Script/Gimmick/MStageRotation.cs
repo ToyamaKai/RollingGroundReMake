@@ -56,16 +56,20 @@ namespace RollingGround
             m_isRotating = true;
 
             StageRotationLogic.ExecuteRotate(m_currentData, axis, dir);
-            Debug.Log($"{m_currentData.StepX}, {m_currentData.StepY}, {m_currentData.StepZ}");
 
-            //ワールド座標での回転を行うように修正する
-            Vector3 targetEuler = new Vector3(
-                m_currentData.StepX * 90f,
-                m_currentData.StepY * 90f,
-                m_currentData.StepZ * 90f
-                );
+            // 2. 演出：今の角度に「世界の軸」で90度足すだけ
+            Vector3 rotationAmount = axis switch
+            {
+                RotationAxis.X => Vector3.right * (90 * dir),
+                RotationAxis.Y => Vector3.up * (90 * dir),
+                RotationAxis.Z => Vector3.forward * (90 * dir),
+                _ => Vector3.zero
+            };
 
-            m_stageRoot.DORotate(targetEuler, m_rotateDuration).SetEase(Ease.OutQuint).OnComplete(() => m_isRotating = false);
+            // DORotate(加算量, 時間, モード) の一番短い書き方
+            m_stageRoot.DORotate(rotationAmount, m_rotateDuration, RotateMode.WorldAxisAdd)
+                .SetEase(Ease.OutQuint)
+                .OnComplete(() => m_isRotating = false);
         }
     }
 }

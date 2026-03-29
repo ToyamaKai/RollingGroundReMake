@@ -8,7 +8,7 @@
     public static class StageRotationLogic
     {
         /// <summary>
-        /// 入力を受け取り、StageDataを更新するロジック
+        /// 入力を受け取り、StageDataの回転値を0~3の間で更新するロジック
         /// </summary>
         /// <param name="data"></param>
         /// <param name="axis"></param>
