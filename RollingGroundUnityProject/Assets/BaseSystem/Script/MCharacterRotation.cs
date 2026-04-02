@@ -39,7 +39,7 @@ namespace RollingGround
         /// </summary>
         private void HandleRotateStart(Transform stageRoot)
         {
-            //m_rb.isKinematic = true;
+            m_rb.isKinematic = true;
 
             m_localOffset = StageRotationLogic.CalculateInitialOffset(
                 m_rb.position.ToSystem(),
@@ -50,7 +50,7 @@ namespace RollingGround
 
         private void HandleRotateUpdate(Transform stageRoot)
         {
-            m_rb.linearVelocity = Vector3.zero;
+            //m_rb.linearVelocity = Vector3.zero;
 
             // ロジックで計算した結果を .ToUnity() で戻して適用
             var newPos = StageRotationLogic.CalculateFollowPosition(
@@ -59,12 +59,14 @@ namespace RollingGround
                 stageRoot.rotation.ToSystem()
             );
 
-            m_rb.MovePosition(newPos.ToUnity());
+            m_rb.position = newPos.ToUnity();
         }
 
         private void HandleRotateComplete()
         {
-            //m_rb.isKinematic = false;
+            m_rb.linearVelocity = Vector3.zero;
+            m_rb.angularVelocity = Vector3.zero;
+            m_rb.isKinematic = false;
         }
     }
 }
