@@ -2,6 +2,7 @@
 using UnityEngine.InputSystem;
 using RollingGround.Logic;
 using DG.Tweening;
+using System;
 
 namespace RollingGround
 {
@@ -10,6 +11,10 @@ namespace RollingGround
     /// </summary>
     public class MStageRotation : MonoBehaviour, IInputReceiver
     {
+        public static event Action<Transform> OnStageRotateStart; // ステージ回転開始イベント
+        public static event Action<Transform> OnStageRotateUpdate; // ステージ回転更新イベント
+        public static event Action OnStageRotateComplete; // ステージ回転完了イベント
+
         [SerializeField]
         private Transform m_stageRoot;
 
@@ -18,7 +23,6 @@ namespace RollingGround
 
         private StageData m_currentData = new StageData();
         private bool m_isRotating = false;  //回転中かの変数
-
 
         void Awake()
         {
@@ -66,10 +70,22 @@ namespace RollingGround
                 _ => Vector3.zero
             };
 
+            //回転開始を通知
+            OnStageRotateStart?.Invoke(m_stageRoot);
+
             // DORotate(加算量, 時間, モード) の一番短い書き方
             m_stageRoot.DORotate(rotationAmount, m_rotateDuration, RotateMode.WorldAxisAdd)
                 .SetEase(Ease.OutQuint)
-                .OnComplete(() => m_isRotating = false);
+                .SetUpdate(UpdateType.Fixed)
+                .OnUpdate(() =>
+                {
+                    OnStageRotateUpdate?.Invoke(m_stageRoot);
+                })
+                .OnComplete(() =>
+                {
+                    m_isRotating = false;
+                    OnStageRotateComplete?.Invoke();
+                });
         }
     }
 }

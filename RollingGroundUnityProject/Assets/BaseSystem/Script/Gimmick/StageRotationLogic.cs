@@ -1,4 +1,6 @@
-﻿namespace RollingGround.Logic
+﻿using System.Numerics;
+
+namespace RollingGround.Logic
 {
     public enum RotationAxis { X, Y, Z }; //回転方向を指定する際に使用
 
@@ -31,6 +33,21 @@
         private static int ClamStep(int step)
         {
             return (step % 4 + 4) % 4;
+        }
+
+        public static Vector3 CalculateInitialOffset(Vector3 targetPos, Vector3 pivotPos, Quaternion pivotRot)
+        {
+            // Quaternionの逆行列を計算
+            Quaternion inverseRot = Quaternion.Inverse(pivotRot);
+            // 演算子 * ではなく、Transformメソッドでベクトルを回転させる
+            return Vector3.Transform(targetPos - pivotPos, inverseRot);
+        }
+
+        public static Vector3 CalculateFollowPosition(Vector3 initialOffset, Vector3 pivotPos, Quaternion pivotRot)
+        {
+            //オフセット回転させてから、中心座標に足す
+            Vector3 rotatedOffset = Vector3.Transform(initialOffset, pivotRot);
+            return pivotPos + rotatedOffset;
         }
     }
 }
