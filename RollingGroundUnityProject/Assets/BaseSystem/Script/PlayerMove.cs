@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using RollingGround;
 using UnityEngine.InputSystem;
 using MPLib;
@@ -14,7 +14,7 @@ namespace RollingGround
         private const float kSpeed = 1f;
 
         /// <summary>
-        /// •K—v‚È—v‘f‚È‚Ç‚ğó‚¯æ‚é
+        /// å¿…è¦ãªè¦ç´ ãªã©ã‚’å—ã‘å–ã‚‹
         /// </summary>
         /// <param name="gameInputManager"></param>
         /// <param name="playerObject"></param>
@@ -49,18 +49,19 @@ namespace RollingGround
             {
                 PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.None);
             }
+
+            //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ–¹å‘ã‚’å…¥åŠ›æ–¹å‘ã«
+            if (m_playerDirection != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(m_playerDirection, Vector3.up);
+                m_playerObjeeect.transform.rotation = targetRotation;
+            }
         }
 
         public override void Tick()
         {
-            //ƒvƒŒƒCƒ„[‚Ì•ûŒü‚ğ“ü—Í•ûŒü‚É
-            if(m_playerDirection != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(m_playerDirection, Vector3.up);
-                m_playerObjeeect.transform.localRotation = targetRotation;
-            }
 
-            //ƒvƒŒƒCƒ„[‚ğforward•ûŒü‚ÉAddforce‚ÅˆÚ“®‚³‚¹‚é
+            //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’forwardæ–¹å‘ã«Addforceã§ç§»å‹•ã•ã›ã‚‹
             if (PlayerState.Instance.GetPlayerMoveState == PlayerMoveState.Walk)
             {
                 m_playerRigidbody.linearVelocity = m_playerObjeeect.transform.forward * kSpeed;
