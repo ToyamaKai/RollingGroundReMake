@@ -1325,11 +1325,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.843
       objectReference: {fileID: 0}
     - target: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.897
       objectReference: {fileID: 0}
     - target: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1896,7 +1896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20fa4d3f50df1a347910b15034ae7e9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerTransform: {fileID: 467278295}
+  m_PlayerTransform: {fileID: 272591602}
 --- !u!1 &343870743
 GameObject:
   m_ObjectHideFlags: 0
@@ -2508,7 +2508,7 @@ Transform:
   m_GameObject: {fileID: 467278293}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 2.71, z: -0.53999996}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0.5}
   m_LocalScale: {x: 0.95, y: 0.95, z: 0.95}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -2527,8 +2527,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7818a9825d2401540ab8290b3f6e3df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_characterWorldRoot: {fileID: 0}
-  m_characterRoot: {fileID: 467278295}
+  m_characterWorldRoot: {fileID: 467278295}
+  m_characterRoot: {fileID: 272591602}
   m_rotateDuration: 1
 --- !u!1 &476768911
 GameObject:
@@ -3681,7 +3681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_mainCamera: {fileID: 330585545}
-  m_player: {fileID: 467278293}
+  m_player: {fileID: 1674145733}
   ParentObj: {fileID: 1882464071}
 --- !u!4 &749402460
 Transform:
