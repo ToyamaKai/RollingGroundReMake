@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 namespace RollingGround
@@ -9,10 +9,11 @@ namespace RollingGround
         Walk,
         Run,
         Jump,
+        Rotate,
     }
 
     /// <summary>
-    /// ƒXƒe[ƒg‚ÌGetter, Setter
+    /// ã‚¹ãƒ†ãƒ¼ãƒˆã®Getter, Setter
     /// </summary>
     public class PlayerState : SingletonMonoBehaviour<PlayerState>
     {

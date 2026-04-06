@@ -39,10 +39,10 @@ namespace RollingGround
 
         public virtual void OnMove(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.performed && PlayerState.Instance.GetPlayerMoveState != PlayerMoveState.Rotate)
             {
                 Vector2 value = context.ReadValue<Vector2>();
-                m_playerDirection = new Vector3(value.x, 0f, value.y);
+                m_playerDirection = new Vector3(value.x, 0, value.y);
                 PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.Walk);
             }
             else if (context.canceled)
@@ -64,7 +64,14 @@ namespace RollingGround
             //プレイヤーをforward方向にAddforceで移動させる
             if (PlayerState.Instance.GetPlayerMoveState == PlayerMoveState.Walk)
             {
-                m_playerRigidbody.linearVelocity = m_playerObjeeect.transform.forward * kSpeed;
+                float currentVerticalVelocity = m_playerRigidbody.linearVelocity.y;
+                Vector3 moveVelocity = m_playerObjeeect.transform.forward * kSpeed;
+                m_playerRigidbody.linearVelocity = new Vector3(moveVelocity.x, currentVerticalVelocity, moveVelocity.z);
+            }
+            else
+            {
+                float currentVerticalVelocity = m_playerRigidbody.linearVelocity.y;
+                m_playerRigidbody.linearVelocity = new Vector3(0, currentVerticalVelocity, 0);
             }
 
             base.Tick();

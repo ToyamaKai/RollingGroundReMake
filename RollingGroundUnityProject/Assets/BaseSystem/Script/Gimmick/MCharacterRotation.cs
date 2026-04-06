@@ -48,10 +48,10 @@ namespace RollingGround
         private void RotateStage(CharacterRotationAxis axis, int dir)
         {
             m_isRotating = true;
+            PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.Rotate); 
 
             CharacterRotationLogic.ExecutePlayerRotate(m_currentData, axis, dir);
 
-            // 2. 演出：今の角度に「世界の軸」で90度足すだけ
             Vector3 rotationAmount = axis switch
             {
                 CharacterRotationAxis.X => Vector3.right * (90 * dir),
@@ -67,7 +67,8 @@ namespace RollingGround
 
             //キャラ原点を中心に反対に回転(向き調整用)
             m_characterRoot.DOBlendableRotateBy(-rotationAmount, m_rotateDuration, RotateMode.WorldAxisAdd)
-                .SetEase(Ease.OutQuint);
+                .SetEase(Ease.OutQuint)
+                .OnComplete(() => PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.None));
         }
     }
 }
