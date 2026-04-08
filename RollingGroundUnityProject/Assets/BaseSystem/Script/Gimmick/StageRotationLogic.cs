@@ -1,6 +1,6 @@
 ﻿namespace RollingGround.Logic
 {
-    public enum RotationAxis { X, Y, Z }; //回転方向を指定する際に使用
+    public enum StageRotationAxis { X, Y, Z }; //回転方向を指定する際に使用
 
     /// <summary>
     /// ステージ回転の実処理
@@ -13,13 +13,13 @@
         /// <param name="data"></param>
         /// <param name="axis"></param>
         /// <param name="direction"></param>
-        public static void ExecuteRotate(StageData data, RotationAxis axis, int direction)
+        public static void ExecuteRotate(StageData data, StageRotationAxis axis, int direction)
         {
             switch (axis)
             {
-                case RotationAxis.X: data.StepX = ClamStep(data.StepX + direction); break;
-                case RotationAxis.Y: data.StepY = ClamStep(data.StepY + direction); break;
-                case RotationAxis.Z: data.StepZ = ClamStep(data.StepZ + direction); break;
+                case StageRotationAxis.X: data.StepX = ClamStep(data.StepX + direction); break;
+                case StageRotationAxis.Y: data.StepY = ClamStep(data.StepY + direction); break;
+                case StageRotationAxis.Z: data.StepZ = ClamStep(data.StepZ + direction); break;
             }
         }
 

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using RollingGround;
 using UnityEngine.InputSystem;
 using MPLib;
@@ -14,7 +14,7 @@ namespace RollingGround
         private const float kSpeed = 1f;
 
         /// <summary>
-        /// •K—v‚È—v‘f‚È‚Ç‚ğó‚¯æ‚é
+        /// å¿…è¦ãªè¦ç´ ãªã©ã‚’å—ã‘å–ã‚‹
         /// </summary>
         /// <param name="gameInputManager"></param>
         /// <param name="playerObject"></param>
@@ -42,28 +42,43 @@ namespace RollingGround
             if (context.performed)
             {
                 Vector2 value = context.ReadValue<Vector2>();
-                m_playerDirection = new Vector3(value.x, 0f, value.y);
-                PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.Walk);
+                m_playerDirection = new Vector3(value.x, 0, value.y);
             }
             else if (context.canceled)
             {
-                PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.None);
+                m_playerDirection = Vector3.zero;
+            }
+
+            //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ–¹å‘ã‚’å…¥åŠ›æ–¹å‘ã«
+            if (m_playerDirection != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(m_playerDirection, Vector3.up);
+                m_playerObjeeect.transform.rotation = targetRotation;
             }
         }
 
         public override void Tick()
         {
-            //ƒvƒŒƒCƒ„[‚Ì•ûŒü‚ğ“ü—Í•ûŒü‚É
-            if(m_playerDirection != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(m_playerDirection, Vector3.up);
-                m_playerObjeeect.transform.localRotation = targetRotation;
-            }
+            var currentMoveState = PlayerState.Instance.GetPlayerMoveState;
 
-            //ƒvƒŒƒCƒ„[‚ğforward•ûŒü‚ÉAddforce‚ÅˆÚ“®‚³‚¹‚é
-            if (PlayerState.Instance.GetPlayerMoveState == PlayerMoveState.Walk)
+            //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’forwardæ–¹å‘ã«Addforceã§ç§»å‹•ã•ã›ã‚‹
+            if (PlayerState.Instance.GetPlayerMoveState != PlayerMoveState.Rotate && m_playerDirection != Vector3.zero )
             {
-                m_playerRigidbody.linearVelocity = m_playerObjeeect.transform.forward * kSpeed;
+                PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.Walk);
+
+                float currentVerticalVelocity = m_playerRigidbody.linearVelocity.y;
+                Vector3 moveVelocity = m_playerObjeeect.transform.forward * kSpeed;
+                m_playerRigidbody.linearVelocity = new Vector3(moveVelocity.x, currentVerticalVelocity, moveVelocity.z);
+            }
+            else
+            {
+                if(currentMoveState != PlayerMoveState.Rotate)
+                {
+                    PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.None);
+                }
+
+                float currentVerticalVelocity = m_playerRigidbody.linearVelocity.y;
+                m_playerRigidbody.linearVelocity = new Vector3(0, currentVerticalVelocity, 0);
             }
 
             base.Tick();
