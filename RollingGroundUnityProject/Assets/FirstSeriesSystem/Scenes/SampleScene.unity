@@ -1387,10 +1387,19 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11400002, guid: e39dd657be7298d408f1a135c76c3d9a, type: 3}
+    - {fileID: 11400000, guid: e39dd657be7298d408f1a135c76c3d9a, type: 3}
+    - {fileID: 11400084, guid: e39dd657be7298d408f1a135c76c3d9a, type: 3}
+    - {fileID: 11400086, guid: e39dd657be7298d408f1a135c76c3d9a, type: 3}
+    - {fileID: 11400088, guid: e39dd657be7298d408f1a135c76c3d9a, type: 3}
+    - {fileID: 9500000, guid: e39dd657be7298d408f1a135c76c3d9a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 100268, guid: e39dd657be7298d408f1a135c76c3d9a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1674145745}
     - targetCorrespondingSourceObject: {fileID: 100268, guid: e39dd657be7298d408f1a135c76c3d9a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1674145743}
@@ -1403,6 +1412,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100268, guid: e39dd657be7298d408f1a135c76c3d9a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1674145740}
+    - targetCorrespondingSourceObject: {fileID: 100268, guid: e39dd657be7298d408f1a135c76c3d9a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1674145744}
   m_SourcePrefab: {fileID: 100100000, guid: e39dd657be7298d408f1a135c76c3d9a, type: 3}
 --- !u!4 &272591602 stripped
 Transform:
@@ -7976,6 +7988,41 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 3
+--- !u!114 &1674145744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674145733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c629e7926e613bd458440e11277fcc8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animator: {fileID: 1674145745}
+--- !u!95 &1674145745
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674145733}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 29032ffe50eebbd41b9e5c4017762813, type: 3}
+  m_Controller: {fileID: 9100000, guid: 5cf828e09b5e195479b872dce0cfba4d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1682878283
 GameObject:
   m_ObjectHideFlags: 0
