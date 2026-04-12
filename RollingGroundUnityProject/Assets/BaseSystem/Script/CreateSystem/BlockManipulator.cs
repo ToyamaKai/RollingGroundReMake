@@ -188,7 +188,7 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
     ///<summary>
     ///ブロック設置Y座標の上下移動
     /// </summary>
-    public void OnMoveUpDown(InputAction.CallbackContext context)
+    public void OnBlockHeightChange(InputAction.CallbackContext context)
     {
         float scrollY = context.ReadValue<Vector2>().y;
 

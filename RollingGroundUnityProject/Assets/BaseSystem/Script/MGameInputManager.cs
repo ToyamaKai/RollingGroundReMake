@@ -62,11 +62,11 @@ namespace RollingGround
             }
         }
 
-        public void OnMoveUpDown(InputAction.CallbackContext context)
+        public void OnBlockHeightChange(InputAction.CallbackContext context)
         {
             foreach (var recieveObject in m_inputReceieveObjectList)
             {
-                recieveObject.OnMoveUpDown(context);
+                recieveObject.OnBlockHeightChange(context);
             }
         }
 
