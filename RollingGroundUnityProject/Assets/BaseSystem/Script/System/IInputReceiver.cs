@@ -6,6 +6,9 @@ namespace RollingGround
     public interface IInputReceiver
     {
         public virtual void OnMove(InputAction.CallbackContext context) { }
+        public virtual void OnStageRotate(InputAction.CallbackContext context) { }
+
+        #region ステージクリエイティブモード
         public virtual void OnBlockSet(InputAction.CallbackContext context) { }
         public virtual void OnDeleteBlock(InputAction.CallbackContext context) { }
         public virtual void OnMoveUpDown(InputAction.CallbackContext context) { }
@@ -15,6 +18,7 @@ namespace RollingGround
         public virtual void OnCameraRotation(InputAction.CallbackContext context) { }
         public virtual void OnBlockHeightChange(InputAction.CallbackContext context) { }
         public virtual void OnSelectSlotChange(InputAction.CallbackContext context) { }
+        #endregion
 
     }
 }

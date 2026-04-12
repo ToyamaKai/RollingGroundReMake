@@ -16,7 +16,16 @@ namespace RollingGround
         private void Awake()
         {
             m_playerInput = GetComponent<PlayerInput>();
-            m_playerInput.SwitchCurrentActionMap("StageCreative");
+            //m_playerInput.SwitchCurrentActionMap("StageCreative");
+
+            if(m_playerInput == null)
+            {
+                Debug.Log("見つからないよぉ～");
+            }
+            else
+            {
+                Debug.Log("見つかったねぇ～");
+            }
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -24,6 +33,15 @@ namespace RollingGround
             foreach(var recieveObject in m_inputReceieveObjectList)
             {
                 recieveObject.OnMove(context);
+            }
+            Debug.Log("MGameInputManager.csにてOnMove");
+        }
+
+        public void OnStageRotate(InputAction.CallbackContext context)
+        {
+            foreach (var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnStageRotate(context);
             }
         }
 

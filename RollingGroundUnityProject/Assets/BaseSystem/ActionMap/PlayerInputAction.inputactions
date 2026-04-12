@@ -4,13 +4,40 @@
     "maps": [
         {
             "name": "Player",
-            "id": "dfb8cf6c-92f7-406f-98f3-c5a1880cb915",
+            "id": "e86c58f3-cc9e-49e1-b44d-eb36519f3acb",
             "actions": [
                 {
                     "name": "Move",
                     "type": "Value",
-                    "id": "b1309e9f-3d7b-4cbd-9f53-37b0c4b5b0de",
+                    "id": "a9868682-0ad6-438d-8b4d-cdf4ffbbe7d5",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "StageRotateX",
+                    "type": "Value",
+                    "id": "2a04b241-900d-48db-9abd-de8d0ae9ffaa",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "StageRotateY",
+                    "type": "Value",
+                    "id": "691cec54-cab6-4269-b04c-38a759c9daf7",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "StageRotateZ",
+                    "type": "Value",
+                    "id": "59f1ca7b-6740-4633-b829-3203a5b8efb3",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -19,7 +46,7 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "2f1ffa3f-337d-42be-92bf-d95a0bbfbdba",
+                    "id": "bf4bbf81-ac70-445d-8bf8-4671c8e15668",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
@@ -30,7 +57,7 @@
                 },
                 {
                     "name": "2D Vector",
-                    "id": "ee944cb3-0766-446a-8599-5b33530dba16",
+                    "id": "b723d99d-c0a8-4a66-aa10-b1afd63ff873",
                     "path": "2DVector(mode=1)",
                     "interactions": "",
                     "processors": "",
@@ -41,7 +68,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "0eb80ef0-97b8-4f12-bcc5-522f2c30d5bd",
+                    "id": "025d192e-c473-452b-96a9-171e86db02e5",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -52,7 +79,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "119b175a-cb3d-4a0c-9c72-9795ef25e66e",
+                    "id": "295ae55d-7296-427b-be9e-e463c29ba6d1",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -63,7 +90,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "7469f957-61fb-470e-9088-7f758969740a",
+                    "id": "ef7dbf58-2d33-4cf9-8fc5-deca7bc4bb6f",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -74,12 +101,111 @@
                 },
                 {
                     "name": "right",
-                    "id": "2d1f44e9-efe8-4f57-8193-7948ae0e1887",
+                    "id": "e5863ffb-6f56-4ee6-8f5e-20e3cc460a61",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "a2944beb-6f49-41bb-83d9-f0e298309a39",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StageRotateZ",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Positive",
+                    "id": "045b7832-ec26-4ce3-a70c-9150df94ee0c",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StageRotateZ",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Negative",
+                    "id": "14f8b105-6083-4760-a763-020654213337",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StageRotateZ",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "d7c28e7e-e177-46e6-9f4e-79972e6b60a9",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StageRotateY",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Positive",
+                    "id": "748c2099-bd58-4743-af76-ce9880abeabf",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StageRotateY",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Negative",
+                    "id": "501dae6c-5571-453c-b477-eacea5fc0c99",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StageRotateY",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "f248f995-3e76-4dce-b99a-b040d30e6e59",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StageRotateX",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Positive",
+                    "id": "1f84f450-7fce-4d84-b6a0-a4301e1591f5",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StageRotateX",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Negative",
+                    "id": "5115a8e4-517f-4209-b374-f32e24ec8fee",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StageRotateX",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
