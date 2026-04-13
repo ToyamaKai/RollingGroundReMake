@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
@@ -6,25 +6,25 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 /// <summary>
-/// Addressables‚ğ—p‚¢‚½ˆÀ‘S‚Èƒ[ƒhŠÇ—ƒNƒ‰ƒX
-/// Ed•¡ƒ[ƒh–h~
-/// EƒLƒƒƒbƒVƒ…
-/// EƒAƒ“ƒ[ƒh
-/// EƒAƒhƒŒƒXŒŸØ‘Î‰
+/// Addressablesã‚’ç”¨ã„ãŸå®‰å…¨ãªãƒ­ãƒ¼ãƒ‰ç®¡ç†ã‚¯ãƒ©ã‚¹
+/// ãƒ»é‡è¤‡ãƒ­ãƒ¼ãƒ‰é˜²æ­¢
+/// ãƒ»ã‚­ãƒ£ãƒƒã‚·ãƒ¥
+/// ãƒ»ã‚¢ãƒ³ãƒ­ãƒ¼ãƒ‰
+/// ãƒ»ã‚¢ãƒ‰ãƒ¬ã‚¹æ¤œè¨¼å¯¾å¿œ
 /// </summary>
 public class AddressableLoader : SingletonMonoBehaviour<AddressableLoader>
 {
-    // Œ»İƒ[ƒh’†‚ÌƒAƒhƒŒƒX‚ğ’ÇÕ
+    // ç¾åœ¨ãƒ­ãƒ¼ãƒ‰ä¸­ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’è¿½è·¡
     private readonly Dictionary<string, UniTask<GameObject>> m_loadingTasks = new();
 
-    // ƒLƒƒƒbƒVƒ…‚³‚ê‚½ƒ[ƒhÏ‚İƒAƒZƒbƒg
+    // ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã•ã‚ŒãŸãƒ­ãƒ¼ãƒ‰æ¸ˆã¿ã‚¢ã‚»ãƒƒãƒˆ
     private readonly Dictionary<string, GameObject> m_loadedAssets = new();
 
-    // Addressables‚Ìƒnƒ“ƒhƒ‹ŠÇ—iƒAƒ“ƒ[ƒh—pj
+    // Addressablesã®ãƒãƒ³ãƒ‰ãƒ«ç®¡ç†ï¼ˆã‚¢ãƒ³ãƒ­ãƒ¼ãƒ‰ç”¨ï¼‰
     private readonly Dictionary<string, AsyncOperationHandle<GameObject>> m_handles = new();
 
     /// <summary>
-    /// Address‚ª—LŒø‚©‚Ç‚¤‚©‚ğ–‘O‚ÉŒŸØ‚µ‚Ü‚·B
+    /// AddressãŒæœ‰åŠ¹ã‹ã©ã†ã‹ã‚’äº‹å‰ã«æ¤œè¨¼ã—ã¾ã™ã€‚
     /// </summary>
     public async UniTask<bool> ValidateAddressAsync(string address)
     {
@@ -47,24 +47,24 @@ public class AddressableLoader : SingletonMonoBehaviour<AddressableLoader>
     }
 
     /// <summary>
-    /// Asset‚Ì”ñ“¯Šúƒ[ƒhiƒLƒƒƒbƒVƒ…{d•¡–h~{ŒŸØ•t‚«j
+    /// Assetã®éåŒæœŸãƒ­ãƒ¼ãƒ‰ï¼ˆã‚­ãƒ£ãƒƒã‚·ãƒ¥ï¼‹é‡è¤‡é˜²æ­¢ï¼‹æ¤œè¨¼ä»˜ãï¼‰
     /// </summary>
     public async UniTask<GameObject> LoadAsync(string address)
     {
-        // ƒLƒƒƒbƒVƒ…Ï‚İ‚È‚ç‘¦•Ô‚·
+        // ã‚­ãƒ£ãƒƒã‚·ãƒ¥æ¸ˆã¿ãªã‚‰å³è¿”ã™
         if (m_loadedAssets.TryGetValue(address, out var cached))
             return cached;
 
-        // ‚·‚Å‚Éƒ[ƒh’†‚È‚ç‘Ò‹@
+        // ã™ã§ã«ãƒ­ãƒ¼ãƒ‰ä¸­ãªã‚‰å¾…æ©Ÿ
         if (m_loadingTasks.TryGetValue(address, out var existingTask))
             return await existingTask;
 
-        // ƒAƒhƒŒƒX‚ª—LŒø‚©ƒ`ƒFƒbƒN
+        // ã‚¢ãƒ‰ãƒ¬ã‚¹ãŒæœ‰åŠ¹ã‹ãƒã‚§ãƒƒã‚¯
         bool valid = await ValidateAddressAsync(address);
         if (!valid)
             throw new Exception($"Invalid address: {address}");
 
-        // V‚µ‚¢ƒ[ƒhŠJn
+        // æ–°ã—ã„ãƒ­ãƒ¼ãƒ‰é–‹å§‹
         var tcs = new UniTaskCompletionSource<GameObject>();
         m_loadingTasks[address] = tcs.Task;
 
@@ -98,7 +98,7 @@ public class AddressableLoader : SingletonMonoBehaviour<AddressableLoader>
     }
 
     /// <summary>
-    /// w’è‚µ‚½ƒAƒhƒŒƒX‚ÌAsset‚ğƒAƒ“ƒ[ƒh‚µ‚Ü‚·B
+    /// æŒ‡å®šã—ãŸã‚¢ãƒ‰ãƒ¬ã‚¹ã®Assetã‚’ã‚¢ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã¾ã™ã€‚
     /// </summary>
     public void Unload(string address)
     {
@@ -112,7 +112,7 @@ public class AddressableLoader : SingletonMonoBehaviour<AddressableLoader>
     }
 
     /// <summary>
-    /// ‚·‚×‚Ä‚ÌƒLƒƒƒbƒVƒ…Ï‚İAsset‚ğƒAƒ“ƒ[ƒh‚µ‚Ü‚·B
+    /// ã™ã¹ã¦ã®ã‚­ãƒ£ãƒƒã‚·ãƒ¥æ¸ˆã¿Assetã‚’ã‚¢ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã¾ã™ã€‚
     /// </summary>
     public void UnloadAll()
     {
@@ -126,7 +126,7 @@ public class AddressableLoader : SingletonMonoBehaviour<AddressableLoader>
     }
 
     /// <summary>
-    /// ƒLƒƒƒbƒVƒ…‚³‚ê‚Ä‚¢‚é‚©Šm”F
+    /// ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã•ã‚Œã¦ã„ã‚‹ã‹ç¢ºèª
     /// </summary>
     public bool IsLoaded(string address) => m_loadedAssets.ContainsKey(address);
 }

@@ -16,6 +16,7 @@ namespace RollingGround
         private void Awake()
         {
             m_playerInput = GetComponent<PlayerInput>();
+            //m_playerInput.SwitchCurrentActionMap("StageCreative");
 
             if(m_playerInput == null)
             {
@@ -43,6 +44,74 @@ namespace RollingGround
             }
         }
 
+        #region ステージクリエイティブモード
+        public void OnBlockSet(InputAction.CallbackContext context)
+        {
+            foreach(var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnBlockSet(context);
+            }
+        }
+
+        public void OnDeleteBlock(InputAction.CallbackContext context)
+        {
+            foreach(var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnDeleteBlock(context);
+            }
+        }
+
+        public void OnBlockHeightChange(InputAction.CallbackContext context)
+        {
+            foreach (var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnBlockHeightChange(context);
+            }
+        }
+
+        public void OnMoveUp(InputAction.CallbackContext context)
+        {
+            foreach(var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnMoveUp(context);
+            }
+        }
+
+        public void OnMoveDown(InputAction.CallbackContext context)
+        {
+            foreach(var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnMoveDown(context);
+            }
+        }
+
+        public void OnCameraMove(InputAction.CallbackContext context)
+        {
+            foreach(var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnCameraMove(context);
+            }
+        }
+
+        public void OnCameraRotation(InputAction.CallbackContext context)
+        {
+            foreach(var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnCameraRotation(context);
+            }
+        }
+
+        public void OnSelectSlotChange(InputAction.CallbackContext context)
+        {
+            foreach(var recievesObject in m_inputReceieveObjectList)
+            {
+                recievesObject.OnSelectSlotChange(context);
+            }
+        }
+        #endregion
+
+
+        #region オブジェクトの追加と削除
         /// <summary>
         /// 入力を受け取るオブジェクトの追加
         /// </summary>
@@ -68,5 +137,6 @@ namespace RollingGround
         {
             m_inputReceieveObjectList.Clear();
         }
+        #endregion
     }
 }

@@ -1,8 +1,8 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UIElements;
 
 /// <summary>
-/// ƒJƒƒ‰‚ªƒvƒŒƒCƒ„[‚ğ’Ç‚¢‚©‚¯‚éƒXƒNƒŠƒvƒg
+/// ã‚«ãƒ¡ãƒ©ãŒãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’è¿½ã„ã‹ã‘ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 /// </summary>
 public class CameraMove : MonoBehaviour
 {

@@ -55,6 +55,15 @@ namespace RollingGround
                 Quaternion targetRotation = Quaternion.LookRotation(m_playerDirection, Vector3.up);
                 m_playerObjeeect.transform.rotation = targetRotation;
             }
+
+            //プレイヤーの方向を入力方向に
+            if (m_playerDirection != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(m_playerDirection, Vector3.up);
+                m_playerObjeeect.transform.rotation = targetRotation;
+            }
+
+            Debug.Log("動いてます");
         }
 
         public override void Tick()

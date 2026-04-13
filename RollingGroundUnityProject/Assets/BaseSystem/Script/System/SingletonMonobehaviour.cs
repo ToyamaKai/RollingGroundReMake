@@ -1,12 +1,12 @@
-
+ï»¿
 using System;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 /// <summary>
-///@MonoBehaviourŒp³‚µ‚½Singleton
+///ã€€MonoBehaviourç¶™æ‰¿ã—ãŸSingleton
 /// </summary>
-/// <typeparam name="TYpe">©g‚ÌƒNƒ‰ƒX</typeparam>
+/// <typeparam name="TYpe">è‡ªèº«ã®ã‚¯ãƒ©ã‚¹</typeparam>
 public abstract class SingletonMonoBehaviour<TYpe> : MonoBehaviour, IDisposable where TYpe : MonoBehaviour
 {
     private static TYpe instance;
@@ -21,9 +21,9 @@ public abstract class SingletonMonoBehaviour<TYpe> : MonoBehaviour, IDisposable 
     }
 
     /// <summary>
-    /// ‘¶İƒ`ƒFƒbƒN
+    /// å­˜åœ¨ãƒã‚§ãƒƒã‚¯
     /// </summary>
-    /// <returns>True:‘¶İ, False:ƒCƒ“ƒXƒ^ƒ“ƒX‚ª–³‚¢</returns>
+    /// <returns>True:å­˜åœ¨, False:ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒç„¡ã„</returns>
     public static bool IsExist() { return instance != null; }
 
     private void Awake()
@@ -39,25 +39,25 @@ public abstract class SingletonMonoBehaviour<TYpe> : MonoBehaviour, IDisposable 
     }
 
     /// <summary>
-    /// ”h¶æ‚Å‚à‰Šú‰»ˆ—‚ğ‘‚­‚½‚ß‚ÌAPI
+    /// æ´¾ç”Ÿå…ˆã§ã‚‚åˆæœŸåŒ–å‡¦ç†ã‚’æ›¸ããŸã‚ã®API
     /// </summary>
     protected virtual void OnAwakeProcess() { }
 
 
     /// <summary>
-    /// Destroyˆ—
-    /// ”h¶æ‚ÅÀs˜R‚ê‚ª–³‚¢‚æ‚¤‚ÉˆÓ}“I‚ÉPrivate
+    /// Destroyæ™‚å‡¦ç†
+    /// æ´¾ç”Ÿå…ˆã§å®Ÿè¡Œæ¼ã‚ŒãŒç„¡ã„ã‚ˆã†ã«æ„å›³çš„ã«Private
     /// </summary>
     private void OnDestroy()
     {
-        // ©gˆÈŠO‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ªì¬¨‘¦”jŠü‚³‚ê‚é‚Æ‚«‚ÉŠÔˆá‚Á‚ÄÀs‚³‚ê‚È‚¢‚æ‚¤‚ÉƒuƒƒbƒN
+        // è‡ªèº«ä»¥å¤–ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒä½œæˆâ†’å³æ™‚ç ´æ£„ã•ã‚Œã‚‹ã¨ãã«é–“é•ã£ã¦å®Ÿè¡Œã•ã‚Œãªã„ã‚ˆã†ã«ãƒ–ãƒ­ãƒƒã‚¯
         if (instance != (this as TYpe)) return;
         OnDestroyProcess();
         Dispose();
     }
 
     /// <summary>
-    /// Destroyˆ—
+    /// Destroyæ™‚å‡¦ç†
     /// </summary>
     protected virtual void OnDestroyProcess()
     {
