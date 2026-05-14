@@ -7,34 +7,31 @@ using UnityEngine.InputSystem;
 
 /// <summary>
 /// ブロックの設置・削除を行う機能の実装
+/// TODO: 実処理と実装の分離
 /// </summary>
 public class BlockManipulator : MonoBehaviour, IInputReceiver
 {
-    MGameInputManager m_gameInputManager;
-    BlockHotbar m_blockHotbar;
+    MGameInputManager m_gameInputManager; // 入力管理クラス参照
+    BlockHotbar m_blockHotbar; // ホットバーの情報を取得するためのクラス参照
+    StageBlockManager m_stageBlockManager; // ステージのブロックID・座標の管理スクリプト
 
-    private float m_targetY = 0f;
-    private Camera mainCamera;
-    private Vector3 m_prePosition;
-    private GameObject m_previewBlock;
-    private const int m_blockID = 01;
-    private StageBlockManager m_stageBlockManager;
+    private Camera m_mainCamera; // マウス位置からワールド座標を計算するためのカメラ参照
+    private GameObject m_previewBlock; // ブロックの設置位置をプレビューするためのオブジェクト
     private List<GameObject> m_BlockObjects = new List<GameObject>();
-    private float scrollAccumulator = 0f;
-    private const float scrollThreshold = 5.0f;
-    private Vector2 m_lastMousePosition;
-    private Vector3 m_lastSnapped;
-
-    //マウスポインターからレイキャストを飛ばし、指定したY座標に到達した際にX, Z座標の数値を四捨五入し、整数に丸め込む。
-    //Y座標はspaceで+1, Lshift or Lctrlで-1. Planeも連動して上下する。
-    //あと設置場所を見やすいように半透明でブロックをおす
-    //プレイヤーの事を考え、四則演算(丸め込み)方式とレイキャスト方式を用意し、切り替えられるようにする。
+    private const int m_blockID = 01; // ブロックのIDを定数で定義（仮）TODO: ブロックIDの管理方法を考える必要がある
+    private const float scrollThreshold = 5.0f; // スクロールの閾値を定義する定数
+    private float scrollAccumulator = 0f; // スクロールの累積値を管理する変数
+    private float m_targetY = 0f; // ブロックの設置高さを管理する変数
+    private Vector3 m_prePosition; // ブロックの設置前の座標を保持する変数
+    private Vector2 m_lastMousePosition; // マウスの前回位置を保持する変数
+    private Vector3 m_lastSnapped; // 前回の丸め込んだ座標を保持する変数
 
     private void Awake()
     {
         m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
         m_gameInputManager.AddRecieveObject(this);
         m_blockHotbar = GameObject.FindFirstObjectByType<BlockHotbar>();
+        m_mainCamera = Camera.main;
     }
 
     private void Start()
@@ -48,7 +45,7 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
         PreviewBlock();
     }
 
-    //TODO:なんかAddressableでロードしてるのが無駄、これをScriptableObjectから生成するようにしないといけない
+    //TODO: Addressableでロードしてるのが無駄、これをScriptableObjectから生成するようにしないといけない
     private async void State()
     {
         try
@@ -73,7 +70,7 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
     private Vector3 GetSnappedPoint()
     {
         Vector2 currentMousePosition = Input.mousePosition;
-        Ray ray = Camera.main.ScreenPointToRay(currentMousePosition);
+        Ray ray = m_mainCamera.ScreenPointToRay(currentMousePosition);
 
         // マウスが動いていなければX,Zは前回値を使いYだけ更新
         if (currentMousePosition == m_lastMousePosition)
@@ -107,13 +104,18 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
     private void PreviewBlock()
     {
         Vector3 nowMousePosition = GetSnappedPoint();
+
+        if (m_previewBlock == null)
+        {
+            m_previewBlock = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            Destroy(m_previewBlock.GetComponent<Collider>());
+        }
+
         if(m_prePosition != nowMousePosition)
         {
-            Destroy(m_previewBlock);
-            m_previewBlock = GameObject.CreatePrimitive(PrimitiveType.Cube);
             m_previewBlock.transform.position = nowMousePosition;
+            m_prePosition = nowMousePosition;
         }
-        m_prePosition = nowMousePosition;
     }
 
     /// <summary>
