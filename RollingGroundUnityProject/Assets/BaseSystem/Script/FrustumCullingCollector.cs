@@ -15,14 +15,14 @@ namespace RollingGround
         private BlockOutline m_blockOutline;
 
         //消すかも
-        private GameObject hoge;
+        private GameObject stageRoot;
         private HashSet<Renderer> m_touchedObjectRenderer = new HashSet<Renderer>();
 
-        public FrustumCullingCollector(Camera mainCamera, GameObject playerObject, GameObject Hoge) : base()
+        public FrustumCullingCollector(Camera mainCamera, GameObject playerObject, GameObject rootObject) : base()
         {
             m_mainCamera = mainCamera;
             m_playerObject = playerObject;
-            hoge = Hoge;
+            stageRoot = rootObject;
         }
 
         public override void Initialize()
@@ -37,7 +37,7 @@ namespace RollingGround
         {
             var FrustumPlaneList = GeometryUtility.CalculateFrustumPlanes(m_mainCamera);
 
-            Vector3 planePoint = new Vector3(m_mainCamera.transform.position.x, m_mainCamera.transform.position.y, Mathf.Floor(m_playerObject.transform.position.z) - 1 );
+            Vector3 planePoint = new Vector3(m_mainCamera.transform.position.x, m_mainCamera.transform.position.y, m_playerObject.transform.position.z -1 );
             Plane farPlane = new Plane(-m_mainCamera.transform.forward,  planePoint);
 
             // FarPlaneを差し替え
@@ -53,7 +53,7 @@ namespace RollingGround
             if (!m_blockOutline)
                 m_blockOutline = GameObject.FindFirstObjectByType<BlockOutline>();
 
-            Renderer[] renderers = hoge.GetComponentsInChildren<Renderer>();
+            Renderer[] renderers = stageRoot.GetComponentsInChildren<Renderer>();
             Plane[] planes = UpdateFrustumToPlayerDistance();
 
             foreach (Renderer renderer in renderers)

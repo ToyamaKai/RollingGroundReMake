@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// ブロックのアウトラインを管理するクラス
+/// </summary>
 public class BlockOutline : MonoBehaviour
 {
     [SerializeField]
@@ -73,5 +76,4 @@ public class BlockOutline : MonoBehaviour
             m_originalTexture.Remove(renderer);
         }
     }
-
 }
