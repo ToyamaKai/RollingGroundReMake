@@ -63,7 +63,6 @@ namespace RollingGround
                 m_playerObjeeect.transform.rotation = targetRotation;
             }
 
-            Debug.Log("動いてます");
         }
 
         public override void Tick()
