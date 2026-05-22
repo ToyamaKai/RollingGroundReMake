@@ -18,9 +18,10 @@ public class MLiftBlock : MonoBehaviour
 
     private LiftBlock m_liftBlock;
 
-    private void Awake()
+    async void Awake()
     {
-        m_liftBlock = new LiftBlock(m_moveDirection, m_moveDistance, m_moveSpeed, m_liftTriggerType);
+        m_liftBlock = new LiftBlock(m_moveDirection, m_moveDistance, m_moveSpeed, m_liftTriggerType, this.transform);
+        await m_liftBlock.Move();
     }
 
     //TODO: LiftBlockに記述したリフトブロックの動く処理を呼び出す処理の記述
