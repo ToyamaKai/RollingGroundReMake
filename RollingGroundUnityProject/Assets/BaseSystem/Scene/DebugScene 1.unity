@@ -14002,7 +14002,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.545
       objectReference: {fileID: 0}
     - target: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14684,8 +14684,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_moveDirection: {x: 0, y: 0, z: -1}
-  m_moveDistance: 2
+  m_moveDistance: 5
   m_moveSpeed: 1
+  m_waitTime: 1
   m_liftTriggerType: 0
 --- !u!4 &1889468730 stripped
 Transform:
