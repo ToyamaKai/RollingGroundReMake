@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 
 /// <summary>
@@ -10,13 +9,14 @@ public class LiftBlock
     private Vector3 m_moveDirection = new Vector3(0, 0, 0);   //移動方向
     private float m_moveDistance = 0f;  //移動距離
     private float m_moveSpeed = 0f; //移動速度
-    private float m_MoveSec; //移動時間
+    private float m_moveSec; //移動時間
     private float m_waitTime; //待機時間
     private LiftTriggerType m_liftTriggerType = LiftTriggerType.Always; //リフトのトリガータイプ
     private Transform m_transform; //リフトブロックのTransform
     private Vector3 m_originPosition; //最初のポジション
     private Vector3 m_position; //移動先のポジション
     private Vector3 m_prePosition; //1フレーム前のポジション
+    private Sequence m_liftSequence;
 
     public LiftBlock(Vector3 moveDirection, float moveDistance, float moveSpeed, float waitTime, LiftTriggerType liftTriggerType, Transform transform) : base()
     {
@@ -26,9 +26,10 @@ public class LiftBlock
         m_waitTime = waitTime;
         m_liftTriggerType = liftTriggerType;
         m_transform = transform;
-        m_originPosition = transform.position;
-        m_position = m_transform.position + m_moveDirection.normalized * m_moveDistance;
-        m_MoveSec = m_moveDistance / m_moveSpeed;
+        m_originPosition = transform.localPosition;
+        m_position = m_originPosition + m_moveDirection.normalized * m_moveDistance;
+        m_moveSec = m_moveDistance / m_moveSpeed;
+        m_prePosition = m_originPosition;
     }
 
     /// <summary>
@@ -36,23 +37,24 @@ public class LiftBlock
     /// </summary>
     public void Move()
     {
-        Sequence liftSequence = DOTween.Sequence();
-        liftSequence.AppendInterval(m_waitTime);
+        m_liftSequence?.Kill();
+        m_liftSequence = DOTween.Sequence();
+        m_liftSequence.AppendInterval(m_waitTime);
 
-        liftSequence.Append(
-            m_transform.DOLocalMove(m_position, m_MoveSec)
+        m_liftSequence.Append(
+            m_transform.DOLocalMove(m_position, m_moveSec)
             .SetEase(Ease.InOutSine)
         );
 
-        liftSequence.AppendInterval(m_waitTime);
+        m_liftSequence.AppendInterval(m_waitTime);
 
-        liftSequence.Append(
+        m_liftSequence.Append(
             m_transform
-            .DOLocalMove(m_originPosition, m_MoveSec)
+            .DOLocalMove(m_originPosition, m_moveSec)
             .SetEase(Ease.InOutSine)
         );
 
-        liftSequence.SetLoops(-1);
+        m_liftSequence.SetLoops(-1);
     }
 
     /// <summary>
@@ -62,7 +64,7 @@ public class LiftBlock
     /// <returns></returns>
     public Vector3 DeltaPosition()
     {
-        var deltaPosition = m_prePosition - m_transform.localPosition;
+        var deltaPosition = m_transform.localPosition - m_prePosition;
         m_prePosition = m_transform.localPosition;
         return deltaPosition;
     }
