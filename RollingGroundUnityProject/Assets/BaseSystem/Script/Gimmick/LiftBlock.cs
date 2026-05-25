@@ -55,6 +55,8 @@ public class LiftBlock
         );
 
         m_liftSequence.SetLoops(-1);
+
+        m_liftSequence.SetUpdate(UpdateType.Fixed);
     }
 
     /// <summary>
@@ -64,8 +66,8 @@ public class LiftBlock
     /// <returns></returns>
     public Vector3 DeltaPosition()
     {
-        var deltaPosition = m_transform.localPosition - m_prePosition;
-        m_prePosition = m_transform.localPosition;
+        var deltaPosition = m_transform.position - m_prePosition;
+        m_prePosition = m_transform.position;
         return deltaPosition;
     }
 }

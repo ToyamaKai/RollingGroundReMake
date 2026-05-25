@@ -13,6 +13,8 @@ namespace RollingGround
 
         MGameInputManager m_gameInputManager;
 
+        MGroundChecker m_groundChecker;
+
         [SerializeField]
         GameObject m_playerGameObject;
 
@@ -22,7 +24,8 @@ namespace RollingGround
         protected override void ConstructSelf()
         {
             m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
-            m_playerMove = new PlayerMove(m_gameInputManager, m_playerGameObject, m_playerRigidBbody);
+            m_groundChecker = GameObject.FindFirstObjectByType<MGroundChecker>();
+            m_playerMove = new PlayerMove(m_gameInputManager, m_groundChecker, m_playerGameObject, m_playerRigidBbody);
             Injection(m_playerMove);
             m_playerMove.Initialize();
             base.ConstructSelf();

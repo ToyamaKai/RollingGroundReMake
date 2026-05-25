@@ -11,6 +11,8 @@
 
         public virtual void Tick() { }
 
+        public virtual void FixedTick() { }
+
         public virtual void Dispose() { }
     }
 }

@@ -8,6 +8,7 @@ namespace RollingGround
     public class PlayerMove : MPObject, IInputReceiver
     {
         MGameInputManager m_gameInputManager;
+        MGroundChecker m_groundChecker;
         private GameObject m_playerObjeeect;
         private Rigidbody m_playerRigidbody;
         private Vector3 m_playerDirection;
@@ -19,9 +20,10 @@ namespace RollingGround
         /// <param name="gameInputManager"></param>
         /// <param name="playerObject"></param>
         /// <param name="playerRigidbody"></param>
-        public PlayerMove(MGameInputManager gameInputManager, GameObject playerObject, Rigidbody playerRigidbody) : base()
+        public PlayerMove(MGameInputManager gameInputManager, MGroundChecker groundChecker, GameObject playerObject, Rigidbody playerRigidbody) : base()
         {
             m_gameInputManager = gameInputManager;
+            m_groundChecker = groundChecker;
             m_playerObjeeect = playerObject;
             m_playerRigidbody = playerRigidbody;
             m_gameInputManager.AddRecieveObject(this);
@@ -34,7 +36,7 @@ namespace RollingGround
 
         public void Start()
         {
-            PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.None);
+            MPlayerState.Instance.SetPlayerMoveState(PlayerMoveState.None);
         }
 
         public virtual void OnMove(InputAction.CallbackContext context)
@@ -55,41 +57,40 @@ namespace RollingGround
                 Quaternion targetRotation = Quaternion.LookRotation(m_playerDirection, Vector3.up);
                 m_playerObjeeect.transform.rotation = targetRotation;
             }
-
-            //プレイヤーの方向を入力方向に
-            if (m_playerDirection != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(m_playerDirection, Vector3.up);
-                m_playerObjeeect.transform.rotation = targetRotation;
-            }
-
         }
 
-        public override void Tick()
+        public override void FixedTick()
         {
-            var currentMoveState = PlayerState.Instance.GetPlayerMoveState;
+            Vector3 moveVelocity = Vector3.zero;
 
-            //プレイヤーをforward方向にAddforceで移動させる
-            if (PlayerState.Instance.GetPlayerMoveState != PlayerMoveState.Rotate && m_playerDirection != Vector3.zero )
+            // 入力移動
+            if (MPlayerState.Instance.GetPlayerMoveState != PlayerMoveState.Rotate)
             {
-                PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.Walk);
-
-                float currentVerticalVelocity = m_playerRigidbody.linearVelocity.y;
-                Vector3 moveVelocity = m_playerObjeeect.transform.forward * kSpeed;
-                m_playerRigidbody.linearVelocity = new Vector3(moveVelocity.x, currentVerticalVelocity, moveVelocity.z);
-            }
-            else
-            {
-                if(currentMoveState != PlayerMoveState.Rotate)
+                if (m_playerDirection != Vector3.zero)
                 {
-                    PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.None);
+                    moveVelocity = m_playerObjeeect.transform.forward * kSpeed;
+                    MPlayerState.Instance.SetPlayerMoveState(PlayerMoveState.Walk);
                 }
-
-                float currentVerticalVelocity = m_playerRigidbody.linearVelocity.y;
-                m_playerRigidbody.linearVelocity = new Vector3(0, currentVerticalVelocity, 0);
+                else
+                {
+                    MPlayerState.Instance.SetPlayerMoveState(PlayerMoveState.None);
+                }
             }
 
-            base.Tick();
+            // 床移動
+            Vector3 groundVelocity = Vector3.zero;
+
+            if (m_groundChecker.CurrentMovingGround != null)
+            {
+                groundVelocity = m_groundChecker.CurrentMovingGround.DeltaPosition / Time.fixedDeltaTime;
+                Debug.Log("Ground Velocity: " + groundVelocity);
+            }
+
+            Vector3 finalVelocity = moveVelocity + groundVelocity;
+            float currentVerticalVelocity = m_playerRigidbody.linearVelocity.y;
+            m_playerRigidbody.linearVelocity = new Vector3(finalVelocity.x, currentVerticalVelocity, finalVelocity.z);
+
+            base.FixedTick();
         }
 
         public override void Dispose()

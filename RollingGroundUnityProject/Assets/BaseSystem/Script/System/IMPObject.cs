@@ -5,5 +5,7 @@
         void Initialize();
 
         void Tick();
+
+        void FixedTick();
     }
 }

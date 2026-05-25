@@ -45,6 +45,11 @@ namespace MPLib
             m_objectInterface?.Tick();
         }
 
+        private void FixedUpdate()
+        {
+            m_mpObject?.FixedTick();
+        }
+
         private void OnEnable()
         {
             ConstructSelf();

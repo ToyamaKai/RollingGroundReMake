@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿    using UnityEngine;
 
-public class MLiftBlock : MonoBehaviour
+public class MLiftBlock : MonoBehaviour, IMovingGround
 {
     [Header("移動設定")]
     [SerializeField]
@@ -28,7 +28,7 @@ public class MLiftBlock : MonoBehaviour
         m_liftBlock.Move();
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         DeltaPosition = m_liftBlock.DeltaPosition();
     }
