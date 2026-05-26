@@ -22,7 +22,7 @@ namespace RollingGround
 
         public override void Tick()
         {
-            var state = (int)PlayerState.Instance.GetPlayerMoveState;
+            var state = (int)MPlayerState.Instance.GetPlayerMoveState;
             m_animator.SetInteger("PlayerMoveState", state);
         }
 

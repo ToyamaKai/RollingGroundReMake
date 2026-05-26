@@ -3,19 +3,10 @@ using UnityEngine;
 
 namespace RollingGround
 {
-    public enum PlayerMoveState
-    {
-        None,
-        Walk,
-        Run,
-        Jump,
-        Rotate,
-    }
-
     /// <summary>
     /// ステートのGetter, Setter
     /// </summary>
-    public class PlayerState : SingletonMonoBehaviour<PlayerState>
+    public class MPlayerState : SingletonMonoBehaviour<MPlayerState>
     {
 
         private PlayerMoveState m_moveState;

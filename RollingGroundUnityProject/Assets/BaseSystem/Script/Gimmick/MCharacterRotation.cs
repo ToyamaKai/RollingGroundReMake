@@ -48,7 +48,7 @@ namespace RollingGround
         private void RotateStage(CharacterRotationAxis axis, int dir)
         {
             m_isRotating = true;
-            PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.Rotate); 
+            MPlayerState.Instance.SetPlayerMoveState(PlayerMoveState.Rotate); 
 
             CharacterRotationLogic.ExecutePlayerRotate(m_currentData, axis, dir);
 
@@ -68,7 +68,7 @@ namespace RollingGround
             //キャラ原点を中心に反対に回転(向き調整用)
             m_characterRoot.DOBlendableRotateBy(-rotationAmount, m_rotateDuration, RotateMode.WorldAxisAdd)
                 .SetEase(Ease.OutQuint)
-                .OnComplete(() => PlayerState.Instance.SetPlayerMoveState(PlayerMoveState.None));
+                .OnComplete(() => MPlayerState.Instance.SetPlayerMoveState(PlayerMoveState.None));
         }
     }
 }
