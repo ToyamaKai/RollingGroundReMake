@@ -16,7 +16,7 @@ namespace RollingGround
         [SerializeField]
         private float m_rotateDuration = 0.5f;
 
-        private StageData m_currentData = new StageData();
+        private StageRotationState m_currentData = new StageRotationState();
         private bool m_isRotating = false;  //回転中かの変数
 
 

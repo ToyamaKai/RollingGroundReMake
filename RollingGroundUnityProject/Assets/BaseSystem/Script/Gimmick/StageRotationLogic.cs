@@ -8,12 +8,12 @@
     public static class StageRotationLogic
     {
         /// <summary>
-        /// 入力を受け取り、StageDataの回転値を0~3の間で更新するロジック
+        /// 入力を受け取り、StageRotationStateの回転値を0~3の間で更新するロジック
         /// </summary>
         /// <param name="data"></param>
         /// <param name="axis"></param>
         /// <param name="direction"></param>
-        public static void ExecuteRotate(StageData data, StageRotationAxis axis, int direction)
+        public static void ExecuteRotate(StageRotationState data, StageRotationAxis axis, int direction)
         {
             switch (axis)
             {

@@ -17,15 +17,6 @@ namespace RollingGround
         {
             m_playerInput = GetComponent<PlayerInput>();
             //m_playerInput.SwitchCurrentActionMap("StageCreative");
-
-            if(m_playerInput == null)
-            {
-                Debug.Log("見つからないよぉ～");
-            }
-            else
-            {
-                Debug.Log("見つかったねぇ～");
-            }
         }
 
         public void OnMove(InputAction.CallbackContext context)
