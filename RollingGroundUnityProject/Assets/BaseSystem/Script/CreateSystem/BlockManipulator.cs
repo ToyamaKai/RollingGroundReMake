@@ -99,7 +99,7 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
     #region ブロック関連
 
     /// <summary>
-    /// ブロックの生成
+    /// プレビューブロックの生成
     /// </summary>
     private void PreviewBlock()
     {
@@ -130,7 +130,7 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
             if (prefab != null)
             {
                 GameObject instance = Instantiate(prefab, m_prePosition, Quaternion.identity);
-                m_stageBlockManager.RegisterBlock(new Vector3Int((int)m_prePosition.x, (int)m_prePosition.y, (int)m_prePosition.z), 0, instance);
+                m_stageBlockManager.RegisterBlock(new Vector3Int((int)m_prePosition.x, (int)m_prePosition.y, (int)m_prePosition.z), (int)m_blockHotbar.GetSelectedBlockData().id, instance);
 
                 prefab.name = $"{m_BlockObjects[0]}_Instance";
 

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.IO;
 
 /// <summary>
 /// JSON変換スクリプト
@@ -7,6 +8,7 @@ public class JSONConverter : MonoBehaviour
 {
     StageExporter stageExporter = new StageExporter();
     StageBlockManager stageBlockManager;
+    string path = Path.Combine(Application.dataPath, "StageData.json");
 
     void Awake()
     {
@@ -18,7 +20,7 @@ public class JSONConverter : MonoBehaviour
         StageData data = stageExporter.Export(stageBlockManager.GetBlockTypeMap());
 
         string json = JsonUtility.ToJson(data, true);
-        Debug.Log(json);
+        File.WriteAllText(path, json);
     }
 
     public void Update()
