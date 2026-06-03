@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.IO;
+using Newtonsoft.Json;
 
 /// <summary>
 /// JSON変換スクリプト
@@ -19,7 +20,7 @@ public class JSONConverter : MonoBehaviour
     {
         StageData data = stageExporter.Export(stageBlockManager.GetBlockTypeMap());
 
-        string json = JsonUtility.ToJson(data, true);
+        string json = JsonConvert.SerializeObject(data, Formatting.Indented);
         File.WriteAllText(path, json);
     }
 

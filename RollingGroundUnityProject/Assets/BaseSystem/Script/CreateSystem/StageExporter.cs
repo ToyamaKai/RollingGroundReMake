@@ -24,14 +24,14 @@ public class StageExporter
         foreach (var pair in blocks)
         {
             Vector3Int position = pair.Key;
-            int blockId = pair.Value; 
+            int blockId = pair.Value;
 
             BlockSaveData blockSaveData = new()
             {
                 Type = BlockType.Normal,
                 BlockID = blockId,
-                Position = position,
-                LiftProperty = null // 必要に応じてリフトプロパティを設定
+                Position = new SerializableVector3Int(position),
+                //LiftProperty = null // 必要に応じてリフトプロパティを設定
             };
 
             stageData.Blocks.Add(blockSaveData);
