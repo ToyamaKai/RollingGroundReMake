@@ -13,7 +13,7 @@
         /// <param name="data"></param>
         /// <param name="axis"></param>
         /// <param name="direction"></param>
-        public static void ExecuteCharacterRotate(CharaData data, CharacterRotationAxis axis, int direction)
+        public static void ExecuteCharacterRotate(CharaRotationState data, CharacterRotationAxis axis, int direction)
         {
             switch (axis)
             {
@@ -29,7 +29,7 @@
         /// <param name="data"></param>
         /// <param name="axis"></param>
         /// <param name="direction"></param>
-        public static void ExecutePlayerRotate(PlayerData data, CharacterRotationAxis axis, int direction)
+        public static void ExecutePlayerRotate(PlayerRotationState data, CharacterRotationAxis axis, int direction)
         {
             switch (axis)
             {

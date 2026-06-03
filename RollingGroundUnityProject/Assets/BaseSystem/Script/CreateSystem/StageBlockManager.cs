@@ -39,4 +39,9 @@ public class StageBlockManager : MonoBehaviour
         Vector3Int blockIntPosition = new Vector3Int((int)blockPosition.x, (int)blockPosition.y, (int)blockPosition.z);
         return m_blockTypeMap.ContainsKey(blockIntPosition);
     }
+
+    public Dictionary<Vector3Int, int> GetBlockTypeMap()
+    {
+        return m_blockTypeMap;
+    }
 }

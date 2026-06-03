@@ -19,7 +19,7 @@ namespace RollingGround
         [SerializeField]
         private float m_rotateDuration = 0.5f;
 
-        private PlayerData m_currentData = new PlayerData();
+        private PlayerRotationState m_currentData = new PlayerRotationState();
         private bool m_isRotating = false;  //回転中かの変数
 
         void Awake()

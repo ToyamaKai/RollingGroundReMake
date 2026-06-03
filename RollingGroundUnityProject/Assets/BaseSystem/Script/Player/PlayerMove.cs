@@ -83,7 +83,6 @@ namespace RollingGround
             if (m_groundChecker.CurrentMovingGround != null)
             {
                 groundVelocity = m_groundChecker.CurrentMovingGround.DeltaPosition / Time.fixedDeltaTime;
-                Debug.Log("Ground Velocity: " + groundVelocity);
             }
 
             Vector3 finalVelocity = moveVelocity + groundVelocity;
