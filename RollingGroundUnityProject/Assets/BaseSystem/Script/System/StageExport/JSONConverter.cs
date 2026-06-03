@@ -24,6 +24,20 @@ public class JSONConverter : MonoBehaviour
         File.WriteAllText(path, json);
     }
 
+    public void StageJsonDeserialize()
+    {
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            StageData data = JsonConvert.DeserializeObject<StageData>(json);
+            // ここでdataを元にステージを再構築する処理を実装
+        }
+        else
+        {
+            Debug.LogError("StageData.jsonが見つかりません。");
+        }
+    }
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.L))
