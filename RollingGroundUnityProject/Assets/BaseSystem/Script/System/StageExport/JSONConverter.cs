@@ -8,12 +8,14 @@ using Newtonsoft.Json;
 public class JSONConverter : MonoBehaviour
 {
     StageExporter stageExporter = new StageExporter();
+    MStageBuilder m_stageBuilder = new MStageBuilder();
     StageBlockManager stageBlockManager;
     string path = Path.Combine(Application.dataPath, "StageData.json");
 
     void Awake()
     {
         stageBlockManager = GameObject.FindFirstObjectByType<StageBlockManager>();
+        m_stageBuilder = GameObject.FindFirstObjectByType<MStageBuilder>();
     }
 
     public void StageJSONConvert()
@@ -31,6 +33,7 @@ public class JSONConverter : MonoBehaviour
             string json = File.ReadAllText(path);
             StageData data = JsonConvert.DeserializeObject<StageData>(json);
             // ここでdataを元にステージを再構築する処理を実装
+            m_stageBuilder.BuildStage(data);
         }
         else
         {
@@ -43,6 +46,11 @@ public class JSONConverter : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             StageJSONConvert();
+        }
+
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            StageJsonDeserialize();
         }
     }
 }
