@@ -14,12 +14,24 @@ public class MStageBuilder : MonoBehaviour
         m_blockManipulator = GameObject.FindFirstObjectByType<BlockManipulator>();
     }
 
+    /// <summary>
+    /// ステージデータからブロックを設置するメソッド
+    /// </summary>
+    /// <param name="data"></param>
     public void BuildStage(StageData data)
     {
-        Debug.Log(m_blockDatabase);
         foreach (var blocks in data.Blocks)
         {
-            m_blockManipulator.SetBlock(blocks.Position.ToVector3Int(), m_blockDatabase.GetBlockData((BlockID)blocks.BlockID));
+            m_blockManipulator.SetBlock(blocks.Position.ToVector3Int(), m_blockDatabase.GetBlockData((BlockID)blocks.BlockDataId));
         }   
+    }
+
+    /// <summary>
+    /// TODO
+    /// ブロックのプロパティをセットするメソッド
+    /// </summary>
+    public void SetProperty()
+    {
+
     }
 }

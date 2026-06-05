@@ -8,9 +8,10 @@ using Newtonsoft.Json;
 public class JSONConverter : MonoBehaviour
 {
     StageExporter stageExporter = new StageExporter();
-    MStageBuilder m_stageBuilder = new MStageBuilder();
     StageBlockManager stageBlockManager;
-    string path = Path.Combine(Application.dataPath, "StageData.json");
+    MStageBuilder m_stageBuilder;
+
+    string path = Path.Combine(Application.dataPath, "StageData.json"); // JSONファイルの保存先パス
 
     void Awake()
     {
@@ -18,21 +19,26 @@ public class JSONConverter : MonoBehaviour
         m_stageBuilder = GameObject.FindFirstObjectByType<MStageBuilder>();
     }
 
+    /// <summary>
+    /// ステージのブロックデータをJSON形式に変換して保存するメソッド
+    /// </summary>
     public void StageJSONConvert()
     {
         StageData data = stageExporter.Export(stageBlockManager.GetBlockTypeMap());
-
         string json = JsonConvert.SerializeObject(data, Formatting.Indented);
         File.WriteAllText(path, json);
     }
 
-    public void StageJsonDeserialize()
+    /// <summary>
+    /// JSONファイルからステージデータを読み込み、ステージを再構築するメソッド
+    /// </summary>
+    /// <param name="dataPath">ステージデータのパス</param>
+    public void StageJsonDeserialize(string dataPath)
     {
-        if (File.Exists(path))
+        if (File.Exists(dataPath))
         {
-            string json = File.ReadAllText(path);
+            string json = File.ReadAllText(dataPath);
             StageData data = JsonConvert.DeserializeObject<StageData>(json);
-            // ここでdataを元にステージを再構築する処理を実装
             m_stageBuilder.BuildStage(data);
         }
         else
@@ -41,6 +47,9 @@ public class JSONConverter : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// テスト用のメソッド
+    /// </summary>
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.L))
@@ -50,7 +59,7 @@ public class JSONConverter : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.K))
         {
-            StageJsonDeserialize();
+            StageJsonDeserialize(path);
         }
     }
 }
