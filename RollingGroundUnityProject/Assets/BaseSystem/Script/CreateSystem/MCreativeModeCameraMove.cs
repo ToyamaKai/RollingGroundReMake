@@ -26,7 +26,7 @@ public class MCreatvieModeCameraMove : MonoBehaviour, IInputReceiver
     private Transform   m_transparentTransform;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    void Start()
     {
         m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
         m_gameInputManager.AddRecieveObject(this);

@@ -489,6 +489,7 @@ GameObject:
   - component: {fileID: 281560259}
   - component: {fileID: 281560261}
   - component: {fileID: 281560262}
+  - component: {fileID: 281560263}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -562,6 +563,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39b2e2fca8c39c54aa440dd513b4f62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &281560263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281560258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27161bfd6c9fdb4694358f9c5528aaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &348108544
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,7 +621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa56902b3bb43a545b0fbbac3ba91dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CreativeModeMenuUI: {fileID: 760175939}
+  m_creativeModeMenuUI: {fileID: 760175939}
 --- !u!1 &411514668
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,6 +929,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 712837593}
+  - component: {fileID: 712837594}
   m_Layer: 0
   m_Name: StageRoot
   m_TagString: Untagged
@@ -938,6 +952,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &712837594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712837592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61256cc657693a14490df0d105b19059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_stageRoot: {fileID: 712837593}
+  m_rotateDuration: 0.5
 --- !u!1 &739124546
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,7 +998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b1d5ca4a8918a84ea61bdf5a0060268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stageRoot: {fileID: 0}
+  m_stageRoot: {fileID: 712837593}
 --- !u!4 &739124548
 Transform:
   m_ObjectHideFlags: 0

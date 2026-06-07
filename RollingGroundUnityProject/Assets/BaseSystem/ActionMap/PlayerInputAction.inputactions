@@ -293,7 +293,7 @@
                     "id": "f78d2480-a6f1-4bf6-81af-f63c61e8021d",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -563,7 +563,7 @@
                     "id": "d0b7957d-0ae3-4fda-8346-72154ae603bc",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],

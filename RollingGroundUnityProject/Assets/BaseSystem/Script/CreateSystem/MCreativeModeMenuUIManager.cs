@@ -1,4 +1,5 @@
 ﻿using RollingGround;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,33 +11,59 @@ namespace RollingGround
     public class MCreativeModeMenuUIManager : MonoBehaviour, IInputReceiver
     {
         [SerializeField]
-        private GameObject m_CreativeModeMenuUI;
+        private GameObject m_creativeModeMenuUI;
 
         private MGameInputManager m_gameInputManager;
+        private bool m_isToggling = false;
 
-        private void Awake()
+        void Start()
         {
-            m_CreativeModeMenuUI.SetActive(false);
+            m_creativeModeMenuUI.SetActive(false);
             m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
             m_gameInputManager.AddRecieveObject(this);
         }
 
+        /// <summary>
+        /// キー入力に対すMenuUIの表示切替及び、ActionMapsの切り替え
+        /// </summary>
+        /// <param name="context"></param>
         public void OnToggleMenuUI(InputAction.CallbackContext context)
         {
             if (!context.performed) return;
+            if (m_isToggling) return;
 
             if (m_gameInputManager.GetActionMapName() == "StageCreative")
             {
                 MMouseCursorManager.Instance.MouseUnlock();
-                m_CreativeModeMenuUI.SetActive(true);
-                m_gameInputManager.SetActionMap("StageCreativeMenu");
+                StartCoroutine(ToggleMenuUI(m_creativeModeMenuUI.activeSelf));
             }
             else if(m_gameInputManager.GetActionMapName() == "StageCreativeMenu")
             {
                 MMouseCursorManager.Instance.MouseCursorLock();
-                m_gameInputManager.SetActionMap("StageCreative");
-                m_CreativeModeMenuUI.SetActive(false);
+                StartCoroutine(ToggleMenuUI(m_creativeModeMenuUI.activeSelf));
             }
+        }
+
+        /// <summary>
+        /// MenuUIの表示状態を切り替え
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator ToggleMenuUI(bool isActive)
+        {
+            m_isToggling = true;
+            m_creativeModeMenuUI.SetActive(!isActive);
+
+            if(!isActive)
+            {
+                m_gameInputManager.SetActionMap("StageCreativeMenu");
+            }
+            else
+            {
+                m_gameInputManager.SetActionMap("StageCreative");
+            }
+
+            yield return null;
+            m_isToggling = false;
         }
     }
 }
