@@ -8,27 +8,11 @@ using Newtonsoft.Json;
 [Serializable]
 public class BlockSaveData
 {
-    public BlockType Type;
-    public int BlockID;
-    public SerializableVector3Int Position;
+    public BlockType Type;  // ブロックの種類
+    public int BlockDataId; // ブロックID(データベース)
+    public SerializableVector3Int Position; // 保存用ブロック位置データ
 
+    // リフトプロパティは必要な場合のみ保存するため、Null値を許容する
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public LiftPropertyData LiftProperty = null;
-}
-
-/// <summary>
-/// Vector3Intをシリアライズ可能な形式で保存するためのクラス
-/// </summary>
-public class SerializableVector3Int
-{
-    public int X;
-    public int Y;
-    public int Z;
-
-    public SerializableVector3Int(Vector3Int pos)
-    {
-        X = pos.x;
-        Y = pos.y;
-        Z = pos.z;
-    }
 }

@@ -29,7 +29,7 @@ public class StageExporter
             BlockSaveData blockSaveData = new()
             {
                 Type = BlockType.Normal,
-                BlockID = blockId,
+                BlockDataId = blockId,
                 Position = new SerializableVector3Int(position),
                 //LiftProperty = null // 必要に応じてリフトプロパティを設定
             };

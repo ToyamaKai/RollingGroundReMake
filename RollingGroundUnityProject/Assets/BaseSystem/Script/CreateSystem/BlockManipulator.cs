@@ -11,7 +11,11 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class BlockManipulator : MonoBehaviour, IInputReceiver
 {
+    [SerializeField]
+    private Transform m_stageRoot; // 生成するブロックの親オブジェクトのTransform
+
     MGameInputManager m_gameInputManager; // 入力管理クラス参照
+    MBlockDatabase m_blockDatabase; // ブロックのデータベース参照
     BlockHotbar m_blockHotbar; // ホットバーの情報を取得するためのクラス参照
     StageBlockManager m_stageBlockManager; // ステージのブロックID・座標の管理スクリプト
 
@@ -30,6 +34,7 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
     {
         m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
         m_gameInputManager.AddRecieveObject(this);
+        m_blockDatabase = GameObject.FindFirstObjectByType<MBlockDatabase>();
         m_blockHotbar = GameObject.FindFirstObjectByType<BlockHotbar>();
         m_mainCamera = Camera.main;
     }
@@ -121,16 +126,16 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
     /// <summary>
     /// ブロックのセット
     /// </summary>
-    private void SetBlock()
+    public void SetBlock(Vector3Int position, BlockData blockdata)
     {
-        if(!m_stageBlockManager.IsBlockOccupied(m_prePosition))
+        if(!m_stageBlockManager.IsBlockOccupied(position))
         {
-            GameObject prefab = m_blockHotbar.GetSelectedBlockData() != null?m_blockHotbar.GetSelectedBlockData().prefab : null;
+            GameObject prefab = blockdata.prefab;
 
             if (prefab != null)
             {
-                GameObject instance = Instantiate(prefab, m_prePosition, Quaternion.identity);
-                m_stageBlockManager.RegisterBlock(new Vector3Int((int)m_prePosition.x, (int)m_prePosition.y, (int)m_prePosition.z), (int)m_blockHotbar.GetSelectedBlockData().id, instance);
+                GameObject instance = Instantiate(prefab, position, Quaternion.identity.normalized, m_stageRoot);
+                m_stageBlockManager.RegisterBlock(position, (int)blockdata.id, instance);
 
                 prefab.name = $"{m_BlockObjects[0]}_Instance";
 
@@ -171,7 +176,7 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
     {
         if(context.performed)
         {
-            SetBlock();
+            SetBlock(Vector3Int.RoundToInt(m_prePosition), m_blockHotbar.GetSelectedBlockData());
         }
     }
 

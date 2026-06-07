@@ -487,6 +487,8 @@ GameObject:
   m_Component:
   - component: {fileID: 281560260}
   - component: {fileID: 281560259}
+  - component: {fileID: 281560261}
+  - component: {fileID: 281560262}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -531,6 +533,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &281560261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281560258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b0df182e48750345a5dbe09726272a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockDatas:
+  - {fileID: 11400000, guid: bcd32d0580ffc724989254fdcd1c455c, type: 2}
+  - {fileID: 11400000, guid: 2f820bffc9cd1b641b30b6927cf283f4, type: 2}
+  - {fileID: 11400000, guid: 26a6d640713aca5469228b6cfeeb2a00, type: 2}
+  - {fileID: 11400000, guid: da103633a30c890439731078d7f7d1ef, type: 2}
+--- !u!114 &281560262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281560258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39b2e2fca8c39c54aa440dd513b4f62e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &411514668
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,6 +860,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 662095928}
   m_CullTransparentMesh: 1
+--- !u!1 &712837592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 712837593}
+  m_Layer: 0
+  m_Name: StageRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &712837593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712837592}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &739124546
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,7 +974,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b92a3ed875edb54db555a10a50791cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageBlockManager: {fileID: 739124550}
 --- !u!1 &888428525
 GameObject:
   m_ObjectHideFlags: 0
@@ -1931,3 +1992,4 @@ SceneRoots:
   - {fileID: 411514672}
   - {fileID: 1513669425}
   - {fileID: 281560260}
+  - {fileID: 712837593}
