@@ -17,6 +17,7 @@ public class JSONConverter : MonoBehaviour
     {
         stageBlockManager = GameObject.FindFirstObjectByType<StageBlockManager>();
         m_stageBuilder = GameObject.FindFirstObjectByType<MStageBuilder>();
+        Debug.Log(path);
     }
 
     /// <summary>
@@ -44,22 +45,6 @@ public class JSONConverter : MonoBehaviour
         else
         {
             Debug.LogError("StageData.jsonが見つかりません。");
-        }
-    }
-
-    /// <summary>
-    /// テスト用のメソッド
-    /// </summary>
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            StageJSONConvert();
-        }
-
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            StageJsonDeserialize(path);
         }
     }
 }

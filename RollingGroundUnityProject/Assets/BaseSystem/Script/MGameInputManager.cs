@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace RollingGround
 {
-    public class MGameInputManager : MonoBehaviour
+    public class MGameInputManager : SingletonMonoBehaviour<MGameInputManager>
     {
         private PlayerInput m_playerInput;
         public PlayerInput PlayerInput => m_playerInput;
@@ -16,8 +16,19 @@ namespace RollingGround
         private void Awake()
         {
             m_playerInput = GetComponent<PlayerInput>();
-            m_playerInput.SwitchCurrentActionMap("StageCreative");
+            SetActionMap("StageCreative");
         }
+
+        public string GetActionMapName()
+        {
+            return m_playerInput.currentActionMap.name;
+        }
+
+        public void SetActionMap(string name)
+        {
+            m_playerInput.SwitchCurrentActionMap(name);
+        }
+
 
         public void OnMove(InputAction.CallbackContext context)
         {
@@ -97,6 +108,14 @@ namespace RollingGround
             foreach(var recievesObject in m_inputReceieveObjectList)
             {
                 recievesObject.OnSelectSlotChange(context);
+            }
+        }
+
+        public void OnToggleMenuUI(InputAction.CallbackContext context)
+        {
+            foreach(var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnToggleMenuUI(context);
             }
         }
         #endregion
