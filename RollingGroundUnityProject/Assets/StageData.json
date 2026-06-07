@@ -1,0 +1,97 @@
+{
+  "StageMetaData": {
+    "StageName": "New Stage",
+    "AuthorName": "Unknown",
+    "GameVersion": "1.0",
+    "FormatVersion": 1,
+    "Comment": "This is a new stage.",
+    "UniqueId": "e7832b3f-7c56-4ac7-a632-86113620747d",
+    "Date": "2026-06-07 15:37:59"
+  },
+  "StageSize": null,
+  "StageSetting": null,
+  "Blocks": [
+    {
+      "Type": 0,
+      "BlockDataId": 0,
+      "Position": {
+        "X": -1,
+        "Y": 0,
+        "Z": 2
+      }
+    },
+    {
+      "Type": 0,
+      "BlockDataId": 0,
+      "Position": {
+        "X": 0,
+        "Y": 0,
+        "Z": 3
+      }
+    },
+    {
+      "Type": 0,
+      "BlockDataId": 0,
+      "Position": {
+        "X": 0,
+        "Y": 0,
+        "Z": 2
+      }
+    },
+    {
+      "Type": 0,
+      "BlockDataId": 0,
+      "Position": {
+        "X": 1,
+        "Y": 0,
+        "Z": 2
+      }
+    },
+    {
+      "Type": 0,
+      "BlockDataId": 0,
+      "Position": {
+        "X": 0,
+        "Y": 0,
+        "Z": 1
+      }
+    },
+    {
+      "Type": 0,
+      "BlockDataId": 0,
+      "Position": {
+        "X": 1,
+        "Y": 0,
+        "Z": 1
+      }
+    },
+    {
+      "Type": 0,
+      "BlockDataId": 0,
+      "Position": {
+        "X": 1,
+        "Y": 0,
+        "Z": 3
+      }
+    },
+    {
+      "Type": 0,
+      "BlockDataId": 0,
+      "Position": {
+        "X": -1,
+        "Y": 0,
+        "Z": 3
+      }
+    },
+    {
+      "Type": 0,
+      "BlockDataId": 0,
+      "Position": {
+        "X": -1,
+        "Y": 0,
+        "Z": 1
+      }
+    }
+  ],
+  "Charas": []
+}

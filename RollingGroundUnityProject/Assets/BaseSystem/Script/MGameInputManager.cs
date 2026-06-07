@@ -16,7 +16,7 @@ namespace RollingGround
         private void Awake()
         {
             m_playerInput = GetComponent<PlayerInput>();
-            //m_playerInput.SwitchCurrentActionMap("StageCreative");
+            m_playerInput.SwitchCurrentActionMap("StageCreative");
         }
 
         public void OnMove(InputAction.CallbackContext context)

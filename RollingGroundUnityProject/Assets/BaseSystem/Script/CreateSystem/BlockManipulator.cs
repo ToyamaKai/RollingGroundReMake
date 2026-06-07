@@ -11,6 +11,9 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class BlockManipulator : MonoBehaviour, IInputReceiver
 {
+    [SerializeField]
+    private Transform m_stageRoot; // 生成するブロックの親オブジェクトのTransform
+
     MGameInputManager m_gameInputManager; // 入力管理クラス参照
     MBlockDatabase m_blockDatabase; // ブロックのデータベース参照
     BlockHotbar m_blockHotbar; // ホットバーの情報を取得するためのクラス参照
@@ -131,7 +134,7 @@ public class BlockManipulator : MonoBehaviour, IInputReceiver
 
             if (prefab != null)
             {
-                GameObject instance = Instantiate(prefab, position, Quaternion.identity);
+                GameObject instance = Instantiate(prefab, position, Quaternion.identity.normalized, m_stageRoot);
                 m_stageBlockManager.RegisterBlock(position, (int)blockdata.id, instance);
 
                 prefab.name = $"{m_BlockObjects[0]}_Instance";
