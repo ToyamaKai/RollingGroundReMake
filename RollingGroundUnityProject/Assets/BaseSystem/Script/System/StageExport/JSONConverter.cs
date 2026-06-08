@@ -10,6 +10,7 @@ public class JSONConverter : MonoBehaviour
     StageExporter stageExporter = new StageExporter();
     StageBlockManager stageBlockManager;
     MStageBuilder m_stageBuilder;
+    MStageBlockCleaner m_stageBlockCleaner;
 
     string path = Path.Combine(Application.dataPath, "StageData.json"); // JSONファイルの保存先パス
 
@@ -17,6 +18,7 @@ public class JSONConverter : MonoBehaviour
     {
         stageBlockManager = GameObject.FindFirstObjectByType<StageBlockManager>();
         m_stageBuilder = GameObject.FindFirstObjectByType<MStageBuilder>();
+        m_stageBlockCleaner = GameObject.FindFirstObjectByType<MStageBlockCleaner>();
         Debug.Log(path);
     }
 
@@ -36,9 +38,11 @@ public class JSONConverter : MonoBehaviour
     /// <param name="dataPath">ステージデータのパス</param>
     public void StageJsonDeserialize(string dataPath)
     {
-        if (File.Exists(dataPath))
+        if (File.Exists(path))
         {
-            string json = File.ReadAllText(dataPath);
+            m_stageBlockCleaner.CleanStageObject();
+            //string json = File.ReadAllText(dataPath);
+            string json = File.ReadAllText(path);
             StageData data = JsonConvert.DeserializeObject<StageData>(json);
             m_stageBuilder.BuildStage(data);
         }

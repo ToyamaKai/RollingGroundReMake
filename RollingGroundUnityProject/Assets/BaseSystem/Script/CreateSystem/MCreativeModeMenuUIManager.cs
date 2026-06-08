@@ -29,18 +29,17 @@ namespace RollingGround
         /// <param name="context"></param>
         public void OnToggleMenuUI(InputAction.CallbackContext context)
         {
-            if (!context.performed) return;
-            if (m_isToggling) return;
+            if (!context.performed || m_isToggling) return;
 
             if (m_gameInputManager.GetActionMapName() == "StageCreative")
             {
                 MMouseCursorManager.Instance.MouseUnlock();
-                StartCoroutine(ToggleMenuUI(m_creativeModeMenuUI.activeSelf));
+                StartCoroutine(ToggleMenuUI(false));
             }
             else if(m_gameInputManager.GetActionMapName() == "StageCreativeMenu")
             {
                 MMouseCursorManager.Instance.MouseCursorLock();
-                StartCoroutine(ToggleMenuUI(m_creativeModeMenuUI.activeSelf));
+                StartCoroutine(ToggleMenuUI(true));
             }
         }
 
