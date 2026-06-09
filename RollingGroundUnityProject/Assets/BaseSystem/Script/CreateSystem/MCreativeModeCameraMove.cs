@@ -26,13 +26,12 @@ public class MCreatvieModeCameraMove : MonoBehaviour, IInputReceiver
     private Transform   m_transparentTransform;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    void Start()
     {
         m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
         m_gameInputManager.AddRecieveObject(this);
         m_transform = this.gameObject.transform;
-        UnityEngine.Cursor.visible = false;
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        MMouseCursorManager.Instance.MouseCursorLock();
     }
 
     // Update is called once per frame
@@ -53,14 +52,21 @@ public class MCreatvieModeCameraMove : MonoBehaviour, IInputReceiver
     /// </summary>
     private void CameraRotation()
     {
-        float mouseX = Input.GetAxis("Mouse X") * k_rotationSpeed;
-        float mouseY = Input.GetAxis("Mouse Y") * k_rotationSpeed;
-        yaw += mouseX;
-        pitch -= mouseY;
-        pitch = Mathf.Clamp(pitch, -89f, 89f);
+        if(m_gameInputManager.GetActionMapName() == "StageCreative")
+        {
+            float mouseX = Input.GetAxis("Mouse X") * k_rotationSpeed;
+            float mouseY = Input.GetAxis("Mouse Y") * k_rotationSpeed;
+            yaw += mouseX;
+            pitch -= mouseY;
+            pitch = Mathf.Clamp(pitch, -89f, 89f);
 
-        m_transparentTransform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
-        transform.rotation = Quaternion.Euler(0, yaw, 0f);
+            m_transparentTransform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+            transform.rotation = Quaternion.Euler(0, yaw, 0f);
+        }
+        else
+        {
+            return;
+        }
     }
 
     #region InputAction関連
