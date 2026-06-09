@@ -27,9 +27,9 @@ public class JSONConverter : MonoBehaviour
     /// </summary>
     public void StageJSONConvert()
     {
-        StageData data = stageExporter.Export(stageBlockManager.GetBlockTypeMap());
-        string json = JsonConvert.SerializeObject(data, Formatting.Indented);
-        File.WriteAllText(path, json);
+        //StageData data = stageExporter.Export(stageBlockManager.GetBlockTypeMap());
+        //string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+        //File.WriteAllText(path, json);
     }
 
     /// <summary>
