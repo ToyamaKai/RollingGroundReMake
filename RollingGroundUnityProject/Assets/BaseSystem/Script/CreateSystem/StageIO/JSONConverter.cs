@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 /// </summary>
 public class JSONConverter : MonoBehaviour
 {
-    StageExporter stageExporter = new StageExporter();
+    StageExporter stageExporter;
     StageBlockManager stageBlockManager;
     MStageBuilder m_stageBuilder;
     MStageBlockCleaner m_stageBlockCleaner;
@@ -16,10 +16,10 @@ public class JSONConverter : MonoBehaviour
 
     void Awake()
     {
+        stageExporter = new StageExporter(MStageManager.Instance);
         stageBlockManager = GameObject.FindFirstObjectByType<StageBlockManager>();
         m_stageBuilder = GameObject.FindFirstObjectByType<MStageBuilder>();
         m_stageBlockCleaner = GameObject.FindFirstObjectByType<MStageBlockCleaner>();
-        Debug.Log(path);
     }
 
     /// <summary>
@@ -27,9 +27,9 @@ public class JSONConverter : MonoBehaviour
     /// </summary>
     public void StageJSONConvert()
     {
-        //StageData data = stageExporter.Export(stageBlockManager.GetBlockTypeMap());
-        //string json = JsonConvert.SerializeObject(data, Formatting.Indented);
-        //File.WriteAllText(path, json);
+        StageData data = stageExporter.Export(stageBlockManager.GetBlockTypeMap());
+        string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+        File.WriteAllText(path, json);
     }
 
     /// <summary>

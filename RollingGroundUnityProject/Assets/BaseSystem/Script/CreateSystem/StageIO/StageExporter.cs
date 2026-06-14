@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class StageExporter
 {
-    public StageData Export(StageMetaData stageMetaData, Dictionary<Vector3Int, int> blocks)
+    private MStageManager m_stageManager;
+
+    public StageExporter(MStageManager mStageManager)
+    {
+        m_stageManager = mStageManager;
+    }
+
+
+    public StageData Export(Dictionary<Vector3Int, int> blocks)
     {
         StageData stageData = new();
 
-        stageData.StageMetaData = stageMetaData;
+        // 各種データの入れ込み
+        stageData.StageMetaData = m_stageManager.GetStageMetaData();
+        stageData.StageSetting = m_stageManager.GetStageSettingData();
 
         // ブロックをデータに変換
         foreach (var pair in blocks)

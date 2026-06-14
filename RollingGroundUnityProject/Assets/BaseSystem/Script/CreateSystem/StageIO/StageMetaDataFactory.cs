@@ -4,7 +4,7 @@
 public class StageMetaDataFactory
 {
     /// <summary>
-    /// ステージのメタデータをエクスポートするメソッド
+    /// ステージのメタデータを作成しセット、リターンするメソッド
     /// </summary>
     /// <returns></returns>
     public StageMetaData CreateStageMetaData(string stageName, string authorName, string gameVersion, int formatVersion, string comment)
