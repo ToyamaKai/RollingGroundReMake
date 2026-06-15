@@ -1,4 +1,5 @@
-﻿using RollingGround;
+﻿using Newtonsoft.Json;
+using RollingGround;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,16 +14,51 @@ namespace RollingGround
         [SerializeField]
         private GameObject m_creativeModeMenuUI;
 
+        [SerializeField]
+        private GameObject m_stageMetaDataUI;
+
+        private MStageManager m_stageManager;
+        private JSONConverter m_JSONConverter;
         private MGameInputManager m_gameInputManager;
+        private MStageMetaDataUIManager m_stageMetaDataUIManager;
         private bool m_isToggling = false;
 
         void Start()
         {
             m_creativeModeMenuUI.SetActive(false);
+            m_stageManager = MStageManager.Instance;
+            m_JSONConverter = GameObject.FindFirstObjectByType<JSONConverter>();
             m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
+            m_stageMetaDataUIManager = GameObject.FindFirstObjectByType<MStageMetaDataUIManager>();
             m_gameInputManager.AddRecieveObject(this);
         }
 
+        #region メニュー画面におけるボタンの処理
+        public void OnStageExportButton()
+        {
+            if(!m_stageManager.GetIsSaved())
+            {
+                StageMetaDataUISetActive(true);
+            }
+            else
+            {
+                m_JSONConverter.StageJSONConvert();
+            }
+        }
+
+        public void OnStageImportButton(string dataPath)
+        {
+            m_JSONConverter.StageJsonDeserialize(dataPath);
+        }
+
+        #endregion
+
+        public void StageMetaDataUISetActive(bool isActive)
+        {
+            m_stageMetaDataUI.SetActive(isActive);
+        }
+
+        #region キー入力に対する処理関連
         /// <summary>
         /// キー入力に対すMenuUIの表示切替及び、ActionMapsの切り替え
         /// </summary>
@@ -64,6 +100,7 @@ namespace RollingGround
             yield return null;
             m_isToggling = false;
         }
+        #endregion
     }
 }
 

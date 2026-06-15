@@ -782,6 +782,7 @@ GameObject:
   - component: {fileID: 281560262}
   - component: {fileID: 281560263}
   - component: {fileID: 281560264}
+  - component: {fileID: 281560265}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -880,6 +881,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_stageroot: {fileID: 712837593}
+--- !u!114 &281560265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281560258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d376c8cdf50d135449b0431e15bed6f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &348108544
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,7 +902,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 348108545}
-  - component: {fileID: 348108546}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -914,19 +926,6 @@ Transform:
   - {fileID: 760175940}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &348108546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348108544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa56902b3bb43a545b0fbbac3ba91dbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_creativeModeMenuUI: {fileID: 760175939}
 --- !u!1 &409135876
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,7 +1125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &452207408
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1697,6 +1696,7 @@ GameObject:
   - component: {fileID: 760175943}
   - component: {fileID: 760175942}
   - component: {fileID: 760175941}
+  - component: {fileID: 760175944}
   m_Layer: 5
   m_Name: MenuUICanvas
   m_TagString: Untagged
@@ -1788,6 +1788,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &760175944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760175939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa56902b3bb43a545b0fbbac3ba91dbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_creativeModeMenuUI: {fileID: 1876475243}
+  m_stageMetaDataUI: {fileID: 452207407}
 --- !u!1 &765813346
 GameObject:
   m_ObjectHideFlags: 0
@@ -2237,9 +2251,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 739124551}
-        m_TargetAssemblyTypeName: JSONConverter, Assembly-CSharp
-        m_MethodName: StageJSONConvert
+      - m_Target: {fileID: 760175944}
+        m_TargetAssemblyTypeName: RollingGround.MCreativeModeMenuUIManager, Assembly-CSharp
+        m_MethodName: OnStageExportButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2449,9 +2463,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 739124551}
-        m_TargetAssemblyTypeName: JSONConverter, Assembly-CSharp
-        m_MethodName: StageJsonDeserialize
+      - m_Target: {fileID: 760175944}
+        m_TargetAssemblyTypeName: RollingGround.MCreativeModeMenuUIManager, Assembly-CSharp
+        m_MethodName: OnStageImportButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3643,7 +3657,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1876475244
 RectTransform:
   m_ObjectHideFlags: 0

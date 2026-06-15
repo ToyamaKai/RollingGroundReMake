@@ -36,7 +36,7 @@ public class MStageMetaDataUIManager : MonoBehaviour
     {
         StageMetaData stageMetaData = m_factory.CreateStageMetaData(m_stageName, "Unknown", "1.0.0", 1, m_comment);
         m_stageManager.SetStageMetaData(stageMetaData);
-
-        //Debug.Log($"Stage Meta Data Created: {stageMetaData.StageName}, {stageMetaData.Comment}");
+        m_stageManager.SetIsSaved(true);
+        this.gameObject.SetActive(false);
     }
 }
