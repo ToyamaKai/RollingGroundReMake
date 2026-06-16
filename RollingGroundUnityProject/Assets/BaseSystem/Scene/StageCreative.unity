@@ -1125,7 +1125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &452207408
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1612,7 +1612,6 @@ GameObject:
   - component: {fileID: 739124547}
   - component: {fileID: 739124549}
   - component: {fileID: 739124550}
-  - component: {fileID: 739124551}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1670,18 +1669,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a85535cea27c831408212d17c1f37a39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &739124551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 739124546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b92a3ed875edb54db555a10a50791cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &760175939
@@ -2251,9 +2238,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 760175944}
-        m_TargetAssemblyTypeName: RollingGround.MCreativeModeMenuUIManager, Assembly-CSharp
-        m_MethodName: OnStageExportButton
+      - m_Target: {fileID: 1876475248}
+        m_TargetAssemblyTypeName: MStageDataIOButtonHandler, Assembly-CSharp
+        m_MethodName: OnStageDataExport
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2463,9 +2450,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 760175944}
-        m_TargetAssemblyTypeName: RollingGround.MCreativeModeMenuUIManager, Assembly-CSharp
-        m_MethodName: OnStageImportButton
+      - m_Target: {fileID: 1876475248}
+        m_TargetAssemblyTypeName: MStageDataIOButtonHandler, Assembly-CSharp
+        m_MethodName: OnStageDataImport
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3651,6 +3638,7 @@ GameObject:
   - component: {fileID: 1876475244}
   - component: {fileID: 1876475246}
   - component: {fileID: 1876475245}
+  - component: {fileID: 1876475248}
   m_Layer: 5
   m_Name: StageDataIOUI
   m_TagString: Untagged
@@ -3670,10 +3658,10 @@ RectTransform:
   m_LocalScale: {x: 0.82, y: 0.82, z: 0.82}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 1752126773}
   - {fileID: 1018976999}
   - {fileID: 1079573784}
   - {fileID: 192197554}
+  - {fileID: 1752126773}
   m_Father: {fileID: 760175940}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3719,6 +3707,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876475243}
   m_CullTransparentMesh: 1
+--- !u!114 &1876475248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876475243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 225f17c1c599ab4499a0fada86305214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_creativeModeMenuUIManager: {fileID: 760175944}
 --- !u!1 &2001867660
 GameObject:
   m_ObjectHideFlags: 0

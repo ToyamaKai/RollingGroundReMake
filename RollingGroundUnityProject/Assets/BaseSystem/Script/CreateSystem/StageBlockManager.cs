@@ -3,6 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// ステージのブロックID・座標の管理スクリプト
+/// TODO 実装部と実処理を分ける
 /// </summary>
 public class StageBlockManager : MonoBehaviour
 {

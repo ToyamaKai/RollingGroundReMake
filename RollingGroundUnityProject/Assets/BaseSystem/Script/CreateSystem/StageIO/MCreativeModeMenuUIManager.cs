@@ -18,40 +18,19 @@ namespace RollingGround
         private GameObject m_stageMetaDataUI;
 
         private MStageManager m_stageManager;
-        private JSONConverter m_JSONConverter;
         private MGameInputManager m_gameInputManager;
-        private MStageMetaDataUIManager m_stageMetaDataUIManager;
+        private MStageMetadataInputHandler m_stageMetaDataUIManager;
         private bool m_isToggling = false;
 
         void Start()
         {
             m_creativeModeMenuUI.SetActive(false);
             m_stageManager = MStageManager.Instance;
-            m_JSONConverter = GameObject.FindFirstObjectByType<JSONConverter>();
             m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
-            m_stageMetaDataUIManager = GameObject.FindFirstObjectByType<MStageMetaDataUIManager>();
+            m_stageMetaDataUIManager = GameObject.FindFirstObjectByType<MStageMetadataInputHandler>();
             m_gameInputManager.AddRecieveObject(this);
+            StageMetaDataUISetActive(false);
         }
-
-        #region メニュー画面におけるボタンの処理
-        public void OnStageExportButton()
-        {
-            if(!m_stageManager.GetIsSaved())
-            {
-                StageMetaDataUISetActive(true);
-            }
-            else
-            {
-                m_JSONConverter.StageJSONConvert();
-            }
-        }
-
-        public void OnStageImportButton(string dataPath)
-        {
-            m_JSONConverter.StageJsonDeserialize(dataPath);
-        }
-
-        #endregion
 
         public void StageMetaDataUISetActive(bool isActive)
         {

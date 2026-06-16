@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class MStageMetaDataUIManager : MonoBehaviour
+/// <summary>
+/// ステージのメタデータセットのボタン処理を呼び出すクラス
+/// </summary>
+public class MStageMetadataInputHandler : MonoBehaviour
 {
     private StageMetaDataFactory m_factory = new StageMetaDataFactory();
     private MStageManager m_stageManager;

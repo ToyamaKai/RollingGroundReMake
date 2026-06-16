@@ -14,6 +14,10 @@ public class MStageBuilder : MonoBehaviour
     {
         m_blockDatabase = GameObject.FindFirstObjectByType<MBlockDatabase>();
         m_blockManipulator = GameObject.FindFirstObjectByType<BlockManipulator>();
+    }
+
+    private void Start()
+    {
         m_stageManager = MStageManager.Instance;
     }
 

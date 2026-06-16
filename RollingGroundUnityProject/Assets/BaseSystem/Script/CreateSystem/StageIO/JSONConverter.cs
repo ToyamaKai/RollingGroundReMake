@@ -5,21 +5,21 @@ using Newtonsoft.Json;
 /// <summary>
 /// JSON変換スクリプト
 /// </summary>
-public class JSONConverter : MonoBehaviour
+public class JSONConverter
 {
-    StageExporter stageExporter;
-    StageBlockManager stageBlockManager;
+    StageExporter m_stageExporter;
+    StageBlockManager m_stageBlockManager; // Monobehaviourです
     MStageBuilder m_stageBuilder;
     MStageBlockCleaner m_stageBlockCleaner;
 
     string path = Path.Combine(Application.dataPath, "StageData.json"); // JSONファイルの保存先パス
 
-    void Awake()
+    public JSONConverter(StageExporter stageExporter, StageBlockManager stageBlockManager, MStageBuilder stageBuilder, MStageBlockCleaner stageBlockCleaner)
     {
-        stageExporter = new StageExporter(MStageManager.Instance);
-        stageBlockManager = GameObject.FindFirstObjectByType<StageBlockManager>();
-        m_stageBuilder = GameObject.FindFirstObjectByType<MStageBuilder>();
-        m_stageBlockCleaner = GameObject.FindFirstObjectByType<MStageBlockCleaner>();
+        m_stageExporter = stageExporter;
+        m_stageBlockManager = stageBlockManager;
+        m_stageBuilder = stageBuilder;
+        m_stageBlockCleaner = stageBlockCleaner;
     }
 
     /// <summary>
@@ -27,7 +27,7 @@ public class JSONConverter : MonoBehaviour
     /// </summary>
     public void StageJSONConvert()
     {
-        StageData data = stageExporter.Export(stageBlockManager.GetBlockTypeMap());
+        StageData data = m_stageExporter.Export(m_stageBlockManager.GetBlockTypeMap());
         string json = JsonConvert.SerializeObject(data, Formatting.Indented);
         File.WriteAllText(path, json);
     }
