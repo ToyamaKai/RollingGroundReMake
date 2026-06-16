@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RollingGround;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,29 +13,39 @@ namespace RollingGround
     public class MCreativeModeMenuUIManager : MonoBehaviour, IInputReceiver
     {
         [SerializeField]
-        private GameObject m_creativeModeMenuUI;
+        private MStageDataIOButtonHandler m_stageDataIOButtonHandler;
 
         [SerializeField]
-        private GameObject m_stageMetaDataUI;
+        private MStageMetadataInputHandler m_stageMetaDataInputHandler;
 
-        private MStageManager m_stageManager;
         private MGameInputManager m_gameInputManager;
-        private MStageMetadataInputHandler m_stageMetaDataUIManager;
         private bool m_isToggling = false;
 
         void Start()
         {
-            m_creativeModeMenuUI.SetActive(false);
-            m_stageManager = MStageManager.Instance;
             m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
-            m_stageMetaDataUIManager = GameObject.FindFirstObjectByType<MStageMetadataInputHandler>();
             m_gameInputManager.AddRecieveObject(this);
-            StageMetaDataUISetActive(false);
+            SetStageDataIOUIActive(false);
+            SetStageMetaDataUIActive(false);
         }
 
-        public void StageMetaDataUISetActive(bool isActive)
+        /// <summary>
+        /// メタデータUIの表示切替
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="stageDataExport"></param>
+        public void SetStageMetaDataUIActive(bool isActive, Action stageDataExport = null)
         {
-            m_stageMetaDataUI.SetActive(isActive);
+            m_stageMetaDataInputHandler.SetMetaDataInputUIActive(isActive, stageDataExport);
+        }
+
+        /// <summary>
+        /// ステージデータIOUIの表示切替
+        /// </summary>
+        /// <param name="isActive"></param>
+        public void SetStageDataIOUIActive(bool isActive)
+        {
+            m_stageDataIOButtonHandler.SetStageDataIOUIActive(isActive);
         }
 
         #region キー入力に対する処理関連
@@ -65,7 +76,7 @@ namespace RollingGround
         public IEnumerator ToggleMenuUI(bool isActive)
         {
             m_isToggling = true;
-            m_creativeModeMenuUI.SetActive(!isActive);
+            m_stageDataIOButtonHandler.SetStageDataIOUIActive(!isActive);
 
             if(!isActive)
             {

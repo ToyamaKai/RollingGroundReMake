@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -10,6 +11,7 @@ public class MStageMetadataInputHandler : MonoBehaviour
     private MStageManager m_stageManager;
     private string m_stageName;
     private string m_comment;
+    private Action m_stageDataExport;
 
     [SerializeField]
     private InputField m_stageNameInputFiel;
@@ -17,7 +19,7 @@ public class MStageMetadataInputHandler : MonoBehaviour
     [SerializeField]
     private InputField m_commentInputField;
 
-    private void Awake()
+    private void Start()
     {
         m_stageManager = MStageManager.Instance;
     }
@@ -32,6 +34,20 @@ public class MStageMetadataInputHandler : MonoBehaviour
         m_comment = m_commentInputField.text;
     }
 
+    public void SetMetaDataInputUIActive(bool isActive, Action stageDataExport = null)
+    {
+        gameObject.SetActive(isActive);
+
+        if(isActive)
+        {
+            m_stageDataExport = stageDataExport;
+        }
+        else
+        {
+            m_stageDataExport = null;
+        }
+    }
+
     /// <summary>
     /// ステージメタデータのセット
     /// </summary>
@@ -40,6 +56,9 @@ public class MStageMetadataInputHandler : MonoBehaviour
         StageMetaData stageMetaData = m_factory.CreateStageMetaData(m_stageName, "Unknown", "1.0.0", 1, m_comment);
         m_stageManager.SetStageMetaData(stageMetaData);
         m_stageManager.SetIsSaved(true);
-        this.gameObject.SetActive(false);
+        var callback = m_stageDataExport;
+        m_stageDataExport = null;
+        gameObject.SetActive(false);
+        callback.Invoke();
     }
 }
