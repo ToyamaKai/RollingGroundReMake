@@ -2,6 +2,7 @@
 
 /// <summary>
 /// ステージブロックのクリーナークラス
+/// TODO: これは実処理に書き出して、使い回せるようにしておくべきかもしれない。また、Dictionaryのクリーンも行うようにする。
 /// </summary>
 public class MStageBlockCleaner : MonoBehaviour
 {

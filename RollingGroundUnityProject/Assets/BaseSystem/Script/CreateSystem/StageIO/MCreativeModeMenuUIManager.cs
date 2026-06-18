@@ -1,4 +1,6 @@
-﻿using RollingGround;
+﻿using Newtonsoft.Json;
+using RollingGround;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,18 +13,42 @@ namespace RollingGround
     public class MCreativeModeMenuUIManager : MonoBehaviour, IInputReceiver
     {
         [SerializeField]
-        private GameObject m_creativeModeMenuUI;
+        private MStageDataIOButtonHandler m_stageDataIOButtonHandler;
+
+        [SerializeField]
+        private MStageMetadataInputHandler m_stageMetaDataInputHandler;
 
         private MGameInputManager m_gameInputManager;
         private bool m_isToggling = false;
 
         void Start()
         {
-            m_creativeModeMenuUI.SetActive(false);
             m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
             m_gameInputManager.AddRecieveObject(this);
+            SetStageDataIOUIActive(false);
+            SetStageMetaDataUIActive(false);
         }
 
+        /// <summary>
+        /// メタデータUIの表示切替
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="stageDataExport"></param>
+        public void SetStageMetaDataUIActive(bool isActive, Action stageDataExport = null)
+        {
+            m_stageMetaDataInputHandler.SetMetaDataInputUIActive(isActive, stageDataExport);
+        }
+
+        /// <summary>
+        /// ステージデータIOUIの表示切替
+        /// </summary>
+        /// <param name="isActive"></param>
+        public void SetStageDataIOUIActive(bool isActive)
+        {
+            m_stageDataIOButtonHandler.SetStageDataIOUIActive(isActive);
+        }
+
+        #region キー入力に対する処理関連
         /// <summary>
         /// キー入力に対すMenuUIの表示切替及び、ActionMapsの切り替え
         /// </summary>
@@ -50,7 +76,7 @@ namespace RollingGround
         public IEnumerator ToggleMenuUI(bool isActive)
         {
             m_isToggling = true;
-            m_creativeModeMenuUI.SetActive(!isActive);
+            m_stageDataIOButtonHandler.SetStageDataIOUIActive(!isActive);
 
             if(!isActive)
             {
@@ -64,6 +90,7 @@ namespace RollingGround
             yield return null;
             m_isToggling = false;
         }
+        #endregion
     }
 }
 
