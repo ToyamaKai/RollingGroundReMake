@@ -4,32 +4,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CreativeModeMenu : MonoBehaviour, IInputReceiver
+public class CreativeModeMenu : IInputReceiver
 {
-    [SerializeField]
-    private List<MonoBehaviour> m_subMenus;
-
     private MGameInputManager m_gameInputManager;
-
+    private List<MonoBehaviour> m_subMenus;
     private List<ISubMenu> m_menus = new();
-
     private ISubMenu m_currentMenu;
-
     private int m_currentMenuIndex = 0;
-
     private int m_menuCount = 0;
 
-    private void Awake()
+    public CreativeModeMenu(MGameInputManager gameInputManager, List<MonoBehaviour> subMenus)
     {
-        foreach(var menu in m_subMenus)
+        m_subMenus = subMenus;
+        m_gameInputManager = gameInputManager;
+        m_gameInputManager.AddRecieveObject(this);
+
+        foreach (var menu in m_subMenus)
         {
-            if(menu is ISubMenu subMenu)
+            if (menu is ISubMenu subMenu)
             {
                 m_menus.Add(subMenu);
             }
         }
-
         m_menuCount = m_menus.Count;
+
     }
 
     /// <summary>
