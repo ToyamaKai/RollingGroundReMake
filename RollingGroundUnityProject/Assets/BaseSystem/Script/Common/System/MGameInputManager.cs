@@ -120,6 +120,16 @@ namespace RollingGround
         }
         #endregion
 
+        #region ステージクリエイティブモードメニュー
+        public void OnSelectMenu(InputAction.CallbackContext context)
+        {
+            foreach (var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnSelectMenu(context);
+            }
+        }
+        #endregion
+
 
         #region オブジェクトの追加と削除
         /// <summary>

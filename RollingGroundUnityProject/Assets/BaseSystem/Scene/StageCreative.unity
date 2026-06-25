@@ -2929,6 +2929,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d0b7957d-0ae3-4fda-8346-72154ae603bc
     m_ActionName: 'StageCreativeMenu/CloseMenu[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1269909114}
+        m_TargetAssemblyTypeName: RollingGround.MGameInputManager, Assembly-CSharp
+        m_MethodName: OnSelectMenu
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4bebe2df-0f9b-4f96-b745-c443c7c7eca2
+    m_ActionName: 'StageCreativeMenu/MenuSelect[/Keyboard/s,/Keyboard/w]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

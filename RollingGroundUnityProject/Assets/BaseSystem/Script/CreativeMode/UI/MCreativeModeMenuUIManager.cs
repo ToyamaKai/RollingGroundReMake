@@ -47,8 +47,8 @@ namespace RollingGround
         {
             m_stageDataIOButtonHandler.SetStageDataIOUIActive(isActive);
         }
-
         #region キー入力に対する処理関連
+
         /// <summary>
         /// キー入力に対すMenuUIの表示切替及び、ActionMapsの切り替え
         /// </summary>

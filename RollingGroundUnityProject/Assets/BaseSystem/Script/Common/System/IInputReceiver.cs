@@ -19,5 +19,9 @@ namespace RollingGround
         public virtual void OnSelectSlotChange(InputAction.CallbackContext context) { }
         public virtual void OnToggleMenuUI(InputAction.CallbackContext context) { }
         #endregion
+
+        #region ステージクリエイティブモードメニュー
+        public virtual void OnSelectMenu(InputAction.CallbackContext context) { }
+        #endregion
     }
 }
