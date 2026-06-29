@@ -13,6 +13,7 @@ public class CreativeModeMenu : IInputReceiver
     private ISubMenu m_currentMenu;
     private int m_currentMenuIndex = 0;
     private int m_menuCount = 0;
+    private bool m_isMenuOpen;
     private bool m_isSubMenuOpen;
 
     public CreativeModeMenu(MGameInputManager gameInputManager, List<MonoBehaviour> subMenus)
@@ -32,46 +33,59 @@ public class CreativeModeMenu : IInputReceiver
         m_menuCount = m_menus.Count;
     }
 
-    #region 入力処理関連
     /// <summary>
-    /// メニューとサブメニューを閉じる処理
+    /// メニューを開く処理
+    /// </summary>
+    public void OpenMenu()
+    {
+        m_menuGameObject.SetActive(true);
+        m_gameInputManager.SetActionMap("StageCreativeMenu");
+    }
+
+    /// <summary>
+    /// メニューを閉じる処理
+    /// </summary>
+    public void CloseMenu()
+    {
+        m_menuGameObject.SetActive(false);
+        m_gameInputManager.SetActionMap("StageCreative");
+    }
+
+    #region 入力処理関連
+    public void OnToggleMenu(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        if (m_isMenuOpen)
+        {
+            CloseMenu();
+            m_isMenuOpen = false;
+        }
+        else
+        {
+            OpenMenu();
+            m_isMenuOpen = true;
+        }
+    }
+
+    /// <summary>
+    /// サブメニューの開閉を切り替える処理
     /// </summary>
     /// <param name="context"></param>
-    public void OnCloseMenu(InputAction.CallbackContext context)
+    public void OnToggleSubMenu(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
 
         if (m_isSubMenuOpen)
         {
-            m_menus[m_currentMenuIndex].OpenSubMenu();
+            m_menus[m_currentMenuIndex].CloseSubMenu();
             m_isSubMenuOpen = false;
         }
-
-        m_menuGameObject.SetActive(false);
-    }
-
-    /// <summary>
-    /// サブメニューを開く処理
-    /// </summary>
-    /// <param name="context"></param>
-    public void OnOpenSubMenu(InputAction.CallbackContext context)
-    {
-        if (!context.performed || m_isSubMenuOpen) return;
-
-        m_isSubMenuOpen = true;
-        m_menus[m_currentMenuIndex].OpenSubMenu();
-    }
-
-    /// <summary>
-    /// サブメニューのみを閉じる処理
-    /// </summary>
-    /// <param name="context"></param>
-    public void OnCloseSubMenu(InputAction.CallbackContext context)
-    {
-        if (!context.performed || !m_isSubMenuOpen) return;
-
-        m_menus[m_currentMenuIndex].OpenSubMenu();
-        m_isSubMenuOpen = false;
+        else
+        {
+            m_menus[m_currentMenuIndex].OpenSubMenu();
+            m_isSubMenuOpen = true;
+        }
     }
 
     /// <summary>

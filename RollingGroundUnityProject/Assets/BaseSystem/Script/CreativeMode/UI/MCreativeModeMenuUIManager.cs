@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using NUnit.Framework;
 using RollingGround;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,6 +14,19 @@ namespace RollingGround
 {
     public class MCreativeModeMenuUIManager : MonoBehaviour, IInputReceiver
     {
+        //[SerializeField]
+        //private List<MonoBehaviour> m_subMenus;
+
+        //private MGameInputManager m_gameInputManager;
+        //private CreativeModeMenu m_creativeModeMenu;
+        //private GameObject m_menuGameObject;
+
+        //void Start()
+        //{
+        //    m_gameInputManager = GameObject.FindFirstObjectByType<MGameInputManager>();
+        //    m_creativeModeMenu = new CreativeModeMenu(m_gameInputManager, m_subMenus);
+        //}
+
         [SerializeField]
         private MStageDataIOButtonHandler m_stageDataIOButtonHandler;
 
@@ -62,7 +77,7 @@ namespace RollingGround
                 MMouseCursorManager.Instance.MouseUnlock();
                 StartCoroutine(ToggleMenuUI(false));
             }
-            else if(m_gameInputManager.GetActionMapName() == "StageCreativeMenu")
+            else if (m_gameInputManager.GetActionMapName() == "StageCreativeMenu")
             {
                 MMouseCursorManager.Instance.MouseCursorLock();
                 StartCoroutine(ToggleMenuUI(true));
@@ -78,7 +93,7 @@ namespace RollingGround
             m_isToggling = true;
             m_stageDataIOButtonHandler.SetStageDataIOUIActive(!isActive);
 
-            if(!isActive)
+            if (!isActive)
             {
                 m_gameInputManager.SetActionMap("StageCreativeMenu");
             }
