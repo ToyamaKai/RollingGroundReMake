@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// メタデータのボタン処理クラス
 /// </summary>
-public class MStageDataIOButtonHandler : MonoBehaviour
+public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
 {
     [SerializeField]
     private MCreativeModeMenuUIManager m_creativeModeMenuUIManager;
@@ -25,10 +25,10 @@ public class MStageDataIOButtonHandler : MonoBehaviour
 
     public void OnStageDataExport()
     {
-        if (!m_stageManager.GetIsSaved())
+        if (!m_stageManager.GetIsMetaDataInputed())
         {
-            // ステージが保存されていない場合は、先にステージメタデータの入力を促す
-            m_creativeModeMenuUIManager.SetStageMetaDataUIActive(true, OnStageDataExport);
+            // メタデータが入力されていない場合は、先にステージメタデータの入力を促す
+            //m_creativeModeMenuUIManager.SetStageMetaDataUIActive(true, OnStageDataExport);
         }
         else
         {
@@ -47,5 +47,15 @@ public class MStageDataIOButtonHandler : MonoBehaviour
     public void SetStageDataIOUIActive(bool isActive)
     {
         gameObject.SetActive(isActive);
+    }
+
+    public void OpenSubMenu()
+    {
+        SetStageDataIOUIActive(true);
+    }
+
+    public void CloseSubMenu()
+    {
+        SetStageDataIOUIActive(false);
     }
 }

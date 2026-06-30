@@ -8,7 +8,7 @@ public class CreativeModeMenu : IInputReceiver
 {
     private MGameInputManager m_gameInputManager;
     private GameObject m_menuGameObject;
-    private List<MonoBehaviour> m_subMenus;
+    private List<GameObject> m_subMenus;
     private List<ISubMenu> m_menus = new();
     private ISubMenu m_currentMenu;
     private int m_currentMenuIndex = 0;
@@ -16,21 +16,30 @@ public class CreativeModeMenu : IInputReceiver
     private bool m_isMenuOpen;
     private bool m_isSubMenuOpen;
 
-    public CreativeModeMenu(MGameInputManager gameInputManager, List<MonoBehaviour> subMenus)
+    public CreativeModeMenu(MGameInputManager gameInputManager, List<GameObject> subMenus, GameObject menuGameObject)
     {
         m_subMenus = subMenus;
         m_gameInputManager = gameInputManager;
+        m_menuGameObject = menuGameObject;
         m_gameInputManager.AddRecieveObject(this);
 
         foreach (var menu in m_subMenus)
         {
-            if (menu is ISubMenu subMenu)
+            var iSubmenu = menu.GetComponent<ISubMenu>();
+
+            if(iSubmenu != null)
             {
-                m_menus.Add(subMenu);
+                m_menus.Add(iSubmenu);
+                iSubmenu.CloseSubMenu();
+            }
+            else
+            {
+                Debug.LogWarning($"GameObject {menu.name} does not implement ISubMenu.");
             }
         }
 
         m_menuCount = m_menus.Count;
+        CloseMenu();
     }
 
     /// <summary>
@@ -52,12 +61,22 @@ public class CreativeModeMenu : IInputReceiver
     }
 
     #region 入力処理関連
+    /// <summary>
+    /// メニューの開閉を切り替える処理
+    /// </summary>
+    /// <param name="context"></param>
     public void OnToggleMenu(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
 
         if (m_isMenuOpen)
         {
+            if(m_isSubMenuOpen)
+            {
+                m_currentMenu.CloseSubMenu();
+                m_isSubMenuOpen = false;
+            }
+
             CloseMenu();
             m_isMenuOpen = false;
         }
@@ -78,11 +97,12 @@ public class CreativeModeMenu : IInputReceiver
 
         if (m_isSubMenuOpen)
         {
-            m_menus[m_currentMenuIndex].CloseSubMenu();
+            m_currentMenu.CloseSubMenu();
             m_isSubMenuOpen = false;
         }
         else
         {
+            m_currentMenu = m_menus[m_currentMenuIndex];
             m_menus[m_currentMenuIndex].OpenSubMenu();
             m_isSubMenuOpen = true;
         }
@@ -93,7 +113,7 @@ public class CreativeModeMenu : IInputReceiver
     /// </summary>
     public void OnSelectMenu(InputAction.CallbackContext context)
     {
-        if (!context.performed) return;
+        if (!context.performed || !m_isMenuOpen || m_isSubMenuOpen) return;
         float direction = context.ReadValue<float>();
 
         m_currentMenuIndex = ((int)(m_currentMenuIndex + direction) + m_menuCount) % m_menuCount;

@@ -1787,8 +1787,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa56902b3bb43a545b0fbbac3ba91dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stageDataIOButtonHandler: {fileID: 1876475248}
-  m_stageMetaDataInputHandler: {fileID: 452207411}
+  m_subMenus:
+  - {fileID: 1876475243}
+  - {fileID: 452207407}
 --- !u!1 &765813346
 GameObject:
   m_ObjectHideFlags: 0
@@ -2901,7 +2902,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1269909114}
         m_TargetAssemblyTypeName: RollingGround.MGameInputManager, Assembly-CSharp
-        m_MethodName: OnToggleMenuUI
+        m_MethodName: OnToggleMenu
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2917,7 +2918,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1269909114}
         m_TargetAssemblyTypeName: RollingGround.MGameInputManager, Assembly-CSharp
-        m_MethodName: OnToggleMenuUI
+        m_MethodName: OnToggleMenu
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2945,6 +2946,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 4bebe2df-0f9b-4f96-b745-c443c7c7eca2
     m_ActionName: 'StageCreativeMenu/MenuSelect[/Keyboard/s,/Keyboard/w]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1269909114}
+        m_TargetAssemblyTypeName: RollingGround.MGameInputManager, Assembly-CSharp
+        m_MethodName: OnToggleSubMenu
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9e709116-a0a8-4f9d-8c2b-341f6c212f48
+    m_ActionName: 'StageCreativeMenu/ToggleSubMenu[/Keyboard/enter]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

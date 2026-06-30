@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// ステージのメタデータセットのボタン処理を呼び出すクラス
 /// </summary>
-public class MStageMetadataInputHandler : MonoBehaviour
+public class MStageMetadataInputHandler : MonoBehaviour, ISubMenu
 {
     private StageMetaDataFactory m_factory = new StageMetaDataFactory();
     private MStageManager m_stageManager;
@@ -48,6 +48,16 @@ public class MStageMetadataInputHandler : MonoBehaviour
         }
     }
 
+    public void OpenSubMenu()
+    {
+        SetMetaDataInputUIActive(true);
+    }
+
+    public void CloseSubMenu()
+    {
+        SetMetaDataInputUIActive(false);
+    }
+
     /// <summary>
     /// ステージメタデータのセット
     /// </summary>
@@ -55,7 +65,7 @@ public class MStageMetadataInputHandler : MonoBehaviour
     {
         StageMetaData stageMetaData = m_factory.CreateStageMetaData(m_stageName, "Unknown", "1.0.0", 1, m_comment);
         m_stageManager.SetStageMetaData(stageMetaData);
-        m_stageManager.SetIsSaved(true);
+        m_stageManager.SetIsMetaDataInputed(true);
         var callback = m_stageDataExport;
         m_stageDataExport = null;
         gameObject.SetActive(false);

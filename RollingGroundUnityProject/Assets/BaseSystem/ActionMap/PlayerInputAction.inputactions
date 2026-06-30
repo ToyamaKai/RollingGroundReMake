@@ -574,6 +574,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "ToggleSubMenu",
+                    "type": "Button",
+                    "id": "9e709116-a0a8-4f9d-8c2b-341f6c212f48",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -620,6 +629,17 @@
                     "action": "MenuSelect",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "a1ca5330-f3b8-4850-81e5-4b7d21ce3a06",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleSubMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

@@ -111,16 +111,24 @@ namespace RollingGround
             }
         }
 
-        public void OnToggleMenuUI(InputAction.CallbackContext context)
+        public void OnToggleMenu(InputAction.CallbackContext context)
         {
             foreach(var recieveObject in m_inputReceieveObjectList)
             {
-                recieveObject.OnToggleMenuUI(context);
+                recieveObject.OnToggleMenu(context);
             }
         }
         #endregion
 
         #region ステージクリエイティブモードメニュー
+        public void OnToggleSubMenu(InputAction.CallbackContext context)
+        {
+            foreach (var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnToggleSubMenu(context);
+            }
+        }
+
         public void OnSelectMenu(InputAction.CallbackContext context)
         {
             foreach (var recieveObject in m_inputReceieveObjectList)
