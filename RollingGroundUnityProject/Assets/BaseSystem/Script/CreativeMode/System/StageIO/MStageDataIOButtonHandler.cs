@@ -2,12 +2,15 @@
 using UnityEngine;
 
 /// <summary>
-/// メタデータのボタン処理クラス
+/// ステージデータエクスポートのUIを管理するクラス
 /// </summary>
 public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
 {
     [SerializeField]
     private MCreativeModeMenuUIManager m_creativeModeMenuUIManager;
+
+    [SerializeField]
+    private MStageMetadataInputHandler m_stageMetadataInputHandler;
 
     JSONConverter m_JSONConverter;
     MStageManager m_stageManager;
@@ -23,39 +26,56 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
         m_stageManager = MStageManager.Instance;
     }
 
+    /// <summary>
+    /// ステージデータのエクスポート処理
+    /// </summary>
     public void OnStageDataExport()
     {
         if (!m_stageManager.GetIsMetaDataInputed())
         {
-            // メタデータが入力されていない場合は、先にステージメタデータの入力を促す
-            //m_creativeModeMenuUIManager.SetStageMetaDataUIActive(true, OnStageDataExport);
+            m_stageMetadataInputHandler.OpenSubMenu();
         }
         else
         {
             m_JSONConverter.StageJSONConvert();
         }
 
-        SetStageDataIOUIActive(false);
+        CloseSubMenu();
     }
 
+    /// <summary>
+    /// ステージデータのインポート処理
+    /// </summary>
+    /// <param name="dataPath"></param>
     public void OnStageDataImport(string dataPath)
     {
         m_JSONConverter.StageJsonDeserialize(dataPath);
-        gameObject.SetActive(false);
-    }
-    
-    public void SetStageDataIOUIActive(bool isActive)
-    {
-        gameObject.SetActive(isActive);
+        
+        CloseSubMenu();
     }
 
+    /// <summary>
+    /// UIを開く処理
+    /// </summary>
     public void OpenSubMenu()
     {
-        SetStageDataIOUIActive(true);
+        gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// UIを閉じる処理
+    /// </summary>
     public void CloseSubMenu()
     {
-        SetStageDataIOUIActive(false);
+        gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// サブメニューの名前を取得する処理
+    /// </summary>
+    /// <returns></returns>
+    public string GetSubMenuName()
+    {
+        return "ステージエクスポート";
     }
 }

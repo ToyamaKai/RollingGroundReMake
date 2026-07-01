@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class CreativeModeMenu : IInputReceiver
 {
     private MGameInputManager m_gameInputManager;
+    private MMouseCursorManager m_mouseCursorManager;
     private GameObject m_menuGameObject;
     private List<GameObject> m_subMenus;
     private List<ISubMenu> m_menus = new();
@@ -16,10 +17,11 @@ public class CreativeModeMenu : IInputReceiver
     private bool m_isMenuOpen;
     private bool m_isSubMenuOpen;
 
-    public CreativeModeMenu(MGameInputManager gameInputManager, List<GameObject> subMenus, GameObject menuGameObject)
+    public CreativeModeMenu(MGameInputManager gameInputManager, MMouseCursorManager mouseCursorManager, List<GameObject> subMenus, GameObject menuGameObject)
     {
         m_subMenus = subMenus;
         m_gameInputManager = gameInputManager;
+        m_mouseCursorManager = mouseCursorManager;
         m_menuGameObject = menuGameObject;
         m_gameInputManager.AddRecieveObject(this);
 
@@ -71,7 +73,9 @@ public class CreativeModeMenu : IInputReceiver
 
         if (m_isMenuOpen)
         {
-            if(m_isSubMenuOpen)
+            m_mouseCursorManager.MouseCursorLock();
+
+            if (m_isSubMenuOpen)
             {
                 m_currentMenu.CloseSubMenu();
                 m_isSubMenuOpen = false;
@@ -84,6 +88,7 @@ public class CreativeModeMenu : IInputReceiver
         {
             OpenMenu();
             m_isMenuOpen = true;
+            m_mouseCursorManager.MouseCursorUnlock();
         }
     }
 

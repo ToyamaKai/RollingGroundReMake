@@ -24,38 +24,35 @@ public class MStageMetadataInputHandler : MonoBehaviour, ISubMenu
         m_stageManager = MStageManager.Instance;
     }
 
+    /// <summary>
+    /// ステージ名のセット
+    /// </summary>
     public void SetStageName()
     {
         m_stageName = m_stageNameInputFiel.text;
     }
 
+    /// <summary>
+    /// コメントのセット
+    /// </summary>
     public void SetComment()
     {
         m_comment = m_commentInputField.text;
     }
 
-    public void SetMetaDataInputUIActive(bool isActive, Action stageDataExport = null)
-    {
-        gameObject.SetActive(isActive);
-
-        if(isActive)
-        {
-            m_stageDataExport = stageDataExport;
-        }
-        else
-        {
-            m_stageDataExport = null;
-        }
-    }
-
     public void OpenSubMenu()
     {
-        SetMetaDataInputUIActive(true);
+        gameObject.SetActive(true);
     }
 
     public void CloseSubMenu()
     {
-        SetMetaDataInputUIActive(false);
+        gameObject.SetActive(false);
+    }
+
+    public string GetSubMenuName()
+    {
+        return "ステージ情報編集";
     }
 
     /// <summary>
@@ -68,7 +65,6 @@ public class MStageMetadataInputHandler : MonoBehaviour, ISubMenu
         m_stageManager.SetIsMetaDataInputed(true);
         var callback = m_stageDataExport;
         m_stageDataExport = null;
-        gameObject.SetActive(false);
-        callback.Invoke();
+        CloseSubMenu();
     }
 }
