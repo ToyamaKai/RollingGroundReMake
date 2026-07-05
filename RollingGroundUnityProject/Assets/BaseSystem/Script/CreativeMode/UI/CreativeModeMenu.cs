@@ -17,6 +17,10 @@ public class CreativeModeMenu : IInputReceiver
     private bool m_isMenuOpen;
     private bool m_isSubMenuOpen;
 
+    private const float k_subMenuPositionX = -660.0f;
+    private const float k_subMenuemphasizePositionX = -600.0f;
+    private const float k_subMenuPositionYInterval = 240.0f;
+
     public CreativeModeMenu(MGameInputManager gameInputManager, MMouseCursorManager mouseCursorManager, List<GameObject> subMenus, GameObject menuGameObject)
     {
         m_subMenus = subMenus;
@@ -60,6 +64,12 @@ public class CreativeModeMenu : IInputReceiver
     {
         m_menuGameObject.SetActive(false);
         m_gameInputManager.SetActionMap("StageCreative");
+    }
+
+    // TODO サブメニューリストの表示処理
+    public void EmphasizeSubMenu()
+    {
+
     }
 
     #region 入力処理関連
