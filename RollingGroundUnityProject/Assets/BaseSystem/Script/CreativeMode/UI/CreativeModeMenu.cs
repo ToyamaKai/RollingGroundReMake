@@ -3,23 +3,29 @@ using RollingGround;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CreativeModeMenu : IInputReceiver
 {
-    private MGameInputManager m_gameInputManager;
-    private MMouseCursorManager m_mouseCursorManager;
-    private GameObject m_menuGameObject;
-    private List<GameObject> m_subMenus;
-    private List<ISubMenu> m_menus = new();
-    private ISubMenu m_currentMenu;
-    private int m_currentMenuIndex = 0;
-    private int m_menuCount = 0;
-    private bool m_isMenuOpen;
-    private bool m_isSubMenuOpen;
+    private MGameInputManager   m_gameInputManager;         // ゲーム入力マネージャー
+    private MMouseCursorManager m_mouseCursorManager;       // マウスカーソルマネージャー
+    private Transform           m_subMenuNamePlateParent;   // サブメニューのネームプレートの親オブジェクトのTransform(親設定用)
+    private GameObject          m_menuGameObject;           // メニューUI
+    private GameObject          m_subMenuNamePlate;         // サブメニューのネームプレートプレハブ(Instantiate用)
+    private List<GameObject>    m_subMenus;                 // サブメニューUIのリスト
+    private List<GameObject>    m_subMenuNamePlateList;     // サブメニューのネームプレートリスト
+    private List<ISubMenu>      m_menus = new();            // ISubMenuインターフェースを継承しているスクリプトリスト
+    private ISubMenu            m_currentMenu;              // 現在選択されているサブメニューのISubMenuインターフェースを継承しているスクリプト
+    private int                 m_currentMenuIndex = 0;     // 現在選択されているサブメニューの番号
+    private int                 m_menuCount = 0;            // サブメニューの数
+    private bool                m_isMenuOpen;               // メニューの開閉状況
+    private bool                m_isSubMenuOpen;            // サブメニューの開閉状況
 
-    private const float k_subMenuPositionX = -660.0f;
+    // サブメニューの表示位置用定数
+    private const float k_subMenuPositionX          = -660.0f;
     private const float k_subMenuemphasizePositionX = -600.0f;
-    private const float k_subMenuPositionYInterval = 240.0f;
+    private const float k_subMenuPositionYOrigin    = 440.0f;
+    private const float k_subMenuPositionYInterval  = 240.0f;
 
     public CreativeModeMenu(MGameInputManager gameInputManager, MMouseCursorManager mouseCursorManager, List<GameObject> subMenus, GameObject menuGameObject)
     {
@@ -29,6 +35,7 @@ public class CreativeModeMenu : IInputReceiver
         m_menuGameObject = menuGameObject;
         m_gameInputManager.AddRecieveObject(this);
 
+        // サブメニューからISubMenuを継承するスクリプトを取得しリストに格納
         foreach (var menu in m_subMenus)
         {
             var iSubmenu = menu.GetComponent<ISubMenu>();
@@ -66,12 +73,33 @@ public class CreativeModeMenu : IInputReceiver
         m_gameInputManager.SetActionMap("StageCreative");
     }
 
-    // TODO サブメニューリストの表示処理
-    public void EmphasizeSubMenu()
-    {
+    #region サブメニューネームプレート関連の処理
 
+    //サブメニューのネームプレートを生成、サブメニュー名を代入、リストに追加する処理
+    public void SubMenuNamePlateInstantiate()
+    {
+        GameObject subMenuNamePlate;
+        Text subMenuName;
+        for(int i = 0; i < m_subMenus.Count; i++)
+        {
+            subMenuNamePlate = Object.Instantiate(m_subMenuNamePlate, m_subMenuNamePlateParent, false);
+            subMenuNamePlate.transform.localPosition = new Vector3(k_subMenuPositionX, k_subMenuPositionYOrigin - (k_subMenuPositionYInterval * i), 0);
+
+            subMenuName = subMenuNamePlate.GetComponentInChildren<Text>();
+            subMenuName.text = m_menus[i].GetSubMenuName();
+
+            m_subMenuNamePlateList.Add(subMenuNamePlate);
+        }
+    }
+    
+    // TODO サブメニューリストの表示処理
+    public void EmphasizeSubMenuNamePlate()
+    {
+        // 以前のUIを元の位置に戻し、指定した番号のUIを強調する
+        m_subMenuNamePlateList[m_currentMenuIndex].transform.position = new Vector3(k_subMenuPositionX, k_subMenuPositionYOrigin - (k_subMenuPositionYOrigin * m_currentMenuIndex), 0);
     }
 
+    #endregion
     #region 入力処理関連
     /// <summary>
     /// メニューの開閉を切り替える処理
