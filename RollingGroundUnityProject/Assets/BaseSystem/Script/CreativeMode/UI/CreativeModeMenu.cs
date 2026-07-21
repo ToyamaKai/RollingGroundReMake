@@ -17,13 +17,14 @@ public class CreativeModeMenu : IInputReceiver
     private List<ISubMenu>      m_menus = new();            // ISubMenuインターフェースを継承しているスクリプトリスト
     private ISubMenu            m_currentMenu;              // 現在選択されているサブメニューのISubMenuインターフェースを継承しているスクリプト
     private int                 m_currentMenuIndex = 0;     // 現在選択されているサブメニューの番号
+    private int                 m_preMenuIndex = -1;        // ひとつ前に選択されたサブメニューの番号
     private int                 m_menuCount = 0;            // サブメニューの数
     private bool                m_isMenuOpen;               // メニューの開閉状況
     private bool                m_isSubMenuOpen;            // サブメニューの開閉状況
 
     // サブメニューの表示位置用定数
     private const float k_subMenuPositionX          = -660.0f;
-    private const float k_subMenuemphasizePositionX = -600.0f;
+    private const float k_subMenuEmphasizePositionX = -600.0f;
     private const float k_subMenuPositionYOrigin    = 440.0f;
     private const float k_subMenuPositionYInterval  = 240.0f;
 
@@ -92,14 +93,22 @@ public class CreativeModeMenu : IInputReceiver
         }
     }
     
-    // TODO サブメニューリストの表示処理
+    // サブメニューネームプレートの強調表示
     public void EmphasizeSubMenuNamePlate()
     {
         // 以前のUIを元の位置に戻し、指定した番号のUIを強調する
-        m_subMenuNamePlateList[m_currentMenuIndex].transform.position = new Vector3(k_subMenuPositionX, k_subMenuPositionYOrigin - (k_subMenuPositionYOrigin * m_currentMenuIndex), 0);
+        if(m_preMenuIndex >= 0)
+        {
+            m_subMenuNamePlateList[m_preMenuIndex].transform.localPosition = new Vector3(k_subMenuPositionX, k_subMenuPositionYOrigin - (k_subMenuPositionYOrigin * m_preMenuIndex), 0);
+        }
+
+        m_subMenuNamePlateList[m_currentMenuIndex].transform.localPosition = new Vector3(k_subMenuEmphasizePositionX, k_subMenuPositionYOrigin - (k_subMenuPositionYOrigin * m_currentMenuIndex), 0);
+
+        m_preMenuIndex = m_currentMenuIndex;
     }
 
     #endregion
+
     #region 入力処理関連
     /// <summary>
     /// メニューの開閉を切り替える処理
@@ -160,6 +169,8 @@ public class CreativeModeMenu : IInputReceiver
         float direction = context.ReadValue<float>();
 
         m_currentMenuIndex = ((int)(m_currentMenuIndex + direction) + m_menuCount) % m_menuCount;
+
+        EmphasizeSubMenuNamePlate();
     }
 #endregion
 }
