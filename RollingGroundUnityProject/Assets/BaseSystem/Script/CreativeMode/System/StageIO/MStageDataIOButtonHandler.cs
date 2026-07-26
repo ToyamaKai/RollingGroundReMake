@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// ステージデータエクスポートのUIを管理するクラス
-/// </summary>
+/// </summary>  
 public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
 {
     [SerializeField]

@@ -37,7 +37,10 @@ public class CreativeModeMenu : IInputReceiver
         m_gameInputManager.AddRecieveObject(this);
         m_subMenuNamePlate = subMenuNamePlate;
         m_subMenuNamePlateParent = subMenuNamePlateParent;
+    }
 
+    public void Start()
+    {
         // サブメニューからISubMenuを継承するスクリプトを取得しリストに格納
         foreach (var menu in m_subMenus)
         {
@@ -57,6 +60,22 @@ public class CreativeModeMenu : IInputReceiver
         m_menuCount = m_menus.Count;
         SubMenuNamePlateInstantiate();
         CloseMenu();
+    }
+
+    /// <summary>
+    /// ISubMenuを継承したスクリプトを返すメソッド
+    /// </summary>
+    /// <returns></returns>
+    public List<ISubMenu> GetISubMenuScripts()
+    {
+        if( m_menus == null )
+        {
+            Debug.Log("ISubMenuリストはNull");
+            return null;
+        } else
+        {
+            return m_menus;
+        }
     }
 
     /// <summary>
