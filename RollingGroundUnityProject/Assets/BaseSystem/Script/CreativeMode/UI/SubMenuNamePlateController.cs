@@ -28,6 +28,7 @@ public class SubMenuNamePlateController
         m_creativeModeMenu = creativeModeMenu;
 
         m_creativeModeMenu.OnSubMenuIndexChanged += EmphasizeSubMenuNamePlate;
+        m_creativeModeMenu.OnSubMenuOpen += SwitchSubMenuNamePlateListActive;
     }
 
     /// <summary>
@@ -37,7 +38,6 @@ public class SubMenuNamePlateController
     public void Start(List<ISubMenu> ISubMenuScripts)
     {
         SubMenuNamePlateInstantiate(ISubMenuScripts);
-        Debug.Log("Start");
     }
 
     /// <summary>
@@ -60,7 +60,6 @@ public class SubMenuNamePlateController
             subMenuNamePlateText.text = menus[i].GetSubMenuName();
 
             m_subMenuNamePlateList.Add(subMenuNamePlate);
-            Debug.Log("生成");
         }
     }
 

@@ -22,6 +22,7 @@ public class CreativeModeMenu : IInputReceiver
     private bool                m_isSubMenuOpen;            // サブメニューの開閉状況
 
     public event Action<int, int> OnSubMenuIndexChanged;
+    public event Action<bool> OnSubMenuOpen;
 
     public CreativeModeMenu(MGameInputManager gameInputManager, MMouseCursorManager mouseCursorManager, List<GameObject> subMenus, GameObject menuGameObject, GameObject subMenuNamePlateParent)
     {
@@ -98,19 +99,6 @@ public class CreativeModeMenu : IInputReceiver
         m_gameInputManager.SetActionMap("StageCreative");
     }
 
-    #region サブメニューネームプレート関連の処理
-
-    /// <summary>
-    /// サブメニューネームプレートリストの開閉処理
-    /// </summary>
-    /// <param name="setActive"></param>
-    public void SwitchSubMenuNamePlateListActive(bool setActive)
-    {
-        m_subMenuNamePlateParent.SetActive(setActive);
-    }
-
-    #endregion
-
     #region 入力処理関連
     /// <summary>
     /// メニューの開閉を切り替える処理
@@ -129,17 +117,18 @@ public class CreativeModeMenu : IInputReceiver
                 m_currentMenu.CloseSubMenu();
                 m_isSubMenuOpen = false;
             }
-            SwitchSubMenuNamePlateListActive(false);
+
             CloseMenu();
             m_isMenuOpen = false;
         }
         else
         {
-            SwitchSubMenuNamePlateListActive(true);
             OpenMenu();
             m_isMenuOpen = true;
             m_mouseCursorManager.MouseCursorUnlock();
         }
+
+        OnSubMenuOpen?.Invoke(m_isMenuOpen);
     }
 
     /// <summary>
@@ -153,16 +142,18 @@ public class CreativeModeMenu : IInputReceiver
         if (m_isSubMenuOpen)
         {
             m_currentMenu.CloseSubMenu();
-            SwitchSubMenuNamePlateListActive(true);
             m_isSubMenuOpen = false;
+            m_isMenuOpen = true;
         }
         else
         {
+            m_isMenuOpen = false;
             m_currentMenu = m_menus[m_currentMenuIndex];
-            SwitchSubMenuNamePlateListActive(false);
             m_menus[m_currentMenuIndex].OpenSubMenu();
             m_isSubMenuOpen = true;
         }
+
+        OnSubMenuOpen?.Invoke(m_isMenuOpen);
     }
 
     /// <summary>
