@@ -12,6 +12,8 @@ public class SubMenuNamePlateController
     private GameObject m_subMenuNamePlateParent;
     private List<GameObject> m_subMenuNamePlateList = new List<GameObject>();
 
+    private CreativeModeMenu m_creativeModeMenu;
+
 
     // サブメニューの表示位置用定数
     private const float k_subMenuPositionX = -660.0f;
@@ -19,10 +21,13 @@ public class SubMenuNamePlateController
     private const float k_subMenuPositionYOrigin = 440.0f;
     private const float k_subMenuPositionYInterval = 200.0f;
 
-    public SubMenuNamePlateController(GameObject subMenuNamePlatePrefab, GameObject subMenuNamePlateParent)
+    public SubMenuNamePlateController(GameObject subMenuNamePlatePrefab, GameObject subMenuNamePlateParent, CreativeModeMenu creativeModeMenu)
     {
         m_subMenuNamePlatePrefab = subMenuNamePlatePrefab;
         m_subMenuNamePlateParent = subMenuNamePlateParent;
+        m_creativeModeMenu = creativeModeMenu;
+
+        m_creativeModeMenu.OnSubMenuIndexChanged += EmphasizeSubMenuNamePlate;
     }
 
     /// <summary>
@@ -32,6 +37,7 @@ public class SubMenuNamePlateController
     public void Start(List<ISubMenu> ISubMenuScripts)
     {
         SubMenuNamePlateInstantiate(ISubMenuScripts);
+        Debug.Log("Start");
     }
 
     /// <summary>
@@ -43,7 +49,7 @@ public class SubMenuNamePlateController
         GameObject subMenuNamePlate;
         Text subMenuNamePlateText;
 
-        for(int i = 0; i <  m_subMenuNamePlateList.Count; i++)
+        for(int i = 0; i <  m_creativeModeMenu.GetSubMenuCount(); i++)
         {
             // 先頭のネームプレートのX座標をずらし選択状態とするための三項演算子
             float positionX = i == 0 ? k_subMenuEmphasizePositionX : k_subMenuPositionX;
@@ -54,6 +60,7 @@ public class SubMenuNamePlateController
             subMenuNamePlateText.text = menus[i].GetSubMenuName();
 
             m_subMenuNamePlateList.Add(subMenuNamePlate);
+            Debug.Log("生成");
         }
     }
 
@@ -75,6 +82,5 @@ public class SubMenuNamePlateController
     {
         m_subMenuNamePlateList[preMenuIndex].transform.localPosition = new Vector3(k_subMenuPositionX, k_subMenuPositionYOrigin - (k_subMenuPositionYInterval * preMenuIndex), 0);
         m_subMenuNamePlateList[currentMenuIndex].transform.localPosition = new Vector3(k_subMenuEmphasizePositionX, k_subMenuPositionYOrigin - (k_subMenuPositionYInterval * currentMenuIndex), 0);
-        preMenuIndex = currentMenuIndex;
     }
 }
