@@ -19,7 +19,7 @@ public class CreativeModeMenu : IInputReceiver
     private int                 m_preMenuIndex = 0;         // ひとつ前に選択されたサブメニューの番号
     private int                 m_menuCount = 0;            // サブメニューの数
     private bool                m_isMenuOpen;               // メニューの開閉状況
-    private bool                m_isSubMenuOpen;            // サブメニューの開閉状況
+    private bool                m_isSubMenuOpen = false;            // サブメニューの開閉状況
 
     public event Action<int, int> OnSubMenuIndexChanged;
     public event Action<bool> OnSubMenuOpen;
@@ -86,6 +86,7 @@ public class CreativeModeMenu : IInputReceiver
     /// </summary>
     public void OpenMenu()
     {
+        m_isMenuOpen = true;
         m_menuGameObject.SetActive(true);
         m_gameInputManager.SetActionMap("StageCreativeMenu");
     }
@@ -97,6 +98,7 @@ public class CreativeModeMenu : IInputReceiver
     {
         m_menuGameObject.SetActive(false);
         m_gameInputManager.SetActionMap("StageCreative");
+        m_isMenuOpen = false;
     }
 
     #region 入力処理関連
@@ -119,12 +121,10 @@ public class CreativeModeMenu : IInputReceiver
             }
 
             CloseMenu();
-            m_isMenuOpen = false;
         }
         else
         {
             OpenMenu();
-            m_isMenuOpen = true;
             m_mouseCursorManager.MouseCursorUnlock();
         }
 
@@ -149,7 +149,10 @@ public class CreativeModeMenu : IInputReceiver
         {
             m_isMenuOpen = false;
             m_currentMenu = m_menus[m_currentMenuIndex];
-            m_menus[m_currentMenuIndex].OpenSubMenu();
+            m_menus[m_currentMenuIndex].OpenSubMenu( () =>
+            {
+                OpenMenu();
+            });
             m_isSubMenuOpen = true;
         }
 

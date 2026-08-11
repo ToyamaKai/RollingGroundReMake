@@ -11,7 +11,8 @@ public class MStageMetadataInputHandler : MonoBehaviour, ISubMenu
     private MStageManager m_stageManager;
     private string m_stageName;
     private string m_comment;
-    private Action m_stageDataExport;
+    private Action m_onClose = null;
+    private StageMetaData m_stageMetaData;
 
     [SerializeField]
     private InputField m_stageNameInputFiel;
@@ -40,9 +41,10 @@ public class MStageMetadataInputHandler : MonoBehaviour, ISubMenu
         m_comment = m_commentInputField.text;
     }
 
-    public void OpenSubMenu()
+    public void OpenSubMenu(Action onClose)
     {
         gameObject.SetActive(true);
+        m_onClose = onClose;
     }
 
     public void CloseSubMenu()
@@ -60,11 +62,11 @@ public class MStageMetadataInputHandler : MonoBehaviour, ISubMenu
     /// </summary>
     public void CreateStageMetaData()
     {
-        StageMetaData stageMetaData = m_factory.CreateStageMetaData(m_stageName, "Unknown", "1.0.0", 1, m_comment);
-        m_stageManager.SetStageMetaData(stageMetaData);
+        m_stageMetaData = m_factory.CreateStageMetaData(m_stageName, "Unknown", "1.0.0", 1, m_comment);
+        m_stageManager.SetStageMetaData(m_stageMetaData);
         m_stageManager.SetIsMetaDataInputed(true);
-        var callback = m_stageDataExport;
-        m_stageDataExport = null;
+
         CloseSubMenu();
+        m_onClose?.Invoke();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using RollingGround;
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -14,6 +15,8 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
 
     JSONConverter m_JSONConverter;
     MStageManager m_stageManager;
+
+    private Action m_onClose;
 
     private void Start()
     {
@@ -33,7 +36,10 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     {
         if (!m_stageManager.GetIsMetaDataInputed())
         {
-            m_stageMetadataInputHandler.OpenSubMenu();
+            m_stageMetadataInputHandler.OpenSubMenu(() =>
+            {
+                OpenSubMenu(m_onClose);
+            });
         }
         else
         {
@@ -57,9 +63,10 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     /// <summary>
     /// UIを開く処理
     /// </summary>
-    public void OpenSubMenu()
+    public void OpenSubMenu(Action onClose)
     {
         gameObject.SetActive(true);
+        m_onClose = onClose;
     }
 
     /// <summary>
@@ -68,6 +75,7 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     public void CloseSubMenu()
     {
         gameObject.SetActive(false);
+        m_onClose?.Invoke();
     }
 
     /// <summary>

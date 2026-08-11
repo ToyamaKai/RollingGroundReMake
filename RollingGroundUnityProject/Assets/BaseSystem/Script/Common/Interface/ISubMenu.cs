@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public interface ISubMenu
 {
-    void OpenSubMenu();
+    void OpenSubMenu(Action onClose);
     void CloseSubMenu();
     string GetSubMenuName();
 }
