@@ -26,9 +26,6 @@ public class SubMenuNamePlateController
         m_subMenuNamePlatePrefab = subMenuNamePlatePrefab;
         m_subMenuNamePlateParent = subMenuNamePlateParent;
         m_creativeModeMenu = creativeModeMenu;
-
-        m_creativeModeMenu.OnSubMenuIndexChanged += EmphasizeSubMenuNamePlate;
-        m_creativeModeMenu.OnSubMenuOpen += SwitchSubMenuNamePlateListActive;
     }
 
     /// <summary>

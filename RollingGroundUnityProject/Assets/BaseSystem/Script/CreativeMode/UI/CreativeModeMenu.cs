@@ -10,6 +10,7 @@ public class CreativeModeMenu : IInputReceiver
 {
     private MGameInputManager   m_gameInputManager;         // ゲーム入力マネージャー
     private MMouseCursorManager m_mouseCursorManager;       // マウスカーソルマネージャー
+    private MCreativeModeMenuUIManager m_creativeModeMenuUIManager; 
     private GameObject          m_menuGameObject;           // メニューUI
     private GameObject          m_subMenuNamePlateParent;   // サブメニューのネームプレートの親オブジェクト(開閉、親設定用)
     private List<GameObject>    m_subMenus;                 // サブメニューUIのリスト
@@ -19,16 +20,15 @@ public class CreativeModeMenu : IInputReceiver
     private int                 m_preMenuIndex = 0;         // ひとつ前に選択されたサブメニューの番号
     private int                 m_menuCount = 0;            // サブメニューの数
     private bool                m_isMenuOpen;               // メニューの開閉状況
-    private bool                m_isSubMenuOpen = false;            // サブメニューの開閉状況
+    private bool                m_isMenuNamePlateOpen;      // メニューのネームプレートの開閉状況
+    private bool                m_isSubMenuOpen = false;    // サブメニューの開閉状況
 
-    public event Action<int, int> OnSubMenuIndexChanged;
-    public event Action<bool> OnSubMenuOpen;
-
-    public CreativeModeMenu(MGameInputManager gameInputManager, MMouseCursorManager mouseCursorManager, List<GameObject> subMenus, GameObject menuGameObject, GameObject subMenuNamePlateParent)
+    public CreativeModeMenu(MGameInputManager gameInputManager, MMouseCursorManager mouseCursorManager, MCreativeModeMenuUIManager creativeModeMenuUIManager, List<GameObject> subMenus, GameObject menuGameObject, GameObject subMenuNamePlateParent)
     {
         m_subMenus = subMenus;
         m_gameInputManager = gameInputManager;
         m_mouseCursorManager = mouseCursorManager;
+        m_creativeModeMenuUIManager = creativeModeMenuUIManager;
         m_menuGameObject = menuGameObject;
         m_gameInputManager.AddRecieveObject(this);
         m_subMenuNamePlateParent = subMenuNamePlateParent;
@@ -112,23 +112,26 @@ public class CreativeModeMenu : IInputReceiver
 
         if (m_isMenuOpen)
         {
-            m_mouseCursorManager.MouseCursorLock();
-
             if (m_isSubMenuOpen)
             {
                 m_currentMenu.CloseSubMenu();
                 m_isSubMenuOpen = false;
+                m_isMenuNamePlateOpen = true;
             }
-
-            CloseMenu();
+            else
+            {
+                CloseMenu();
+                m_isMenuNamePlateOpen = false;
+            }
         }
         else
         {
             OpenMenu();
-            m_mouseCursorManager.MouseCursorUnlock();
+            m_isMenuNamePlateOpen = true;
+            m_mouseCursorManager.MouseCursorLock();
         }
 
-        OnSubMenuOpen?.Invoke(m_isMenuOpen);
+        m_creativeModeMenuUIManager.SwitchSubMenuNamePlateListActive(m_isMenuNamePlateOpen);
     }
 
     /// <summary>
@@ -139,24 +142,23 @@ public class CreativeModeMenu : IInputReceiver
     {
         if (!context.performed) return;
 
-        if (m_isSubMenuOpen)
+        if (!m_isSubMenuOpen)
         {
-            m_currentMenu.CloseSubMenu();
-            m_isSubMenuOpen = false;
-            m_isMenuOpen = true;
+            m_isSubMenuOpen = true;
+            m_isMenuNamePlateOpen = false;
+            m_currentMenu = m_menus[m_currentMenuIndex];
+            m_menus[m_currentMenuIndex].OpenSubMenu();
+            m_mouseCursorManager.MouseCursorUnlock();
         }
         else
         {
-            m_isMenuOpen = false;
-            m_currentMenu = m_menus[m_currentMenuIndex];
-            m_menus[m_currentMenuIndex].OpenSubMenu( () =>
-            {
-                OpenMenu();
-            });
-            m_isSubMenuOpen = true;
+            m_isSubMenuOpen = false;
+            m_isMenuNamePlateOpen = true;
+            m_currentMenu.CloseSubMenu();
+            m_mouseCursorManager.MouseCursorLock();
         }
 
-        OnSubMenuOpen?.Invoke(m_isMenuOpen);
+        m_creativeModeMenuUIManager.SwitchSubMenuNamePlateListActive(m_isMenuNamePlateOpen);
     }
 
     /// <summary>
@@ -169,7 +171,7 @@ public class CreativeModeMenu : IInputReceiver
 
         m_currentMenuIndex = ((int)(m_currentMenuIndex + direction) + m_menuCount) % m_menuCount;
 
-        OnSubMenuIndexChanged?.Invoke(m_preMenuIndex, m_currentMenuIndex);
+        m_creativeModeMenuUIManager.EmphashizeSubMenuNamePlate(m_preMenuIndex, m_currentMenuIndex);
         m_preMenuIndex = m_currentMenuIndex;
     }
 #endregion

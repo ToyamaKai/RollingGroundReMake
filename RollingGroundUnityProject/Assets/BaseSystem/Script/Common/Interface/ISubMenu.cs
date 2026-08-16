@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface ISubMenu
 {
-    void OpenSubMenu(Action onClose);
+    void OpenSubMenu();
     void CloseSubMenu();
     string GetSubMenuName();
 }

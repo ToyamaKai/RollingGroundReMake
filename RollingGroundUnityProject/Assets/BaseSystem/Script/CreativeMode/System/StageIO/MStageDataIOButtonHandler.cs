@@ -16,8 +16,6 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     JSONConverter m_JSONConverter;
     MStageManager m_stageManager;
 
-    private Action m_onClose;
-
     private void Start()
     {
         m_JSONConverter = new JSONConverter(
@@ -36,10 +34,7 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     {
         if (!m_stageManager.GetIsMetaDataInputed())
         {
-            m_stageMetadataInputHandler.OpenSubMenu(() =>
-            {
-                OpenSubMenu(m_onClose);
-            });
+            m_stageMetadataInputHandler.OpenSubMenu();
         }
         else
         {
@@ -63,10 +58,9 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     /// <summary>
     /// UIを開く処理
     /// </summary>
-    public void OpenSubMenu(Action onClose)
+    public void OpenSubMenu()
     {
         gameObject.SetActive(true);
-        m_onClose = onClose;
     }
 
     /// <summary>
@@ -75,7 +69,6 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     public void CloseSubMenu()
     {
         gameObject.SetActive(false);
-        m_onClose?.Invoke();
     }
 
     /// <summary>

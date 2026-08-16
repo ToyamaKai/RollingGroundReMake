@@ -28,7 +28,7 @@ namespace RollingGround
             m_menuGameObject = this.gameObject;
             m_mouseCursorManager            = MMouseCursorManager.Instance;
             m_gameInputManager              = GameObject.FindFirstObjectByType<MGameInputManager>();
-            m_creativeModeMenu              = new CreativeModeMenu(m_gameInputManager, m_mouseCursorManager, m_subMenus, m_menuGameObject, m_subMenuNamePlateParent);
+            m_creativeModeMenu              = new CreativeModeMenu(m_gameInputManager, m_mouseCursorManager, this,  m_subMenus, m_menuGameObject, m_subMenuNamePlateParent);
             m_subMenuNamePlateController    = new SubMenuNamePlateController(m_subMenuNamePlate, m_subMenuNamePlateParent, m_creativeModeMenu);
 
             m_creativeModeMenu.Start();
@@ -49,7 +49,7 @@ namespace RollingGround
         /// </summary>
         /// <param name="preMenuIndex"></param>
         /// <param name="currentMenuIndex"></param>
-        public void EmpashizeSubMenuNamePlate(int preMenuIndex, int currentMenuIndex)
+        public void EmphashizeSubMenuNamePlate(int preMenuIndex, int currentMenuIndex)
         {
             m_subMenuNamePlateController.EmphasizeSubMenuNamePlate(preMenuIndex, currentMenuIndex);
         }
