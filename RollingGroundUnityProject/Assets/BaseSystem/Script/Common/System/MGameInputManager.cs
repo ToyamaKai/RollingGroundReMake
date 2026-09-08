@@ -16,7 +16,7 @@ namespace RollingGround
         private void Awake()
         {
             m_playerInput = GetComponent<PlayerInput>();
-            SetActionMap("StageCreative");
+            //SetActionMap("StageCreative");
         }
 
         public string GetActionMapName()
