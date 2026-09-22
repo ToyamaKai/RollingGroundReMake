@@ -11,10 +11,12 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     private MCreativeModeMenuUIManager m_creativeModeMenuUIManager;
 
     [SerializeField]
-    private MStageMetadataInputHandler m_stageMetadataInputHandler;
+    private MStageMetadataInputHandler m_stageMetadataInputHandler; // ステージメタデータ入力UIのハンドラー
 
     JSONConverter m_JSONConverter;
-    MStageManager m_stageManager;
+    MStageManager m_stageManager; // シングルトン化したいね
+
+    public MenuType Type => MenuType.StageExport;
 
     private void Start()
     {
@@ -34,11 +36,12 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     {
         if (!m_stageManager.GetIsMetaDataInputed())
         {
-            m_stageMetadataInputHandler.OpenSubMenu();
+            m_creativeModeMenuUIManager.CloseSubMenuWithReturn(MenuType.StageInfo, MenuType.StageExport);
         }
         else
         {
             m_JSONConverter.StageJSONConvert();
+            m_creativeModeMenuUIManager.CloseMenu();
         }
 
         CloseSubMenu();

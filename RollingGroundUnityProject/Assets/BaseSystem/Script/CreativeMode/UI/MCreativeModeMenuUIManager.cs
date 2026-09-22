@@ -8,8 +8,6 @@ namespace RollingGround
 {
     public class MCreativeModeMenuUIManager : MonoBehaviour, IInputReceiver
     {
-        [SerializeField]
-        private List<GameObject> m_subMenus;
 
         [SerializeField]
         private GameObject m_subMenuNamePlate;
@@ -19,39 +17,36 @@ namespace RollingGround
 
         private MGameInputManager m_gameInputManager;
         private MMouseCursorManager m_mouseCursorManager;
-        private CreativeModeMenu m_creativeModeMenu;
-        private SubMenuNamePlateController m_subMenuNamePlateController;
-        private GameObject m_menuGameObject;
+        private CreativeModeMenuManager m_creativeModeMenu;
+
+        private List<ISubMenu> m_subMenus = new List<ISubMenu>();
+
+        void Awake()
+        {
+            m_subMenus = new List<ISubMenu>(GetComponentsInChildren<ISubMenu>(true)){};
+        }
 
         void Start()
         {
-            m_menuGameObject = this.gameObject;
             m_mouseCursorManager            = MMouseCursorManager.Instance;
             m_gameInputManager              = GameObject.FindFirstObjectByType<MGameInputManager>();
-            m_creativeModeMenu              = new CreativeModeMenu(m_gameInputManager, m_mouseCursorManager, this,  m_subMenus, m_menuGameObject, m_subMenuNamePlateParent);
-            m_subMenuNamePlateController    = new SubMenuNamePlateController(m_subMenuNamePlate, m_subMenuNamePlateParent, m_creativeModeMenu);
-
-            m_creativeModeMenu.Start();
-            m_subMenuNamePlateController.Start(m_creativeModeMenu.GetISubMenuScripts());
+            m_creativeModeMenu = new CreativeModeMenuManager();
+            m_creativeModeMenu.Initialize(m_gameInputManager, m_mouseCursorManager, m_subMenus, m_subMenuNamePlate, m_subMenuNamePlateParent);
         }
 
-        /// <summary>
-        /// サブメニューネームプレートリストの開閉処理
-        /// </summary>
-        /// <param name="setActive"></param>
-        public void SwitchSubMenuNamePlateListActive(bool setActive)
+        public void CloseSubMenuWithReturn(MenuType toMenu, MenuType returnMenu)
         {
-            m_subMenuNamePlateController.SwitchSubMenuNamePlateListActive(setActive);
+            m_creativeModeMenu.CloseSubMenuWithReturn(toMenu, returnMenu);
         }
 
-        /// <summary>
-        /// 選択されているサブメニューネームプレートを強調表示する処理
-        /// </summary>
-        /// <param name="preMenuIndex"></param>
-        /// <param name="currentMenuIndex"></param>
-        public void EmphashizeSubMenuNamePlate(int preMenuIndex, int currentMenuIndex)
+        public void ReturnToPreviousSubMenu()
         {
-            m_subMenuNamePlateController.EmphasizeSubMenuNamePlate(preMenuIndex, currentMenuIndex);
+            m_creativeModeMenu.ReturnToPreviousSubMenu();
+        }
+
+        public void CloseMenu()
+        {
+            m_creativeModeMenu.CloseSubMenu();
         }
     }
 }

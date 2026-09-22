@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RollingGround;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,17 +8,22 @@ using UnityEngine.UI;
 /// </summary>
 public class MStageMetadataInputHandler : MonoBehaviour, ISubMenu
 {
+    [SerializeField]
+    private MCreativeModeMenuUIManager m_creativeModeMenuUIManager;
+
     private StageMetaDataFactory m_factory = new StageMetaDataFactory();
+    private StageMetaData m_stageMetaData;
     private MStageManager m_stageManager;
     private string m_stageName;
     private string m_comment;
-    private StageMetaData m_stageMetaData;
 
     [SerializeField]
     private InputField m_stageNameInputFiel;
 
     [SerializeField]
     private InputField m_commentInputField;
+
+    public MenuType Type => MenuType.StageInfo;
 
     private void Start()
     {
@@ -64,6 +70,7 @@ public class MStageMetadataInputHandler : MonoBehaviour, ISubMenu
         m_stageManager.SetStageMetaData(m_stageMetaData);
         m_stageManager.SetIsMetaDataInputed(true);
 
-        CloseSubMenu();
+        gameObject.SetActive(false);
+        m_creativeModeMenuUIManager.ReturnToPreviousSubMenu();
     }
 }

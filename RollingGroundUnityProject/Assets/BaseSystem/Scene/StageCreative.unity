@@ -1233,6 +1233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb897c265b4979b42900dda91e053c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_creativeModeMenuUIManager: {fileID: 760175944}
   m_stageNameInputFiel: {fileID: 765813348}
   m_commentInputField: {fileID: 2085862142}
 --- !u!1 &470010452
@@ -1823,9 +1824,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa56902b3bb43a545b0fbbac3ba91dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_subMenus:
-  - {fileID: 1876475243}
-  - {fileID: 452207407}
   m_subMenuNamePlate: {fileID: 8077423009806512633, guid: 388d7490c0d69fb49a527d977470a8a3, type: 3}
   m_subMenuNamePlateParent: {fileID: 365080203}
 --- !u!1 &765813346
