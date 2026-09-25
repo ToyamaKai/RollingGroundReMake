@@ -378,7 +378,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: Stage Comment
 --- !u!222 &115577196
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -626,7 +626,7 @@ GameObject:
   - component: {fileID: 202980169}
   - component: {fileID: 202980168}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1031,7 +1031,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: Stage Name
 --- !u!222 &409135879
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1234,7 +1234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_creativeModeMenuUIManager: {fileID: 760175944}
-  m_stageNameInputFiel: {fileID: 765813348}
+  m_stageNameInputField: {fileID: 765813348}
   m_commentInputField: {fileID: 2085862142}
 --- !u!1 &470010452
 GameObject:
@@ -1839,7 +1839,7 @@ GameObject:
   - component: {fileID: 765813349}
   - component: {fileID: 765813348}
   m_Layer: 5
-  m_Name: InputField (Legacy)
+  m_Name: StageNameInputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2068,7 +2068,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 452207411}
-        m_TargetAssemblyTypeName: MStageMetaDataUIManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: MStageMetadataInputHandler, Assembly-CSharp
         m_MethodName: CreateStageMetaData
         m_Mode: 1
         m_Arguments:
@@ -3550,7 +3550,7 @@ GameObject:
   - component: {fileID: 1634562487}
   - component: {fileID: 1634562486}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3877,7 +3877,7 @@ GameObject:
   - component: {fileID: 2085862143}
   - component: {fileID: 2085862142}
   m_Layer: 5
-  m_Name: InputField (Legacy) (1)
+  m_Name: StageCommentInputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

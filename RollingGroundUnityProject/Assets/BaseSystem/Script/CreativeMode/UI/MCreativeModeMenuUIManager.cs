@@ -28,9 +28,9 @@ namespace RollingGround
 
         void Start()
         {
-            m_mouseCursorManager            = MMouseCursorManager.Instance;
-            m_gameInputManager              = GameObject.FindFirstObjectByType<MGameInputManager>();
-            m_creativeModeMenu = new CreativeModeMenuManager();
+            m_mouseCursorManager    = MMouseCursorManager.Instance;
+            m_gameInputManager      = GameObject.FindFirstObjectByType<MGameInputManager>();
+            m_creativeModeMenu      = new CreativeModeMenuManager();
             m_creativeModeMenu.Initialize(m_gameInputManager, m_mouseCursorManager, m_subMenus, m_subMenuNamePlate, m_subMenuNamePlateParent);
         }
 
