@@ -75,7 +75,7 @@ public class CreativeModeMenuManager : IInputReceiver
     }
 
     /// <summary>
-    /// メニュー閉じる際の処理
+    /// メニューを閉じる際の処理
     /// </summary>
     public void CloseMenu()
     {
@@ -89,6 +89,9 @@ public class CreativeModeMenuManager : IInputReceiver
         m_mouseCursorManager.MouseCursorUnlock();
     }
 
+    /// <summary>
+    /// サブメニューを閉じる際の処理
+    /// </summary>
     public void CloseSubMenu()
     {
         if (m_hasReturnMenu)

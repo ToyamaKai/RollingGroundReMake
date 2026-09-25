@@ -14,6 +14,27 @@ public class MStageManager : SingletonMonoBehaviour<MStageManager>
     // メタデータが入力されているかの判定フラグ
     private bool m_isMetaDataInputed;
 
+    private void Start()
+    {
+        m_stageMetaData = new StageMetaData();
+    }
+
+    /// <summary>
+    /// ステージ名とコメントをセットするメソッド
+    /// </summary>
+    /// <param name="stageName"></param>
+    /// <param name="comment"></param>
+    public void SetStageInfoData(string stageName, string comment)
+    {
+        m_stageMetaData.StageName = stageName;
+        m_stageMetaData.Comment = comment;
+    }
+
+    public void SetStageMetaData(StageMetaData stageMetaData)
+    {
+        m_stageMetaData = stageMetaData;
+    }
+
     #region ゲッターセッター類
     /// <summary>
     /// ステージデータのゲッター
@@ -22,15 +43,6 @@ public class MStageManager : SingletonMonoBehaviour<MStageManager>
     public StageMetaData GetStageMetaData()
     {
         return m_stageMetaData;
-    }
-
-    /// <summary>
-    /// ステージデータのセッター
-    /// </summary>
-    /// <param name="stageMetaData"></param>
-    public void SetStageMetaData(StageMetaData stageMetaData)
-    {
-        m_stageMetaData = stageMetaData;
     }
 
     /// <summary>

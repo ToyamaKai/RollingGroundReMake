@@ -1,33 +1,29 @@
 ﻿using RollingGround;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// ステージのメタデータセットのボタン処理を呼び出すクラス
+/// ステージメタデータ入力ハンドラークラス
 /// </summary>
 public class MStageMetadataInputHandler : MonoBehaviour, ISubMenu
 {
     [SerializeField]
     private MCreativeModeMenuUIManager m_creativeModeMenuUIManager;
 
-    private StageMetaDataFactory m_factory = new StageMetaDataFactory();
-    private StageMetaData m_stageMetaData;
-    private MStageManager m_stageManager;
-    private string m_stageName;
-    private string m_comment;
+    [SerializeField]
+    private InputField m_stageNameInputField;   // ステージ名入力フィールド
 
     [SerializeField]
-    private InputField m_stageNameInputFiel;
+    private InputField m_commentInputField;     // ステージコメント入力フィールド
 
-    [SerializeField]
-    private InputField m_commentInputField;
+    private StageMetadataInputHandler m_stageMetadataInputHandler = new StageMetadataInputHandler();
 
-    public MenuType Type => MenuType.StageInfo;
+    private string m_stageName; // ステージ名
+    private string m_comment;   // ステージコメント
 
-    private void Start()
+    public void Start()
     {
-        m_stageManager = MStageManager.Instance;
+        m_stageMetadataInputHandler.Initialize();
     }
 
     /// <summary>
@@ -35,7 +31,7 @@ public class MStageMetadataInputHandler : MonoBehaviour, ISubMenu
     /// </summary>
     public void SetStageName()
     {
-        m_stageName = m_stageNameInputFiel.text;
+        m_stageName = m_stageNameInputField.text;
     }
 
     /// <summary>
@@ -45,6 +41,19 @@ public class MStageMetadataInputHandler : MonoBehaviour, ISubMenu
     {
         m_comment = m_commentInputField.text;
     }
+
+    /// <summary>
+    /// ステージメタデータのセット
+    /// </summary>
+    public void CreateStageMetaData()
+    {
+        m_stageMetadataInputHandler.SetStageInfoData(m_stageName, m_comment);
+
+        CloseSubMenu();
+        m_creativeModeMenuUIManager.ReturnToPreviousSubMenu();
+    }
+
+    #region ISubMenuインターフェースの実装
 
     public void OpenSubMenu()
     {
@@ -61,16 +70,7 @@ public class MStageMetadataInputHandler : MonoBehaviour, ISubMenu
         return "ステージ情報編集";
     }
 
-    /// <summary>
-    /// ステージメタデータのセット
-    /// </summary>
-    public void CreateStageMetaData()
-    {
-        m_stageMetaData = m_factory.CreateStageMetaData(m_stageName, "Unknown", "1.0.0", 1, m_comment);
-        m_stageManager.SetStageMetaData(m_stageMetaData);
-        m_stageManager.SetIsMetaDataInputed(true);
+    public MenuType Type => MenuType.StageInfo;
 
-        gameObject.SetActive(false);
-        m_creativeModeMenuUIManager.ReturnToPreviousSubMenu();
-    }
+    #endregion
 }

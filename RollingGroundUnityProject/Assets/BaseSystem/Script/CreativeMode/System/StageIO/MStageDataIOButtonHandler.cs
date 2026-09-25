@@ -14,7 +14,7 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     private MStageMetadataInputHandler m_stageMetadataInputHandler; // ステージメタデータ入力UIのハンドラー
 
     JSONConverter m_JSONConverter;
-    MStageManager m_stageManager; // シングルトン化したいね
+    MStageManager m_stageManager;
 
     public MenuType Type => MenuType.StageExport;
 

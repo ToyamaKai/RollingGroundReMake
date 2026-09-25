@@ -11,13 +11,13 @@ public class StageMetaDataFactory
     {
         StageMetaData stageMetaData = new StageMetaData()
         {
-            StageName = stageName,
-            AuthorName = authorName,
-            GameVersion = gameVersion,
-            FormatVersion = formatVersion,
-            Comment = comment,
-            UniqueId = System.Guid.NewGuid().ToString(),
-            Date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            StageName       = stageName,
+            AuthorName      = authorName,
+            GameVersion     = gameVersion,
+            FormatVersion   = formatVersion,
+            Comment         = comment,
+            UniqueId        = System.Guid.NewGuid().ToString(),
+            Date            = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
         };
 
         return stageMetaData;
