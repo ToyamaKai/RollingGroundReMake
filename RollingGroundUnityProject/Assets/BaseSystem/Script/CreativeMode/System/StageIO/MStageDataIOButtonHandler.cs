@@ -54,7 +54,8 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     public void OnStageDataImport(string dataPath)
     {
         m_JSONConverter.StageJsonDeserialize(dataPath);
-        
+
+        m_creativeModeMenuUIManager.CloseMenu();
         CloseSubMenu();
     }
 
