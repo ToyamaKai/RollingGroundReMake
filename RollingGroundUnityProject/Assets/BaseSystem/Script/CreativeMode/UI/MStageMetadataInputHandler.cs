@@ -1,17 +1,21 @@
-﻿using System;
+﻿using RollingGround;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
 /// ステージのメタデータセットのボタン処理を呼び出すクラス
 /// </summary>
-public class MStageMetadataInputHandler : MonoBehaviour
+public class MStageMetadataInputHandler : MonoBehaviour, ISubMenu
 {
+    [SerializeField]
+    private MCreativeModeMenuUIManager m_creativeModeMenuUIManager;
+
     private StageMetaDataFactory m_factory = new StageMetaDataFactory();
+    private StageMetaData m_stageMetaData;
     private MStageManager m_stageManager;
     private string m_stageName;
     private string m_comment;
-    private Action m_stageDataExport;
 
     [SerializeField]
     private InputField m_stageNameInputFiel;
@@ -19,33 +23,42 @@ public class MStageMetadataInputHandler : MonoBehaviour
     [SerializeField]
     private InputField m_commentInputField;
 
+    public MenuType Type => MenuType.StageInfo;
+
     private void Start()
     {
         m_stageManager = MStageManager.Instance;
     }
 
+    /// <summary>
+    /// ステージ名のセット
+    /// </summary>
     public void SetStageName()
     {
         m_stageName = m_stageNameInputFiel.text;
     }
 
+    /// <summary>
+    /// コメントのセット
+    /// </summary>
     public void SetComment()
     {
         m_comment = m_commentInputField.text;
     }
 
-    public void SetMetaDataInputUIActive(bool isActive, Action stageDataExport = null)
+    public void OpenSubMenu()
     {
-        gameObject.SetActive(isActive);
+        gameObject.SetActive(true);
+    }
 
-        if(isActive)
-        {
-            m_stageDataExport = stageDataExport;
-        }
-        else
-        {
-            m_stageDataExport = null;
-        }
+    public void CloseSubMenu()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public string GetSubMenuName()
+    {
+        return "ステージ情報編集";
     }
 
     /// <summary>
@@ -53,12 +66,11 @@ public class MStageMetadataInputHandler : MonoBehaviour
     /// </summary>
     public void CreateStageMetaData()
     {
-        StageMetaData stageMetaData = m_factory.CreateStageMetaData(m_stageName, "Unknown", "1.0.0", 1, m_comment);
-        m_stageManager.SetStageMetaData(stageMetaData);
-        m_stageManager.SetIsSaved(true);
-        var callback = m_stageDataExport;
-        m_stageDataExport = null;
+        m_stageMetaData = m_factory.CreateStageMetaData(m_stageName, "Unknown", "1.0.0", 1, m_comment);
+        m_stageManager.SetStageMetaData(m_stageMetaData);
+        m_stageManager.SetIsMetaDataInputed(true);
+
         gameObject.SetActive(false);
-        callback.Invoke();
+        m_creativeModeMenuUIManager.ReturnToPreviousSubMenu();
     }
 }

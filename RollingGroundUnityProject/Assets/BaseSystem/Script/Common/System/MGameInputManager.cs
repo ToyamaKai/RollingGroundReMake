@@ -12,6 +12,9 @@ namespace RollingGround
         public PlayerInput PlayerInput => m_playerInput;
 
         private readonly List<IInputReceiver> m_inputReceieveObjectList = new();
+        // Time of the last action map switch. Used to ignore spurious callbacks caused by switching maps
+        private float m_lastActionMapSwitchTime = -10f;
+        private const float ACTION_MAP_SWITCH_IGNORE_WINDOW = 0.05f; // seconds
 
         private void Awake()
         {
@@ -26,6 +29,8 @@ namespace RollingGround
 
         public void SetActionMap(string name)
         {
+            // Record switch time so we can ignore the immediate duplicate input callback
+            m_lastActionMapSwitchTime = Time.unscaledTime;
             m_playerInput.SwitchCurrentActionMap(name);
         }
 
@@ -111,11 +116,35 @@ namespace RollingGround
             }
         }
 
-        public void OnToggleMenuUI(InputAction.CallbackContext context)
+        public void OnToggleMenu(InputAction.CallbackContext context)
         {
+            // Ignore callbacks that arrive immediately after switching action maps
+            if (Time.unscaledTime - m_lastActionMapSwitchTime < ACTION_MAP_SWITCH_IGNORE_WINDOW)
+            {
+                return;
+            }
+
             foreach(var recieveObject in m_inputReceieveObjectList)
             {
-                recieveObject.OnToggleMenuUI(context);
+                recieveObject.OnToggleMenu(context);
+            }
+        }
+        #endregion
+
+        #region ステージクリエイティブモードメニュー
+        public void OnToggleSubMenu(InputAction.CallbackContext context)
+        {
+            foreach (var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnToggleSubMenu(context);
+            }
+        }
+
+        public void OnSelectMenu(InputAction.CallbackContext context)
+        {
+            foreach (var recieveObject in m_inputReceieveObjectList)
+            {
+                recieveObject.OnSelectMenu(context);
             }
         }
         #endregion

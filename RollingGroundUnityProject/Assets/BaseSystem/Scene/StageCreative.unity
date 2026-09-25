@@ -926,6 +926,41 @@ Transform:
   - {fileID: 760175940}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &365080203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 365080204}
+  m_Layer: 5
+  m_Name: SubMenuList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &365080204
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365080203}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 760175940}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &409135876
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,11 +1088,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -1125,7 +1160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &452207408
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1198,6 +1233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb897c265b4979b42900dda91e053c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_creativeModeMenuUIManager: {fileID: 760175944}
   m_stageNameInputFiel: {fileID: 765813348}
   m_commentInputField: {fileID: 2085862142}
 --- !u!1 &470010452
@@ -1705,6 +1741,7 @@ RectTransform:
   m_Children:
   - {fileID: 1876475244}
   - {fileID: 452207408}
+  - {fileID: 365080204}
   m_Father: {fileID: 348108545}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1741,11 +1778,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -1787,8 +1824,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa56902b3bb43a545b0fbbac3ba91dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stageDataIOButtonHandler: {fileID: 1876475248}
-  m_stageMetaDataInputHandler: {fileID: 452207411}
+  m_subMenuNamePlate: {fileID: 8077423009806512633, guid: 388d7490c0d69fb49a527d977470a8a3, type: 3}
+  m_subMenuNamePlateParent: {fileID: 365080203}
 --- !u!1 &765813346
 GameObject:
   m_ObjectHideFlags: 0
@@ -2901,7 +2938,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1269909114}
         m_TargetAssemblyTypeName: RollingGround.MGameInputManager, Assembly-CSharp
-        m_MethodName: OnToggleMenuUI
+        m_MethodName: OnToggleMenu
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2917,7 +2954,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1269909114}
         m_TargetAssemblyTypeName: RollingGround.MGameInputManager, Assembly-CSharp
-        m_MethodName: OnToggleMenuUI
+        m_MethodName: OnToggleMenu
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2929,6 +2966,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d0b7957d-0ae3-4fda-8346-72154ae603bc
     m_ActionName: 'StageCreativeMenu/CloseMenu[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1269909114}
+        m_TargetAssemblyTypeName: RollingGround.MGameInputManager, Assembly-CSharp
+        m_MethodName: OnSelectMenu
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4bebe2df-0f9b-4f96-b745-c443c7c7eca2
+    m_ActionName: 'StageCreativeMenu/MenuSelect[/Keyboard/s,/Keyboard/w]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1269909114}
+        m_TargetAssemblyTypeName: RollingGround.MGameInputManager, Assembly-CSharp
+        m_MethodName: OnToggleSubMenu
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9e709116-a0a8-4f9d-8c2b-341f6c212f48
+    m_ActionName: 'StageCreativeMenu/ToggleSubMenu[/Keyboard/enter]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -3645,7 +3714,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1876475244
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3720,6 +3789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_creativeModeMenuUIManager: {fileID: 760175944}
+  m_stageMetadataInputHandler: {fileID: 452207411}
 --- !u!1 &2001867660
 GameObject:
   m_ObjectHideFlags: 0

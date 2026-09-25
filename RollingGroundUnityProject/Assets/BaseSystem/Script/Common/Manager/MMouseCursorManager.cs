@@ -7,7 +7,7 @@ public class MMouseCursorManager : SingletonMonoBehaviour<MMouseCursorManager>
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    public void MouseUnlock()
+    public void MouseCursorUnlock()
     {
         Cursor.lockState = CursorLockMode.None;
     }

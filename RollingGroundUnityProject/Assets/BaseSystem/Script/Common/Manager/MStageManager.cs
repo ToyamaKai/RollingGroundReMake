@@ -11,6 +11,9 @@ public class MStageManager : SingletonMonoBehaviour<MStageManager>
     // セーブ済みかの判定フラグ
     private bool m_isSaved;
 
+    // メタデータが入力されているかの判定フラグ
+    private bool m_isMetaDataInputed;
+
     #region ゲッターセッター類
     /// <summary>
     /// ステージデータのゲッター
@@ -64,6 +67,24 @@ public class MStageManager : SingletonMonoBehaviour<MStageManager>
     public void SetIsSaved(bool isSaved)
     {
         m_isSaved = isSaved;
+    }
+
+    /// <summary>
+    /// メタデータ入力済みフラグのゲッター
+    /// </summary>
+    /// <returns></returns>
+    public bool GetIsMetaDataInputed()
+    {
+        return m_isMetaDataInputed;
+    }
+
+    /// <summary>
+    /// メタデータ入力済みフラグのセッター
+    /// </summary>
+    /// <param name="isInputed"></param>
+    public void SetIsMetaDataInputed(bool isInputed)
+    {
+        m_isMetaDataInputed = isInputed;
     }
     #endregion
 }

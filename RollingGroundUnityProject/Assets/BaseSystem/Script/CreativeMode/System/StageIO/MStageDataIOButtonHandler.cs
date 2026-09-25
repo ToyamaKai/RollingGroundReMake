@@ -1,16 +1,22 @@
 ﻿using RollingGround;
+using System;
 using UnityEngine;
 
 /// <summary>
-/// メタデータのボタン処理クラス
-/// </summary>
-public class MStageDataIOButtonHandler : MonoBehaviour
+/// ステージデータエクスポートのUIを管理するクラス
+/// </summary>  
+public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
 {
     [SerializeField]
     private MCreativeModeMenuUIManager m_creativeModeMenuUIManager;
 
+    [SerializeField]
+    private MStageMetadataInputHandler m_stageMetadataInputHandler; // ステージメタデータ入力UIのハンドラー
+
     JSONConverter m_JSONConverter;
-    MStageManager m_stageManager;
+    MStageManager m_stageManager; // シングルトン化したいね
+
+    public MenuType Type => MenuType.StageExport;
 
     private void Start()
     {
@@ -23,29 +29,57 @@ public class MStageDataIOButtonHandler : MonoBehaviour
         m_stageManager = MStageManager.Instance;
     }
 
+    /// <summary>
+    /// ステージデータのエクスポート処理
+    /// </summary>
     public void OnStageDataExport()
     {
-        if (!m_stageManager.GetIsSaved())
+        if (!m_stageManager.GetIsMetaDataInputed())
         {
-            // ステージが保存されていない場合は、先にステージメタデータの入力を促す
-            m_creativeModeMenuUIManager.SetStageMetaDataUIActive(true, OnStageDataExport);
+            m_creativeModeMenuUIManager.CloseSubMenuWithReturn(MenuType.StageInfo, MenuType.StageExport);
         }
         else
         {
             m_JSONConverter.StageJSONConvert();
+            m_creativeModeMenuUIManager.CloseMenu();
         }
 
-        SetStageDataIOUIActive(false);
+        CloseSubMenu();
     }
 
+    /// <summary>
+    /// ステージデータのインポート処理
+    /// </summary>
+    /// <param name="dataPath"></param>
     public void OnStageDataImport(string dataPath)
     {
         m_JSONConverter.StageJsonDeserialize(dataPath);
+        
+        CloseSubMenu();
+    }
+
+    /// <summary>
+    /// UIを開く処理
+    /// </summary>
+    public void OpenSubMenu()
+    {
+        gameObject.SetActive(true);
+    }
+
+    /// <summary>
+    /// UIを閉じる処理
+    /// </summary>
+    public void CloseSubMenu()
+    {
         gameObject.SetActive(false);
     }
-    
-    public void SetStageDataIOUIActive(bool isActive)
+
+    /// <summary>
+    /// サブメニューの名前を取得する処理
+    /// </summary>
+    /// <returns></returns>
+    public string GetSubMenuName()
     {
-        gameObject.SetActive(isActive);
+        return "ステージエクスポート";
     }
 }
