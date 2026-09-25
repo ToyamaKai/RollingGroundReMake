@@ -72,6 +72,7 @@ public class CreativeModeMenuManager : IInputReceiver
     {
         m_menuManager.ReturnToPreviousSubMenu();
         m_menuType = m_returnMenuType;
+        m_hasReturnMenu = false;
     }
 
     /// <summary>
