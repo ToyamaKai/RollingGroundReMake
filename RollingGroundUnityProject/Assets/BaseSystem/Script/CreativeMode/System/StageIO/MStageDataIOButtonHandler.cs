@@ -27,6 +27,7 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
             GameObject.FindFirstObjectByType<MStageBlockCleaner>()
         );
         m_stageManager = MStageManager.Instance;
+        CloseSubMenu();
     }
 
     /// <summary>

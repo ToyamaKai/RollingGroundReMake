@@ -30,6 +30,7 @@ public class MStageBuilder : MonoBehaviour
         // 各種ステージ情報をStageManagerにセット
         m_stageManager.SetStageMetaData(data.StageMetaData);
         m_stageManager.SetStageSettingData(data.StageSetting);
+        m_stageManager.SetIsMetaDataInputed(true);
 
         // ブロックの生成
         foreach (var blocks in data.Blocks)

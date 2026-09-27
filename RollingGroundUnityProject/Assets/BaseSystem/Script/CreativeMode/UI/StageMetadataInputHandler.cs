@@ -11,6 +11,25 @@ public class StageMetadataInputHandler
     }
 
     /// <summary>
+    /// ステージ名とコメントを取得するメソッド
+    /// </summary>
+    /// <param name="stageName"></param>
+    /// <param name="comment"></param>
+    public void GetStageInfoData(out string stageName, out string comment)
+    {
+        if(m_stageManager != null && m_stageManager.GetIsMetaDataInputed())
+        {
+            stageName   = m_stageManager.GetStageMetaData().StageName;
+            comment     = m_stageManager.GetStageMetaData().Comment;
+        }
+        else
+        {
+            stageName   = string.Empty;
+            comment     = string.Empty;
+        }
+    }
+
+    /// <summary>
     /// ステージ名とコメントをセットするメソッド
     /// </summary>
     /// <param name="stageName"></param>
