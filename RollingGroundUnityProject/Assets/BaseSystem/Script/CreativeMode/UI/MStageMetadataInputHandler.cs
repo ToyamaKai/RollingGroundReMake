@@ -24,6 +24,7 @@ public class MStageMetadataInputHandler : MonoBehaviour, ISubMenu
     public void Start()
     {
         m_stageMetadataInputHandler.Initialize();
+        CloseSubMenu();
     }
 
     /// <summary>
@@ -43,6 +44,16 @@ public class MStageMetadataInputHandler : MonoBehaviour, ISubMenu
     }
 
     /// <summary>
+    /// ステージ情報を取得してUIに反映
+    /// </summary>
+    public void GetStageInfoData()
+    {
+        m_stageMetadataInputHandler.GetStageInfoData(out m_stageName, out m_comment);
+        m_stageNameInputField.text = m_stageName;
+        m_commentInputField.text = m_comment;
+    }
+
+    /// <summary>
     /// ステージメタデータのセット
     /// </summary>
     public void CreateStageMetaData()
@@ -57,6 +68,7 @@ public class MStageMetadataInputHandler : MonoBehaviour, ISubMenu
 
     public void OpenSubMenu()
     {
+        GetStageInfoData();
         gameObject.SetActive(true);
     }
 
