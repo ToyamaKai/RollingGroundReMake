@@ -29,7 +29,7 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     }
 
     /// <summary>
-    /// ステージデータのエクスポート処理
+    /// エクスポートボタン処理(ステージデータのエクスポート)
     /// </summary>
     public void OnStageDataExport()
     {
@@ -38,7 +38,7 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     }
 
     /// <summary>
-    /// ステージデータのインポート処理
+    /// ステージインポートボタン処理(ステージデータのインポート処理)
     /// </summary>
     /// <param name="dataPath"></param>
     public void OnStageDataImport(string dataPath)
