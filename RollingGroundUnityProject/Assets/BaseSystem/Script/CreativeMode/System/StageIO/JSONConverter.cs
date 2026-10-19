@@ -16,9 +16,9 @@ public class JSONConverter
 
     public JSONConverter(StageExporter stageExporter, StageBlockManager stageBlockManager, MStageBuilder stageBuilder, MStageBlockCleaner stageBlockCleaner)
     {
-        m_stageExporter = stageExporter;
+        m_stageExporter     = stageExporter;
         m_stageBlockManager = stageBlockManager;
-        m_stageBuilder = stageBuilder;
+        m_stageBuilder      = stageBuilder;
         m_stageBlockCleaner = stageBlockCleaner;
     }
 
