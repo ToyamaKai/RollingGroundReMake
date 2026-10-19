@@ -10,13 +10,8 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     [SerializeField]
     private MCreativeModeMenuUIManager m_creativeModeMenuUIManager;
 
-    [SerializeField]
-    private MStageMetadataInputHandler m_stageMetadataInputHandler; // ステージメタデータ入力UIのハンドラー
-
-    JSONConverter m_JSONConverter;
-    MStageManager m_stageManager;
-
-    public MenuType Type => MenuType.StageExport;
+    JSONConverter               m_JSONConverter;
+    StageDataIOButtonHandler    m_stageDataIOButtonHandler;
 
     private void Start()
     {
@@ -25,8 +20,11 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
             GameObject.FindFirstObjectByType<StageBlockManager>(),
             GameObject.FindFirstObjectByType<MStageBuilder>(),
             GameObject.FindFirstObjectByType<MStageBlockCleaner>()
-        );
-        m_stageManager = MStageManager.Instance;
+        );      
+
+        m_stageDataIOButtonHandler = new StageDataIOButtonHandler();
+        m_stageDataIOButtonHandler.Initialize(m_JSONConverter, m_creativeModeMenuUIManager);
+
         CloseSubMenu();
     }
 
@@ -35,16 +33,7 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     /// </summary>
     public void OnStageDataExport()
     {
-        if (!m_stageManager.GetIsMetaDataInputed())
-        {
-            m_creativeModeMenuUIManager.CloseSubMenuWithReturn(MenuType.StageInfo, MenuType.StageExport);
-        }
-        else
-        {
-            m_JSONConverter.StageJSONConvert();
-            m_creativeModeMenuUIManager.CloseMenu();
-        }
-
+        m_stageDataIOButtonHandler.StageExport();
         CloseSubMenu();
     }
 
@@ -54,11 +43,15 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     /// <param name="dataPath"></param>
     public void OnStageDataImport(string dataPath)
     {
-        m_JSONConverter.StageJsonDeserialize(dataPath);
+        m_stageDataIOButtonHandler.StageImport(dataPath);
 
         m_creativeModeMenuUIManager.CloseMenu();
         CloseSubMenu();
     }
+
+    #region ISubMenuの実装
+
+    public MenuType Type => MenuType.StageExport;
 
     /// <summary>
     /// UIを開く処理
@@ -84,4 +77,5 @@ public class MStageDataIOButtonHandler : MonoBehaviour, ISubMenu
     {
         return "ステージエクスポート";
     }
+    #endregion
 }
